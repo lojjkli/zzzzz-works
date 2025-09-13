@@ -17,17 +17,57 @@
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Guest Home Page Styles */
+        /* Theme Variables */
+        :root {
+            --bg-primary: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            --bg-secondary: rgba(20, 20, 20, 0.9);
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-color: #ffffff;
+            --accent-gradient: linear-gradient(45deg, #ffffff, #cccccc);
+        }
+
+        body.light-mode {
+            --bg-primary: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            --bg-secondary: rgba(255, 255, 255, 0.9);
+            --bg-card: rgba(0, 0, 0, 0.03);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --text-primary: #000000;
+            --text-secondary: #333333;
+            --accent-color: #000000;
+            --accent-gradient: linear-gradient(45deg, #000000, #333333);
+        }
+
+        body.purple-mode {
+            --bg-primary: linear-gradient(135deg, #1a0a2e 0%, #16213e 100%);
+            --bg-secondary: rgba(30, 10, 46, 0.9);
+            --bg-card: rgba(139, 69, 249, 0.1);
+            --border-color: rgba(139, 69, 249, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-color: #8b45f9;
+            --accent-gradient: linear-gradient(45deg, #8b45f9, #6366f1);
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Guest Page Styles */
         .guest-page {
-            min-height: 100vh;
+            display: block;
         }
 
         .guest-header {
-            background: rgba(20, 20, 20, 0.9);
+            background: var(--bg-secondary);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--border-color);
             padding: 20px 40px;
             position: sticky;
             top: 0;
@@ -98,7 +138,7 @@
         .hero-section {
             padding: 100px 40px;
             text-align: center;
-            background: url('TAKE A NAP.png') center/cover;
+            background: url('banner.png') center/cover;
             position: relative;
             min-height: 80vh;
             display: flex;
@@ -128,21 +168,19 @@
             background: linear-gradient(45deg, #fff, #ccc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fadeInUp 1s ease;
         }
 
         .hero-subtitle {
             font-size: 24px;
             color: #ccc;
             margin-bottom: 40px;
-            animation: fadeInUp 1s ease 0.2s both;
         }
 
         .hero-links {
             display: flex;
             justify-content: center;
             gap: 24px;
-            animation: fadeInUp 1s ease 0.4s both;
+            flex-wrap: wrap;
         }
 
         .hero-link {
@@ -160,7 +198,6 @@
         .hero-link:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.1);
         }
 
         .content-section {
@@ -197,7 +234,6 @@
         .team-card:hover {
             transform: translateY(-8px);
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .team-avatar {
@@ -284,7 +320,115 @@
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
         }
 
-        /* Login Screen Styles */
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 400px;
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+        }
+
+        .chat-widget.active {
+            display: flex;
+        }
+
+        .chat-widget.minimized {
+            height: 50px;
+        }
+
+        .chat-widget.minimized .chat-messages,
+        .chat-widget.minimized .chat-input-area {
+            display: none;
+        }
+
+        .chat-header {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            padding: 16px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-btn {
+            background: rgba(0, 0, 0, 0.2);
+            border: none;
+            color: #000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .message.guest {
+            background: rgba(99, 102, 241, 0.2);
+            align-self: flex-end;
+            max-width: 80%;
+        }
+
+        .message.dev {
+            background: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            max-width: 80%;
+        }
+
+        .chat-input-area {
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .chat-send {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Login Screen */
         .login-overlay {
             position: fixed;
             top: 0;
@@ -296,7 +440,6 @@
             align-items: center;
             justify-content: center;
             z-index: 10000;
-            backdrop-filter: blur(20px);
         }
 
         .login-overlay.active {
@@ -311,8 +454,6 @@
             max-width: 400px;
             width: 90%;
             text-align: center;
-            backdrop-filter: blur(30px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         .login-logo {
@@ -363,8 +504,6 @@
             outline: none;
             border-color: #ffffff;
             background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
         }
 
         .login-btn {
@@ -377,13 +516,7 @@
             font-weight: 600;
             font-size: 16px;
             cursor: pointer;
-            transition: all 0.4s ease;
             margin-bottom: 16px;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
         }
 
         .error-message {
@@ -405,17 +538,13 @@
             padding: 12px 24px;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
             margin-top: 16px;
         }
 
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Developer Dashboard Styles */
+        /* Dashboard Styles */
         .dashboard {
             display: none;
+            background: var(--bg-primary);
         }
 
         .dashboard.active {
@@ -429,9 +558,9 @@
 
         .sidebar {
             width: 280px;
-            background: rgba(20, 20, 20, 0.9);
+            background: var(--bg-secondary);
             backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid var(--border-color);
             padding: 24px;
             position: fixed;
             height: 100vh;
@@ -450,7 +579,7 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
+            background: var(--accent-gradient);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -463,13 +592,12 @@
         .logo-text {
             font-weight: 700;
             font-size: 18px;
-            color: #fff;
+            color: var(--text-primary);
         }
 
         .logo-subtitle {
             font-size: 12px;
-            color: #888;
-            margin-top: -2px;
+            color: var(--text-secondary);
         }
 
         .nav-menu {
@@ -485,32 +613,30 @@
             display: flex;
             align-items: center;
             padding: 14px 16px;
-            color: #ccc;
-            text-decoration: none;
+            color: var(--text-secondary);
             border-radius: 12px;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             gap: 12px;
             font-weight: 500;
             cursor: pointer;
         }
 
         .nav-link:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(8px);
+            color: var(--text-primary);
+            background: var(--bg-card);
         }
 
         .nav-link.active {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.15);
-            border-left: 3px solid #fff;
+            color: var(--text-primary);
+            background: var(--bg-card);
+            border-left: 3px solid var(--accent-color);
         }
 
         .user-card {
-            background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+            background: var(--bg-card);
             border-radius: 20px;
             padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             margin-top: auto;
         }
 
@@ -518,7 +644,7 @@
             width: 50px;
             height: 50px;
             border-radius: 16px;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
+            background: var(--accent-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -544,7 +670,7 @@
         .page-title {
             font-size: 32px;
             font-weight: 700;
-            background: linear-gradient(45deg, #fff, #ccc);
+            background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -555,7 +681,7 @@
         }
 
         .action-btn {
-            background: linear-gradient(45deg, #ffffff, #cccccc);
+            background: var(--accent-gradient);
             color: #000;
             border: none;
             padding: 12px 24px;
@@ -564,11 +690,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 14px;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
         }
 
         .logout-btn, .home-btn {
@@ -588,12 +709,11 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
-            margin-bottom: 32px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 24px;
             transition: all 0.3s ease;
@@ -601,14 +721,12 @@
 
         .card:hover {
             transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         .card-title {
             font-size: 20px;
             font-weight: 600;
-            color: #fff;
+            color: var(--text-primary);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -621,7 +739,7 @@
 
         .input-group label {
             display: block;
-            color: #ccc;
+            color: var(--text-secondary);
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 8px;
@@ -629,30 +747,23 @@
 
         .input-group input, .input-group select, .input-group textarea {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
             border-radius: 12px;
             padding: 14px 16px;
-            color: #fff;
+            color: var(--text-primary);
             font-size: 14px;
-            transition: all 0.3s ease;
             font-family: inherit;
         }
 
         .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
-            border-color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .input-group textarea {
-            min-height: 100px;
-            resize: vertical;
+            border-color: var(--accent-color);
         }
 
         .result-display {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
             border-radius: 12px;
             padding: 20px;
             margin-top: 16px;
@@ -662,45 +773,169 @@
         .result-value {
             font-size: 18px;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-primary);
             margin-bottom: 4px;
-            word-break: break-all;
         }
 
         .result-label {
-            color: #ccc;
+            color: var(--text-secondary);
             font-size: 12px;
         }
 
-        .project-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .stats-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        .messages-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .message-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .message-from {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .message-time {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .message-content {
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .message-actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .message-btn {
+            background: var(--accent-gradient);
+            color: #000;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .message-btn.decline {
+            background: #ff4757;
+            color: #fff;
+        }
+
+        .theme-switch {
+            display: flex;
+            gap: 12px;
             margin-bottom: 16px;
+        }
+
+        .theme-btn {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .project-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(4px);
+        .theme-btn.active {
+            border-color: var(--accent-color);
+            background: var(--accent-gradient);
+            color: #000;
+        }
+
+        .theme-warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            color: #ffc107;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .project-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
         }
 
         .project-title {
             font-size: 18px;
             font-weight: 600;
-            color: #fff;
+            color: var(--text-primary);
             margin-bottom: 8px;
         }
 
         .project-description {
-            color: #ccc;
+            color: var(--text-secondary);
             font-size: 14px;
             margin-bottom: 12px;
         }
 
         .project-date {
-            color: #888;
+            color: var(--text-secondary);
             font-size: 12px;
         }
 
@@ -712,33 +947,16 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 12px;
-            float: right;
-            margin-top: -8px;
-        }
-
-        .delete-btn:hover {
-            background: #ff3838;
-        }
-
-        .guest-content {
-            display: block;
+            position: absolute;
+            top: 16px;
+            right: 16px;
         }
 
         .hidden {
             display: none !important;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 42px;
@@ -753,8 +971,17 @@
                 align-items: center;
             }
             
+            .guest-header {
+                padding: 15px 20px;
+            }
+            
             .guest-menu {
                 display: none;
+            }
+            
+            .dev-access-btn {
+                padding: 8px 16px;
+                font-size: 14px;
             }
             
             .sidebar {
@@ -771,6 +998,19 @@
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .chat-widget {
+                width: 300px;
+                height: 350px;
+            }
+            
+            .content-section {
+                padding: 40px 20px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
         }
     </style>
 </head>
@@ -784,9 +1024,9 @@
                     <span class="guest-logo-text">ZzzZz Works</span>
                 </div>
                 <ul class="guest-menu">
-                    <li><a onclick="showGuestSection('home')" class="active">Home</a></li>
-                    <li><a onclick="showGuestSection('team')">Our Team</a></li>
-                    <li><a onclick="showGuestSection('contact')">Contact Us</a></li>
+                    <li><a onclick="scrollToSection('home')" class="active">Home</a></li>
+                    <li><a onclick="scrollToSection('team')">Our Team</a></li>
+                    <li><a onclick="scrollToSection('contact')">Contact Us</a></li>
                 </ul>
                 <button class="dev-access-btn" onclick="showLogin()">
                     <img src="Z Dev.png" alt="Dev" style="width: 20px; height: 20px; border-radius: 4px;">
@@ -796,58 +1036,1099 @@
         </header>
 
         <!-- Home Section -->
-        <div id="guestHome" class="guest-content">
-            <section class="hero-section">
-                <div class="hero-content">
-                    <h1 class="hero-title">ZzzZz Works</h1>
-                    <p class="hero-subtitle">Creating Amazing Digital Experiences</p>
-                    <div class="hero-links">
-                        <a href="https://www.roblox.com/games/96426817378628/PASSES-Studz" target="_blank" class="hero-link">🎮 Play Our Game</a>
-                        <a href="https://www.roblox.com/communities/83157513/ZzzZz-Works" target="_blank" class="hero-link">👥 Join Our Group</a>
-                        <a href="https://discord.gg/agQyTQjymQ" target="_blank" class="hero-link">💬 Discord Server</a>
-                    </div>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">ZzzZz Works</h1>
+                <p class="hero-subtitle">Creating Amazing Digital Experiences</p>
+                <div class="hero-links">
+                    <a href="https://www.roblox.com/games/96426817378628/
+deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Theme Variables */
+        :root {
+            --bg-primary: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            --bg-secondary: rgba(20, 20, 20, 0.9);
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-color: #ffffff;
+            --accent-gradient: linear-gradient(45deg, #ffffff, #cccccc);
+        }
+
+        body.light-mode {
+            --bg-primary: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            --bg-secondary: rgba(255, 255, 255, 0.9);
+            --bg-card: rgba(0, 0, 0, 0.03);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --text-primary: #000000;
+            --text-secondary: #333333;
+            --accent-color: #000000;
+            --accent-gradient: linear-gradient(45deg, #000000, #333333);
+        }
+
+        body.purple-mode {
+            --bg-primary: linear-gradient(135deg, #1a0a2e 0%, #16213e 100%);
+            --bg-secondary: rgba(30, 10, 46, 0.9);
+            --bg-card: rgba(139, 69, 249, 0.1);
+            --border-color: rgba(139, 69, 249, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-color: #8b45f9;
+            --accent-gradient: linear-gradient(45deg, #8b45f9, #6366f1);
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Guest Page Styles */
+        .guest-page {
+            display: block;
+        }
+
+        .guest-header {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .guest-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .guest-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .guest-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+        }
+
+        .guest-logo-text {
+            font-weight: 700;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .guest-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .guest-menu a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .guest-menu a:hover, .guest-menu a.active {
+            color: #fff;
+        }
+
+        .dev-access-btn {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dev-access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-section {
+            padding: 100px 40px;
+            text-align: center;
+            background: url('banner.png') center/cover;
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(45deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: #ccc;
+            margin-bottom: 40px;
+        }
+
+        .hero-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .hero-link {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .hero-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .content-section {
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .team-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 400px;
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+        }
+
+        .chat-widget.active {
+            display: flex;
+        }
+
+        .chat-widget.minimized {
+            height: 50px;
+        }
+
+        .chat-widget.minimized .chat-messages,
+        .chat-widget.minimized .chat-input-area {
+            display: none;
+        }
+
+        .chat-header {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            padding: 16px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-btn {
+            background: rgba(0, 0, 0, 0.2);
+            border: none;
+            color: #000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .message.guest {
+            background: rgba(99, 102, 241, 0.2);
+            align-self: flex-end;
+            max-width: 80%;
+        }
+
+        .message.dev {
+            background: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            max-width: 80%;
+        }
+
+        .chat-input-area {
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .chat-send {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Login Screen */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .login-overlay.active {
+            display: flex;
+        }
+
+        .login-container {
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+        }
+
+        .login-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-subtitle {
+            color: #888;
+            margin-bottom: 32px;
+            font-size: 14px;
+        }
+
+        .code-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px 20px;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            transition: all 0.4s ease;
+        }
+
+        .code-input:focus {
+            outline: none;
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            background: var(--bg-primary);
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #000;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .nav-menu {
+            list-style: none;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            color: var(--text-secondary);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            gap: 12px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-card);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--bg-card);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .user-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 12px;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            background: var(--accent-gradient);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .logout-btn, .home-btn {
+            background: linear-gradient(45deg, #333, #555);
+            color: #fff;
+        }
+
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .result-display {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .stats-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        .messages-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .message-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .message-from {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .message-time {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .message-content {
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .message-actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .message-btn {
+            background: var(--accent-gradient);
+            color: #000;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .message-btn.decline {
+            background: #ff4757;
+            color: #fff;
+        }
+
+        .theme-switch {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .theme-btn {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-btn.active {
+            border-color: var(--accent-color);
+            background: var(--accent-gradient);
+            color: #000;
+        }
+
+        .theme-warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            color: #ffc107;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .project-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .project-date {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 42px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .hero-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .guest-header {
+                padding: 15px 20px;
+            }
+            
+            .guest-menu {
+                display: none;
+            }
+            
+            .dev-access-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-widget {
+                width: 300px;
+                height: 350px;
+            }
+            
+            .content-section {
+                padding: 40px 20px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Guest Home Page -->
+    <div class="guest-page" id="guestPage">
+        <header class="guest-header">
+            <nav class="guest-nav">
+                <div class="guest-logo">
+                    <img src="Z.png" alt="ZzzZz Works">
+                    <span class="guest-logo-text">ZzzZz Works</span>
                 </div>
-            </section>
-        </div>
+                <ul class="guest-menu">
+                    <li><a onclick="scrollToSection('home')" class="active">Home</a></li>
+                    <li><a onclick="scrollToSection('team')">Our Team</a></li>
+                    <li><a onclick="scrollToSection('contact')">Contact Us</a></li>
+                </ul>
+                <button class="dev-access-btn" onclick="showLogin()">
+                    <img src="Z Dev.png" alt="Dev" style="width: 20px; height: 20px; border-radius: 4px;">
+                    Developer Access
+                </button>
+            </nav>
+        </header>
+
+        <!-- Home Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">ZzzZz Works</h1>
+                <p class="hero-subtitle">Creating Amazing Digital Experiences</p>
+                <div class="hero-links">
+                    <a href="https://www.roblox.com/games/96426817378628/PASSES-Studz" target="_blank" class="hero-link">🎮 Play Our Game</a>
+                    <a href="https://www.roblox.com/communities/83157513/ZzzZz-Works" target="_blank" class="hero-link">👥 Join Our Group</a>
+                    <a href="https://discord.gg/agQyTQjymQ" target="_blank" class="hero-link">💬 Discord Server</a>
+                </div>
+            </div>
+        </section>
 
         <!-- Team Section -->
-        <div id="guestTeam" class="guest-content hidden">
-            <section class="content-section">
-                <h2 class="section-title">Our Team</h2>
-                <div class="team-grid">
-                    <div class="team-card">
-                        <div class="team-avatar">L</div>
-                        <h3 class="team-name">lojjkli</h3>
-                        <p class="team-role">Owner & Lead Developer</p>
+        <section id="team" class="content-section">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">L</div>
+                    <h3 class="team-name">lojjkli</h3>
+                    <p class="team-role">Owner & Lead Developer</p>
                     </div>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
 
         <!-- Contact Section -->
-        <div id="guestContact" class="guest-content hidden">
-            <section class="content-section">
-                <h2 class="section-title">Contact Us</h2>
-                <form class="contact-form" onsubmit="submitContact(event)">
-                    <div class="form-group">
-                        <label>Your Name</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Subject</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </section>
+        <section id="contact" class="content-section">
+            <h2 class="section-title">Contact Us</h2>
+            <form class="contact-form" onsubmit="submitContactMessage(event)">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="contactName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="contactEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" id="contactSubject" required>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="contactMessage" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <span class="chat-title">Chat with Developer</span>
+            <div class="chat-controls">
+                <button class="chat-btn" onclick="minimizeChat()">−</button>
+                <button class="chat-btn" onclick="closeChat()">×</button>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message dev">Hello! How can I help you?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+            <button class="chat-send" onclick="sendChatMessage()">Send</button>
         </div>
     </div>
 
@@ -860,7 +2141,7 @@
             <h1 class="login-title">Developer Access</h1>
             <p class="login-subtitle">Enter access code to continue</p>
             
-            <input type="password" class="code-input" id="accessCode" placeholder="Enter code..." maxlength="10">
+            <input type="password" class="code-input" id="accessCode" placeholder="Enter code..." maxlength="15">
             <button class="login-btn" onclick="authenticate()">Access Dashboard</button>
             
             <div class="error-message" id="errorMessage">Invalid access code. Please try again.</div>
@@ -897,13 +2178,13 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="nav-link" onclick="switchDashboardSection('revenue')">
-                            <span>💰</span> Revenue
+                        <div class="nav-link" onclick="switchDashboardSection('performance')">
+                            <span>📈</span> Performance
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="nav-link" onclick="switchDashboardSection('performance')">
-                            <span>📈</span> Performance
+                        <div class="nav-link" onclick="switchDashboardSection('messages')">
+                            <span>💬</span> Messages
                         </div>
                     </li>
                     <li class="nav-item">
@@ -918,7 +2199,7 @@
                     <div class="user-info">
                         <h3>ZzzZz Developer</h3>
                         <div class="user-status">
-                            <span>Online & Creating</span>
+                            <span>Developer/Staff</span>
                         </div>
                     </div>
                 </div>
@@ -939,18 +2220,17 @@
 
                     <div class="dashboard-grid">
                         <div class="card">
-                            <h3 class="card-title">📈 Analytics Overview</h3>
-                            <p>Website visits: <strong>15,234</strong></p>
-                            <p>Active projects: <strong id="projectCount">0</strong></p>
-                            <p>Total revenue: <strong>$8,420</strong></p>
-                            <p>Server uptime: <strong>99.8%</strong></p>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">🚀 Quick Actions</h3>
-                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="switchDashboardSection('projects')">Create Project</button>
-                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="switchDashboardSection('tools')">Open Tools</button>
-                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="refreshData()">Refresh Data</button>
+                            <h3 class="card-title">📈 Quick Stats</h3>
+                            <div class="stats-display">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="projectCount">0</div>
+                                    <div class="stat-label">Projects</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="messageCount">0</div>
+                                    <div class="stat-label">Messages</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -967,25 +2247,46 @@
 
                     <div class="dashboard-grid">
                         <div class="card">
+                            <h3 class="card-title">💰 DevEx Calculator</h3>
+                            <div class="input-group">
+                                <label>Robux Amount</label>
+                                <input type="number" id="devexRobux" placeholder="Enter robux amount...">
+                            </div>
+                            <button class="action-btn" onclick="calculateDevex()">Calculate USD</button>
+                            <div class="result-display" id="devexResult" style="display: none;">
+                                <div class="result-value" id="devexValue"></div>
+                                <div class="result-label">USD Amount</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">📊 Robux Tax Calculator</h3>
+                            <div class="input-group">
+                                <label>Item Price (Robux)</label>
+                                <input type="number" id="taxRobux" placeholder="Enter item price...">
+                            </div>
+                            <button class="action-btn" onclick="calculateTax()">Calculate Tax</button>
+                            <div class="result-display" id="taxResult" style="display: none;">
+                                <div class="result-value" id="taxBefore">Before Tax: 0</div>
+                                <div class="result-value" id="taxAfter">After Tax: 0</div>
+                                <div class="result-label">Robux Amounts</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
                             <h3 class="card-title">🔧 Code Generator</h3>
                             <div class="input-group">
-                                <label>Programming Language</label>
+                                <label>Language</label>
                                 <select id="codeLanguage">
                                     <option>JavaScript</option>
                                     <option>Python</option>
                                     <option>HTML</option>
                                     <option>CSS</option>
-                                    <option>Java</option>
-                                    <option>C++</option>
                                 </select>
                             </div>
                             <div class="input-group">
                                 <label>Function Name</label>
                                 <input type="text" id="functionName" placeholder="Enter function name...">
-                            </div>
-                            <div class="input-group">
-                                <label>Parameters</label>
-                                <input type="text" id="functionParams" placeholder="param1, param2...">
                             </div>
                             <button class="action-btn" onclick="generateCode()">Generate Code</button>
                             <div class="result-display" id="codeResult" style="display: none;">
@@ -995,85 +2296,15 @@
                         </div>
 
                         <div class="card">
-                            <h3 class="card-title">🎨 Color Palette Generator</h3>
+                            <h3 class="card-title">🎨 Color Palette</h3>
                             <div class="input-group">
                                 <label>Base Color</label>
                                 <input type="color" id="baseColor" value="#ffffff">
-                            </div>
-                            <div class="input-group">
-                                <label>Palette Type</label>
-                                <select id="paletteType">
-                                    <option>Monochromatic</option>
-                                    <option>Complementary</option>
-                                    <option>Triadic</option>
-                                    <option>Analogous</option>
-                                </select>
                             </div>
                             <button class="action-btn" onclick="generatePalette()">Generate Palette</button>
                             <div class="result-display" id="paletteResult" style="display: none;">
                                 <div class="result-value" id="colorPalette"></div>
                                 <div class="result-label">Color Palette</div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">🔐 Password Generator</h3>
-                            <div class="input-group">
-                                <label>Password Length</label>
-                                <input type="range" id="passwordLength" min="8" max="32" value="16">
-                                <span id="lengthValue">16</span>
-                            </div>
-                            <div class="input-group">
-                                <label>Include Numbers</label>
-                                <input type="checkbox" id="includeNumbers" checked>
-                            </div>
-                            <div class="input-group">
-                                <label>Include Symbols</label>
-                                <input type="checkbox" id="includeSymbols" checked>
-                            </div>
-                            <button class="action-btn" onclick="generatePassword()">Generate Password</button>
-                            <div class="result-display" id="passwordResult" style="display: none;">
-                                <div class="result-value" id="generatedPassword"></div>
-                                <div class="result-label">Generated Password</div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">📱 QR Code Generator</h3>
-                            <div class="input-group">
-                                <label>Text or URL</label>
-                                <input type="text" id="qrText" placeholder="Enter text or URL...">
-                            </div>
-                            <button class="action-btn" onclick="generateQR()">Generate QR Code</button>
-                            <div class="result-display" id="qrResult" style="display: none;">
-                                <div class="result-value" id="qrCode"></div>
-                                <div class="result-label">QR Code Generated</div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">🌐 URL Shortener</h3>
-                            <div class="input-group">
-                                <label>Long URL</label>
-                                <input type="url" id="longUrl" placeholder="https://example.com/very-long-url...">
-                            </div>
-                            <button class="action-btn" onclick="shortenUrl()">Shorten URL</button>
-                            <div class="result-display" id="urlResult" style="display: none;">
-                                <div class="result-value" id="shortUrl"></div>
-                                <div class="result-label">Shortened URL</div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">📊 Lorem Ipsum Generator</h3>
-                            <div class="input-group">
-                                <label>Number of Paragraphs</label>
-                                <input type="number" id="paragraphCount" min="1" max="10" value="3">
-                            </div>
-                            <button class="action-btn" onclick="generateLorem()">Generate Text</button>
-                            <div class="result-display" id="loremResult" style="display: none;">
-                                <div class="result-value" id="loremText"></div>
-                                <div class="result-label">Generated Text</div>
                             </div>
                         </div>
                     </div>
@@ -1106,7 +2337,7 @@
                         </div>
 
                         <div class="card">
-                            <h3 class="card-title">📁 Active Projects</h3>
+                            <h3 class="card-title">📁 All Projects</h3>
                             <div id="projectsList">
                                 <!-- Projects will be loaded here -->
                             </div>
@@ -1114,10 +2345,10 @@
                     </div>
                 </section>
 
-                <!-- Revenue Section -->
-                <section id="dashRevenue" class="dashboard-section">
+                <!-- Performance Section -->
+                <section id="dashPerformance" class="dashboard-section">
                     <header class="header">
-                        <h1 class="page-title">Revenue Analytics</h1>
+                        <h1 class="page-title">Live Performance</h1>
                         <div class="header-actions">
                             <button class="action-btn home-btn" onclick="goHome()">🏠 Home</button>
                             <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
@@ -1126,36 +2357,43 @@
 
                     <div class="dashboard-grid">
                         <div class="card">
-                            <h3 class="card-title">💰 Monthly Revenue</h3>
-                            <p><strong>January:</strong> $2,340</p>
-                            <p><strong>February:</strong> $1,890</p>
-                            <p><strong>March:</strong> $2,680</p>
-                            <p><strong>April:</strong> $1,510</p>
-                            <p style="color: #10b981; font-weight: bold;">Total: $8,420</p>
+                            <h3 class="card-title">
+                                <span class="live-indicator"></span>
+                                👥 Group Members
+                            </h3>
+                            <div class="stat-value" id="groupMembers">Loading...</div>
                         </div>
 
                         <div class="card">
-                            <h3 class="card-title">📊 Revenue Sources</h3>
-                            <p><strong>Roblox Game:</strong> $4,200 (50%)</p>
-                            <p><strong>Commissions:</strong> $2,520 (30%)</p>
-                            <p><strong>Donations:</strong> $1,280 (15%)</p>
-                            <p><strong>Other:</strong> $420 (5%)</p>
+                            <h3 class="card-title">
+                                <span class="live-indicator"></span>
+                                👁️ Profile Views
+                            </h3>
+                            <div class="stat-value" id="profileViews">Loading...</div>
                         </div>
 
                         <div class="card">
-                            <h3 class="card-title">📈 Growth Metrics</h3>
-                            <p><strong>Monthly Growth:</strong> +18.5%</p>
-                            <p><strong>Active Players:</strong> 2,847</p>
-                            <p><strong>Conversion Rate:</strong> 3.2%</p>
-                            <p><strong>Average Revenue Per User:</strong> $2.96</p>
+                            <h3 class="card-title">
+                                <span class="live-indicator"></span>
+                                🎮 CCU Players
+                            </h3>
+                            <div class="stat-value" id="ccuPlayers">Loading...</div>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">
+                                <span class="live-indicator"></span>
+                                🕐 Last Updated
+                            </h3>
+                            <div class="stat-value" id="lastUpdated">Now</div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Performance Section -->
-                <section id="dashPerformance" class="dashboard-section">
+                <!-- Messages Section -->
+                <section id="dashMessages" class="dashboard-section">
                     <header class="header">
-                        <h1 class="page-title">System Performance</h1>
+                        <h1 class="page-title">Contact Messages</h1>
                         <div class="header-actions">
                             <button class="action-btn home-btn" onclick="goHome()">🏠 Home</button>
                             <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
@@ -1164,27 +2402,10 @@
 
                     <div class="dashboard-grid">
                         <div class="card">
-                            <h3 class="card-title">⚡ Server Performance</h3>
-                            <p><strong>CPU Usage:</strong> 23%</p>
-                            <p><strong>Memory Usage:</strong> 1.8GB / 8GB</p>
-                            <p><strong>Disk Usage:</strong> 45GB / 200GB</p>
-                            <p><strong>Network I/O:</strong> 125MB/s</p>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">🌐 Website Metrics</h3>
-                            <p><strong>Page Load Time:</strong> 0.8s</p>
-                            <p><strong>Uptime:</strong> 99.8%</p>
-                            <p><strong>Active Users:</strong> 156</p>
-                            <p><strong>Bounce Rate:</strong> 24%</p>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">🎮 Game Performance</h3>
-                            <p><strong>Active Servers:</strong> 12</p>
-                            <p><strong>Average Ping:</strong> 45ms</p>
-                            <p><strong>Concurrent Players:</strong> 2,847</p>
-                            <p><strong>Server Response Time:</strong> 120ms</p>
+                            <h3 class="card-title">💬 Received Messages</h3>
+                            <div class="messages-list" id="messagesList">
+                                <!-- Messages will be loaded here -->
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -1201,32 +2422,15 @@
 
                     <div class="dashboard-grid">
                         <div class="card">
-                            <h3 class="card-title">🔐 Security Settings</h3>
-                            <div class="input-group">
-                                <label>Change Access Code</label>
-                                <input type="password" id="newAccessCode" placeholder="Enter new access code...">
+                            <h3 class="card-title">🎨 Theme Settings</h3>
+                            <div class="theme-switch">
+                                <button class="theme-btn active" onclick="setTheme('dark')">Dark Mode</button>
+                                <button class="theme-btn" onclick="setTheme('light')">Light Mode</button>
+                                <button class="theme-btn" onclick="setTheme('purple')">Purple Mode</button>
                             </div>
-                            <button class="action-btn" onclick="changeAccessCode()">Update Code</button>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">🔔 Notification Settings</h3>
-                            <div class="input-group">
-                                <label>Email Notifications</label>
-                                <input type="checkbox" id="emailNotifs" checked>
+                            <div class="theme-warning">
+                                ⚠️ Warning: Theme changes will reset after refreshing the page.
                             </div>
-                            <div class="input-group">
-                                <label>Desktop Notifications</label>
-                                <input type="checkbox" id="desktopNotifs">
-                            </div>
-                            <button class="action-btn" onclick="saveNotificationSettings()">Save Settings</button>
-                        </div>
-
-                        <div class="card">
-                            <h3 class="card-title">📊 Data Management</h3>
-                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="exportData()">Export All Data</button>
-                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="clearCache()">Clear Cache</button>
-                            <button class="action-btn" style="width: 100%; background: #ff4757;" onclick="resetDashboard()">Reset Dashboard</button>
                         </div>
                     </div>
                 </section>
@@ -1236,9 +2440,27 @@
 
     <script>
         // Global variables
-        const ACCESS_CODE = "takeanap";
-        let projects = JSON.parse(localStorage.getItem('zzzProjects') || '[]');
-        let currentGuestSection = 'home';
+        const ACCESS_CODE = "itookanap67";
+        let projects = [];
+        let messages = [];
+        let currentTheme = 'dark';
+        let chatActive = false;
+        let currentChatUser = null;
+        let isLoggedIn = false;
+
+        // Live stats variables
+        let groupMembers = 2847;
+        let profileViews = 15234;
+        let ccuPlayers = 156;
+
+        // Check if user was previously logged in
+        function checkLoginState() {
+            const wasLoggedIn = sessionStorage.getItem('devLoggedIn');
+            if (wasLoggedIn === 'true') {
+                showDashboard();
+                isLoggedIn = true;
+            }
+        }
 
         // Authentication system
         function showLogin() {
@@ -1256,12 +2478,10 @@
             const errorMessage = document.getElementById('errorMessage');
             
             if (inputCode === ACCESS_CODE) {
-                document.getElementById('loginScreen').classList.remove('active');
-                document.getElementById('guestPage').style.display = 'none';
-                document.getElementById('dashboard').classList.add('active');
-                document.getElementById('pageTitle').textContent = 'Developer Dashboard - ZzzZz Works';
-                loadProjects();
-                updateProjectCount();
+                sessionStorage.setItem('devLoggedIn', 'true');
+                showDashboard();
+                isLoggedIn = true;
+                hideLogin();
             } else {
                 errorMessage.classList.add('show');
                 document.getElementById('accessCode').value = '';
@@ -1271,54 +2491,43 @@
             }
         }
 
+        function showDashboard() {
+            document.getElementById('guestPage').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            document.getElementById('pageTitle').textContent = 'Developer Dashboard - ZzzZz Works';
+            loadProjects();
+            loadMessages();
+            updateCounts();
+            startLiveUpdates();
+        }
+
         function logout() {
+            sessionStorage.removeItem('devLoggedIn');
             document.getElementById('dashboard').classList.remove('active');
             document.getElementById('guestPage').style.display = 'block';
             document.getElementById('pageTitle').textContent = 'Home - ZzzZz Works';
             hideLogin();
+            isLoggedIn = false;
+            stopLiveUpdates();
         }
 
         function goHome() {
             logout();
         }
 
-        // Allow Enter key to submit login
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('accessCode').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    authenticate();
-                }
-            });
-        });
-
         // Guest navigation
-        function showGuestSection(section) {
-            // Hide all guest sections
-            document.getElementById('guestHome').classList.add('hidden');
-            document.getElementById('guestTeam').classList.add('hidden');
-            document.getElementById('guestContact').classList.add('hidden');
-
-            // Show selected section
-            document.getElementById('guest' + section.charAt(0).toUpperCase() + section.slice(1)).classList.remove('hidden');
-
+        function scrollToSection(sectionName) {
+            document.getElementById(sectionName).scrollIntoView({ behavior: 'smooth' });
+            
             // Update active nav link
             const navLinks = document.querySelectorAll('.guest-menu a');
             navLinks.forEach(link => link.classList.remove('active'));
             event.target.classList.add('active');
-
-            // Update page title
-            if (section === 'team') {
-                document.getElementById('pageTitle').textContent = 'Team - ZzzZz Works';
-            } else {
-                document.getElementById('pageTitle').textContent = 'Home - ZzzZz Works';
-            }
-
-            currentGuestSection = section;
         }
 
         // Dashboard navigation
         function switchDashboardSection(section) {
-            // Hide all dashboard sections
+            // Hide all sections
             const sections = document.querySelectorAll('.dashboard-section');
             sections.forEach(s => s.classList.remove('active'));
 
@@ -1332,6 +2541,69 @@
             // Add active class to clicked nav link
             if (event && event.target) {
                 event.target.closest('.nav-link').classList.add('active');
+            }
+        }
+
+        // Contact form submission
+        function submitContactMessage(event) {
+            event.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const messageText = document.getElementById('contactMessage').value;
+
+            const message = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                subject: subject,
+                message: messageText,
+                time: new Date().toLocaleString(),
+                read: false
+            };
+
+            messages.push(message);
+            localStorage.setItem('zzzMessages', JSON.stringify(messages));
+            
+            alert('✅ Thank you! Your message has been sent to our developers.');
+            event.target.reset();
+            updateCounts();
+        }
+
+        // Chat system
+        function acceptMessage(messageId) {
+            const message = messages.find(m => m.id === messageId);
+            if (message) {
+                currentChatUser = message.name;
+                document.getElementById('chatWidget').classList.add('active');
+                chatActive = true;
+                
+                // Add initial message to chat
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.innerHTML = `
+                    <div class="message dev">Hello ${message.name}! I received your message about "${message.subject}". How can I help you?</div>
+                `;
+            }
+        }
+
+        function minimizeChat() {
+            document.getElementById('chatWidget').classList.toggle('minimized');
+        }
+
+        function closeChat() {
+            document.getElementById('chatWidget').classList.remove('active');
+            chatActive = false;
+            currentChatUser = null;
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (message) {
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.innerHTML += `<div class="message dev">${message}</div>`;
+                input.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
             }
         }
 
@@ -1362,7 +2634,7 @@
                 projects.push(project);
                 localStorage.setItem('zzzProjects', JSON.stringify(projects));
                 loadProjects();
-                updateProjectCount();
+                updateCounts();
                 hideCreateProject();
                 alert('✅ Project created successfully!');
             } else {
@@ -1375,11 +2647,12 @@
                 projects = projects.filter(p => p.id !== id);
                 localStorage.setItem('zzzProjects', JSON.stringify(projects));
                 loadProjects();
-                updateProjectCount();
+                updateCounts();
             }
         }
 
         function loadProjects() {
+            projects = JSON.parse(localStorage.getItem('zzzProjects') || '[]');
             const projectsList = document.getElementById('projectsList');
             if (projects.length === 0) {
                 projectsList.innerHTML = '<p style="color: #888; text-align: center;">No projects yet. Create your first project!</p>';
@@ -1396,29 +2669,78 @@
             `).join('');
         }
 
-        function updateProjectCount() {
-            document.getElementById('projectCount').textContent = projects.length;
+        function loadMessages() {
+            messages = JSON.parse(localStorage.getItem('zzzMessages') || '[]');
+            const messagesList = document.getElementById('messagesList');
+            if (messages.length === 0) {
+                messagesList.innerHTML = '<p style="color: #888; text-align: center;">No messages received yet.</p>';
+                return;
+            }
+
+            messagesList.innerHTML = messages.map(message => `
+                <div class="message-item">
+                    <div class="message-header">
+                        <div class="message-from">${message.name}</div>
+                        <div class="message-time">${message.time}</div>
+                    </div>
+                    <div class="message-content"><strong>${message.subject}</strong><br>${message.message}</div>
+                    <div class="message-actions">
+                        <button class="message-btn" onclick="acceptMessage(${message.id})">Accept & Chat</button>
+                        <button class="message-btn decline" onclick="deleteMessage(${message.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Tool functions
+        function deleteMessage(id) {
+            messages = messages.filter(m => m.id !== id);
+            localStorage.setItem('zzzMessages', JSON.stringify(messages));
+            loadMessages();
+            updateCounts();
+        }
+
+        function updateCounts() {
+            document.getElementById('projectCount').textContent = projects.length;
+            document.getElementById('messageCount').textContent = messages.length;
+        }
+
+        // Tools functions
+        function calculateDevex() {
+            const robux = parseInt(document.getElementById('devexRobux').value);
+            if (robux) {
+                const usd = (robux * 0.0035).toFixed(2); // DevEx rate
+                document.getElementById('devexValue').textContent = `$${usd}`;
+                document.getElementById('devexResult').style.display = 'block';
+            }
+        }
+
+        function calculateTax() {
+            const price = parseInt(document.getElementById('taxRobux').value);
+            if (price) {
+                const afterTax = Math.floor(price * 0.7); // 30% tax
+                document.getElementById('taxBefore').textContent = `Before Tax: ${price}`;
+                document.getElementById('taxAfter').textContent = `After Tax: ${afterTax}`;
+                document.getElementById('taxResult').style.display = 'block';
+            }
+        }
+
         function generateCode() {
             const language = document.getElementById('codeLanguage').value;
             const functionName = document.getElementById('functionName').value || 'myFunction';
-            const params = document.getElementById('functionParams').value || '';
-
+            
             let code = '';
             switch(language) {
                 case 'JavaScript':
-                    code = `function ${functionName}(${params}) {\n    // Your code here\n    console.log('Hello from ${functionName}!');\n}`;
+                    code = `function ${functionName}() {\n    console.log('Hello World!');\n}`;
                     break;
                 case 'Python':
-                    code = `def ${functionName}(${params}):\n    # Your code here\n    print(f'Hello from ${functionName}!')`;
+                    code = `def ${functionName}():\n    print('Hello World!')`;
                     break;
                 case 'HTML':
-                    code = `<div id="${functionName}">\n    <h1>Hello World</h1>\n    <p>Generated HTML structure</p>\n</div>`;
+                    code = `<div id="${functionName}">\n    <h1>Hello World</h1>\n</div>`;
                     break;
                 case 'CSS':
-                    code = `.${functionName} {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}`;
+                    code = `.${functionName} {\n    color: white;\n    font-size: 16px;\n}`;
                     break;
             }
 
@@ -1428,97 +2750,101 @@
 
         function generatePalette() {
             const baseColor = document.getElementById('baseColor').value;
-            const type = document.getElementById('paletteType').value;
-            
-            const colors = [baseColor, '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57'];
+            const colors = [baseColor, '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'];
             document.getElementById('colorPalette').innerHTML = colors.map(color => 
                 `<div style="display: inline-block; width: 40px; height: 40px; background: ${color}; margin: 4px; border-radius: 4px;" title="${color}"></div>`
             ).join('');
             document.getElementById('paletteResult').style.display = 'block';
         }
 
-        function generatePassword() {
-            const length = document.getElementById('passwordLength').value;
-            const includeNumbers = document.getElementById('includeNumbers').checked;
-            const includeSymbols = document.getElementById('includeSymbols').checked;
+        // Theme system
+        function setTheme(theme) {
+            // Remove all theme classes
+            document.body.classList.remove('light-mode', 'purple-mode');
             
-            let chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            if (includeNumbers) chars += '0123456789';
-            if (includeSymbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            // Remove active class from all theme buttons
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
             
-            let password = '';
-            for (let i = 0; i < length; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            // Add new theme
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+            } else if (theme === 'purple') {
+                document.body.classList.add('purple-mode');
             }
             
-            document.getElementById('generatedPassword').textContent = password;
-            document.getElementById('passwordResult').style.display = 'block';
+            // Set active button
+            event.target.classList.add('active');
+            currentTheme = theme;
         }
 
-        function generateQR() {
-            const text = document.getElementById('qrText').value;
-            if (text) {
-                document.getElementById('qrCode').textContent = `QR Code for: "${text}" would be generated here`;
-                document.getElementById('qrResult').style.display = 'block';
-            }
+        // Live updates system
+        let liveUpdateInterval;
+
+        function startLiveUpdates() {
+            liveUpdateInterval = setInterval(updateLiveStats, 1000);
         }
 
-        function shortenUrl() {
-            const longUrl = document.getElementById('longUrl').value;
-            if (longUrl) {
-                const shortUrl = 'https://zzz.sh/' + Math.random().toString(36).substring(7);
-                document.getElementById('shortUrl').textContent = shortUrl;
-                document.getElementById('urlResult').style.display = 'block';
+        function stopLiveUpdates() {
+            if (liveUpdateInterval) {
+                clearInterval(liveUpdateInterval);
             }
         }
 
-        function generateLorem() {
-            const count = document.getElementById('paragraphCount').value;
-            const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
-            const text = Array(parseInt(count)).fill(lorem).join('\n\n');
-            document.getElementById('loremText').textContent = text;
-            document.getElementById('loremResult').style.display = 'block';
+        function updateLiveStats() {
+            // Simulate live data changes
+            groupMembers += Math.floor(Math.random() * 3) - 1; // -1 to +1
+            profileViews += Math.floor(Math.random() * 5);
+            ccuPlayers += Math.floor(Math.random() * 10) - 5; // -5 to +4
+            
+            // Ensure positive values
+            groupMembers = Math.max(groupMembers, 1);
+            profileViews = Math.max(profileViews, 0);
+            ccuPlayers = Math.max(ccuPlayers, 0);
+            
+            // Update UI
+            document.getElementById('groupMembers').textContent = groupMembers.toLocaleString();
+            document.getElementById('profileViews').textContent = profileViews.toLocaleString();
+            document.getElementById('ccuPlayers').textContent = ccuPlayers.toLocaleString();
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
         }
 
-        // Password length slider
+        // Other functions
+        function deployProject() { alert('🚀 Project deployment initiated!'); }
+        function syncData() { alert('🔄 Data synchronization started!'); }
+
+        // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
-            const slider = document.getElementById('passwordLength');
-            const output = document.getElementById('lengthValue');
-            if (slider && output) {
-                slider.oninput = function() {
-                    output.textContent = this.value;
-                }
+            checkLoginState();
+            loadProjects();
+            loadMessages();
+            updateCounts();
+            
+            // Login enter key
+            const accessCodeInput = document.getElementById('accessCode');
+            if (accessCodeInput) {
+                accessCodeInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        authenticate();
+                    }
+                });
+            }
+            
+            // Chat enter key
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                });
             }
         });
 
-        // Other functions
-        function submitContact(event) {
-            event.preventDefault();
-            alert('📧 Thank you! Your message has been sent successfully.');
-            event.target.reset();
-        }
-
-        function deployProject() { alert('🚀 Project deployment initiated!'); }
-        function syncData() { alert('🔄 Data synchronization started!'); }
-        function refreshData() { alert('🔄 Dashboard data refreshed!'); }
-        function changeAccessCode() { alert('🔐 Access code update feature coming soon!'); }
-        function saveNotificationSettings() { alert('💾 Notification settings saved!'); }
-        function exportData() { alert('📊 Data export started!'); }
-        function clearCache() { alert('🗑️ Cache cleared successfully!'); }
-        function resetDashboard() { 
-            if (confirm('⚠️ This will reset all dashboard data. Continue?')) {
-                localStorage.removeItem('zzzProjects');
-                projects = [];
-                loadProjects();
-                updateProjectCount();
-                alert('🔄 Dashboard reset complete!');
+        // Handle page refresh in dashboard
+        window.addEventListener('beforeunload', function() {
+            if (isLoggedIn) {
+                sessionStorage.setItem('devLoggedIn', 'true');
             }
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            loadProjects();
-            updateProjectCount();
         });
     </script>
 </body>
