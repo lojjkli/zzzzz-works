@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZzzZz Developer Dashboard</title>
+    <title id="pageTitle">Home - ZzzZz Works</title>
     <style>
         * {
             margin: 0;
@@ -19,6 +19,271 @@
             overflow-x: hidden;
         }
 
+        /* Guest Home Page Styles */
+        .guest-page {
+            min-height: 100vh;
+        }
+
+        .guest-header {
+            background: rgba(20, 20, 20, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .guest-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .guest-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .guest-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+        }
+
+        .guest-logo-text {
+            font-weight: 700;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .guest-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .guest-menu a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .guest-menu a:hover, .guest-menu a.active {
+            color: #fff;
+        }
+
+        .dev-access-btn {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dev-access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-section {
+            padding: 100px 40px;
+            text-align: center;
+            background: url('TAKE A NAP.png') center/cover;
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(45deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: #ccc;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-link {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .hero-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.1);
+        }
+
+        .content-section {
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .team-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
         /* Login Screen Styles */
         .login-overlay {
             position: fixed;
@@ -27,11 +292,15 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 10000;
             backdrop-filter: blur(20px);
+        }
+
+        .login-overlay.active {
+            display: flex;
         }
 
         .login-container {
@@ -44,38 +313,20 @@
             text-align: center;
             backdrop-filter: blur(30px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
         }
 
         .login-logo {
             width: 80px;
             height: 80px;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 32px;
-            color: #000;
             margin: 0 auto 24px;
-            animation: logoSpin 2s ease infinite;
+            border-radius: 20px;
         }
 
-        @keyframes logoSpin {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(5deg) scale(1.05); }
+        .login-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
         }
 
         .login-title {
@@ -133,11 +384,6 @@
         .login-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
-            background: linear-gradient(45deg, #f0f0f0, #ffffff);
-        }
-
-        .login-btn:active {
-            transform: translateY(0);
         }
 
         .error-message {
@@ -152,13 +398,22 @@
             opacity: 1;
         }
 
-        .login-hint {
-            color: #666;
-            font-size: 12px;
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             margin-top: 16px;
         }
 
-        /* Main Dashboard Styles */
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Developer Dashboard Styles */
         .dashboard {
             display: none;
         }
@@ -183,7 +438,6 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .logo {
@@ -191,8 +445,6 @@
             align-items: center;
             margin-bottom: 40px;
             gap: 12px;
-            opacity: 0;
-            animation: slideInLeft 0.8s ease forwards;
         }
 
         .logo-icon {
@@ -206,11 +458,6 @@
             font-weight: bold;
             font-size: 18px;
             color: #000;
-            transition: all 0.3s ease;
-        }
-
-        .logo-icon:hover {
-            transform: rotate(360deg) scale(1.1);
         }
 
         .logo-text {
@@ -232,17 +479,7 @@
 
         .nav-item {
             margin-bottom: 4px;
-            opacity: 0;
-            animation: slideInLeft 0.6s ease forwards;
         }
-
-        .nav-item:nth-child(1) { animation-delay: 0.1s; }
-        .nav-item:nth-child(2) { animation-delay: 0.2s; }
-        .nav-item:nth-child(3) { animation-delay: 0.3s; }
-        .nav-item:nth-child(4) { animation-delay: 0.4s; }
-        .nav-item:nth-child(5) { animation-delay: 0.5s; }
-        .nav-item:nth-child(6) { animation-delay: 0.6s; }
-        .nav-item:nth-child(7) { animation-delay: 0.7s; }
 
         .nav-link {
             display: flex;
@@ -251,50 +488,22 @@
             color: #ccc;
             text-decoration: none;
             border-radius: 12px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease;
             gap: 12px;
-            position: relative;
-            overflow: hidden;
             font-weight: 500;
             cursor: pointer;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.8s ease;
         }
 
         .nav-link:hover {
             color: #fff;
             background: rgba(255, 255, 255, 0.08);
-            transform: translateX(8px) scale(1.02);
-            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-link:hover::before {
-            left: 100%;
+            transform: translateX(8px);
         }
 
         .nav-link.active {
             color: #fff;
             background: rgba(255, 255, 255, 0.15);
-            transform: translateX(4px);
             border-left: 3px solid #fff;
-        }
-
-        .nav-link span {
-            font-size: 18px;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-link:hover span {
-            transform: scale(1.2);
         }
 
         .user-card {
@@ -302,69 +511,7 @@
             border-radius: 20px;
             padding: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
             margin-top: auto;
-            transition: all 0.4s ease;
-            opacity: 0;
-            animation: slideInUp 0.8s ease 0.8s forwards;
-        }
-
-        .user-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ffffff, #cccccc, #999999, #ffffff);
-            background-size: 300% 300%;
-            animation: gradientShift 4s ease infinite;
-            border-radius: 20px;
-            z-index: -1;
-        }
-
-        .user-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .user-avatar {
@@ -379,47 +526,12 @@
             font-weight: bold;
             color: #000;
             margin-bottom: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .user-card:hover .user-avatar {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .user-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-
-        .user-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: #888;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #fff;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.2); }
         }
 
         .main-content {
             flex: 1;
             margin-left: 280px;
             padding: 40px;
-            opacity: 0;
-            animation: fadeIn 0.8s ease 0.4s forwards;
         }
 
         .header {
@@ -435,15 +547,11 @@
             background: linear-gradient(45deg, #fff, #ccc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            opacity: 0;
-            animation: slideInLeft 0.8s ease 0.6s forwards;
         }
 
         .header-actions {
             display: flex;
             gap: 12px;
-            opacity: 0;
-            animation: slideInLeft 0.8s ease 0.8s forwards;
         }
 
         .action-btn {
@@ -454,234 +562,57 @@
             border-radius: 12px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             font-size: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
-            transition: left 0.6s ease;
         }
 
         .action-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
         }
 
-        .action-btn:hover::before {
-            left: 100%;
-        }
-
-        .action-btn:active {
-            transform: translateY(-1px) scale(1.02);
-        }
-
-        .logout-btn {
+        .logout-btn, .home-btn {
             background: linear-gradient(45deg, #333, #555);
             color: #fff;
         }
 
-        .logout-btn:hover {
-            background: linear-gradient(45deg, #555, #777);
-        }
-
-        .content-section {
+        .dashboard-section {
             display: none;
-            animation: fadeIn 0.6s ease;
         }
 
-        .content-section.active {
+        .dashboard-section.active {
             display: block;
         }
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
             margin-bottom: 32px;
         }
 
-        .featured-section {
-            grid-column: 1 / -1;
-            margin-bottom: 32px;
-        }
-
-        .featured-card {
-            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-            border-radius: 20px;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .featured-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-
-        .featured-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        }
-
-        .featured-card:hover::before {
-            opacity: 1;
-        }
-
-        .featured-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .featured-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 20px;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            font-weight: bold;
-            color: #000;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s ease;
-        }
-
-        .featured-card:hover .featured-image {
-            transform: scale(1.1) rotate(3deg);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .featured-info {
-            flex: 1;
-        }
-
-        .featured-badge {
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-block;
-            margin-bottom: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .featured-card:hover .featured-badge {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        .featured-title {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(45deg, #fff, #ccc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .featured-price {
-            font-size: 24px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .analytics-panel, .activity-feed, .tool-card, .setting-card {
+        .card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 24px;
-            backdrop-filter: blur(20px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
 
-        .analytics-panel:hover, .activity-feed:hover, .tool-card:hover, .setting-card:hover {
+        .card:hover {
             transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.06);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
-        .panel-title {
+        .card-title {
             font-size: 20px;
             font-weight: 600;
             color: #fff;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.4s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover .stat-value {
-            transform: scale(1.1);
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .settings-grid, .tools-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
         }
 
         .input-group {
@@ -704,7 +635,7 @@
             padding: 14px 16px;
             color: #fff;
             font-size: 14px;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             font-family: inherit;
         }
 
@@ -712,57 +643,120 @@
             outline: none;
             border-color: #ffffff;
             background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
+        .input-group textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
+        .result-display {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+            text-align: center;
         }
 
-        .slider {
-            position: absolute;
+        .result-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+            word-break: break-all;
+        }
+
+        .result-label {
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        .project-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .project-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .project-description {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .project-date {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #333;
-            transition: 0.4s;
-            border-radius: 24px;
+            font-size: 12px;
+            float: right;
+            margin-top: -8px;
         }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.4s;
-            border-radius: 50%;
+        .delete-btn:hover {
+            background: #ff3838;
         }
 
-        input:checked + .slider {
-            background: linear-gradient(45deg, #ffffff, #cccccc);
+        .guest-content {
+            display: block;
         }
 
-        input:checked + .slider:before {
-            transform: translateX(26px);
-            background-color: #000;
+        .hidden {
+            display: none !important;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
+            .hero-title {
+                font-size: 42px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .hero-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .guest-menu {
+                display: none;
+            }
+            
             .sidebar {
                 width: 100%;
                 position: relative;
@@ -777,39 +771,104 @@
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .featured-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .tools-section, .settings-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header-actions {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
 <body>
+    <!-- Guest Home Page -->
+    <div class="guest-page" id="guestPage">
+        <header class="guest-header">
+            <nav class="guest-nav">
+                <div class="guest-logo">
+                    <img src="Z.png" alt="ZzzZz Works">
+                    <span class="guest-logo-text">ZzzZz Works</span>
+                </div>
+                <ul class="guest-menu">
+                    <li><a onclick="showGuestSection('home')" class="active">Home</a></li>
+                    <li><a onclick="showGuestSection('team')">Our Team</a></li>
+                    <li><a onclick="showGuestSection('contact')">Contact Us</a></li>
+                </ul>
+                <button class="dev-access-btn" onclick="showLogin()">
+                    <img src="Z Dev.png" alt="Dev" style="width: 20px; height: 20px; border-radius: 4px;">
+                    Developer Access
+                </button>
+            </nav>
+        </header>
+
+        <!-- Home Section -->
+        <div id="guestHome" class="guest-content">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">ZzzZz Works</h1>
+                    <p class="hero-subtitle">Creating Amazing Digital Experiences</p>
+                    <div class="hero-links">
+                        <a href="https://www.roblox.com/games/96426817378628/PASSES-Studz" target="_blank" class="hero-link">🎮 Play Our Game</a>
+                        <a href="https://www.roblox.com/communities/83157513/ZzzZz-Works" target="_blank" class="hero-link">👥 Join Our Group</a>
+                        <a href="https://discord.gg/agQyTQjymQ" target="_blank" class="hero-link">💬 Discord Server</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Team Section -->
+        <div id="guestTeam" class="guest-content hidden">
+            <section class="content-section">
+                <h2 class="section-title">Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-avatar">L</div>
+                        <h3 class="team-name">lojjkli</h3>
+                        <p class="team-role">Owner & Lead Developer</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="guestContact" class="guest-content hidden">
+            <section class="content-section">
+                <h2 class="section-title">Contact Us</h2>
+                <form class="contact-form" onsubmit="submitContact(event)">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
     <!-- Login Screen -->
     <div class="login-overlay" id="loginScreen">
         <div class="login-container">
-            <div class="login-logo">Z</div>
-            <h1 class="login-title">ZzzZz Developer</h1>
+            <div class="login-logo">
+                <img src="Z Dev.png" alt="Developer Access">
+            </div>
+            <h1 class="login-title">Developer Access</h1>
             <p class="login-subtitle">Enter access code to continue</p>
             
             <input type="password" class="code-input" id="accessCode" placeholder="Enter code..." maxlength="10">
             <button class="login-btn" onclick="authenticate()">Access Dashboard</button>
             
             <div class="error-message" id="errorMessage">Invalid access code. Please try again.</div>
-            <p class="login-hint">Authorized developers only</p>
+            <button class="back-btn" onclick="hideLogin()">Back to Home</button>
         </div>
     </div>
 
-    <!-- Main Dashboard -->
+    <!-- Developer Dashboard -->
     <div class="dashboard" id="dashboard">
         <div class="container">
             <nav class="sidebar">
@@ -823,37 +882,32 @@
                 
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <div class="nav-link active" onclick="switchSection('overview')">
-                            <span>🏠</span> Overview
+                        <div class="nav-link active" onclick="switchDashboardSection('overview')">
+                            <span>📊</span> Overview
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="nav-link" onclick="switchSection('analytics')">
-                            <span>📊</span> Analytics
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link" onclick="switchSection('tools')">
+                        <div class="nav-link" onclick="switchDashboardSection('tools')">
                             <span>🛠️</span> Tools
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="nav-link" onclick="switchSection('revenue')">
-                            <span>💰</span> Revenue
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link" onclick="switchSection('projects')">
+                        <div class="nav-link" onclick="switchDashboardSection('projects')">
                             <span>📁</span> Projects
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="nav-link" onclick="switchSection('performance')">
+                        <div class="nav-link" onclick="switchDashboardSection('revenue')">
+                            <span>💰</span> Revenue
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link" onclick="switchDashboardSection('performance')">
                             <span>📈</span> Performance
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="nav-link" onclick="switchSection('settings')">
+                        <div class="nav-link" onclick="switchDashboardSection('settings')">
                             <span>⚙️</span> Settings
                         </div>
                     </li>
@@ -864,7 +918,6 @@
                     <div class="user-info">
                         <h3>ZzzZz Developer</h3>
                         <div class="user-status">
-                            <div class="status-dot"></div>
                             <span>Online & Creating</span>
                         </div>
                     </div>
@@ -873,315 +926,307 @@
 
             <main class="main-content">
                 <!-- Overview Section -->
-                <section id="overview" class="content-section active">
+                <section id="dashOverview" class="dashboard-section active">
                     <header class="header">
-                        <h1 class="page-title">Overview</h1>
+                        <h1 class="page-title">Developer Overview</h1>
                         <div class="header-actions">
                             <button class="action-btn" onclick="deployProject()">📤 Deploy</button>
                             <button class="action-btn" onclick="syncData()">🔄 Sync</button>
-                            <button class="action-btn" onclick="createProject()">➕ New Project</button>
+                            <button class="action-btn home-btn" onclick="goHome()">🏠 Home</button>
                             <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
                         </div>
                     </header>
-
-                    <div class="featured-section">
-                        <div class="featured-card">
-                            <div class="featured-content">
-                                <div class="featured-image">Z</div>
-                                <div class="featured-info">
-                                    <div class="featured-badge">Featured Project</div>
-                                    <h2 class="featured-title">ZzzZz Works</h2>
-                                    <div class="featured-price">Active Development</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="dashboard-grid">
-                        <div class="analytics-panel">
-                            <h2 class="panel-title">📈 Quick Analytics</h2>
-                            <div class="stats-grid">
-                                <div class="stat-card">
-                                    <div class="stat-value">2,847</div>
-                                    <div class="stat-label">Total Users</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-value">124</div>
-                                    <div class="stat-label">Active Projects</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-value">98.5%</div>
-                                    <div class="stat-label">Uptime</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-value">15.2K</div>
-                                    <div class="stat-label">API Calls</div>
-                                </div>
-                            </div>
+                        <div class="card">
+                            <h3 class="card-title">📈 Analytics Overview</h3>
+                            <p>Website visits: <strong>15,234</strong></p>
+                            <p>Active projects: <strong id="projectCount">0</strong></p>
+                            <p>Total revenue: <strong>$8,420</strong></p>
+                            <p>Server uptime: <strong>99.8%</strong></p>
                         </div>
 
-                        <div class="activity-feed">
-                            <h2 class="panel-title">📋 Recent Activity</h2>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background: linear-gradient(45deg, #ffffff, #cccccc); color: #000;">🚀</div>
-                                <div class="activity-content">
-                                    <div class="activity-text">New project deployed successfully</div>
-                                    <div class="activity-time">2 minutes ago</div>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background: linear-gradient(45deg, #ffffff, #cccccc); color: #000;">💡</div>
-                                <div class="activity-content">
-                                    <div class="activity-text">Code optimization completed</div>
-                                    <div class="activity-time">15 minutes ago</div>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background: linear-gradient(45deg, #ffffff, #cccccc); color: #000;">🔧</div>
-                                <div class="activity-content">
-                                    <div class="activity-text">Database maintenance finished</div>
-                                    <div class="activity-time">1 hour ago</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Analytics Section -->
-                <section id="analytics" class="content-section">
-                    <header class="header">
-                        <h1 class="page-title">Analytics</h1>
-                        <div class="header-actions">
-                            <button class="action-btn" onclick="exportData()">📊 Export Data</button>
-                            <button class="action-btn" onclick="refreshAnalytics()">🔄 Refresh</button>
-                            <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
-                        </div>
-                    </header>
-
-                    <div class="analytics-panel">
-                        <h2 class="panel-title">📈 Detailed Analytics</h2>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-value">156,234</div>
-                                <div class="stat-label">Page Views</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">12,847</div>
-                                <div class="stat-label">Unique Visitors</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">4.2m</div>
-                                <div class="stat-label">API Requests</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">99.9%</div>
-                                <div class="stat-label">Server Uptime</div>
-                            </div>
+                        <div class="card">
+                            <h3 class="card-title">🚀 Quick Actions</h3>
+                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="switchDashboardSection('projects')">Create Project</button>
+                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="switchDashboardSection('tools')">Open Tools</button>
+                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="refreshData()">Refresh Data</button>
                         </div>
                     </div>
                 </section>
 
                 <!-- Tools Section -->
-                <section id="tools" class="content-section">
+                <section id="dashTools" class="dashboard-section">
                     <header class="header">
                         <h1 class="page-title">Development Tools</h1>
                         <div class="header-actions">
-                            <button class="action-btn" onclick="addTool()">🔧 Add Tool</button>
+                            <button class="action-btn home-btn" onclick="goHome()">🏠 Home</button>
                             <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
                         </div>
                     </header>
 
-                    <div class="tools-section">
-                        <div class="tool-card">
-                            <div class="tool-header">
-                                <div class="tool-icon" style="background: linear-gradient(45deg, #ffffff, #cccccc); color: #000;">🔧</div>
-                                <h3 class="tool-title">Code Generator</h3>
-                            </div>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3 class="card-title">🔧 Code Generator</h3>
                             <div class="input-group">
-                                <label>Language</label>
-                                <select>
+                                <label>Programming Language</label>
+                                <select id="codeLanguage">
                                     <option>JavaScript</option>
                                     <option>Python</option>
                                     <option>HTML</option>
                                     <option>CSS</option>
+                                    <option>Java</option>
+                                    <option>C++</option>
                                 </select>
                             </div>
                             <div class="input-group">
                                 <label>Function Name</label>
-                                <input type="text" placeholder="Enter function name...">
-                            </div>
-                            <button class="action-btn" onclick="generateCode()">Generate Code</button>
-                        </div>
-
-                        <div class="tool-card">
-                            <div class="tool-header">
-                                <div class="tool-icon" style="background: linear-gradient(45deg, #ffffff, #cccccc); color: #000;">🎨</div>
-                                <h3 class="tool-title">Color Palette</h3>
+                                <input type="text" id="functionName" placeholder="Enter function name...">
                             </div>
                             <div class="input-group">
+                                <label>Parameters</label>
+                                <input type="text" id="functionParams" placeholder="param1, param2...">
+                            </div>
+                            <button class="action-btn" onclick="generateCode()">Generate Code</button>
+                            <div class="result-display" id="codeResult" style="display: none;">
+                                <div class="result-value" id="generatedCode"></div>
+                                <div class="result-label">Generated Code</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">🎨 Color Palette Generator</h3>
+                            <div class="input-group">
                                 <label>Base Color</label>
-                                <input type="color" value="#ffffff">
+                                <input type="color" id="baseColor" value="#ffffff">
+                            </div>
+                            <div class="input-group">
+                                <label>Palette Type</label>
+                                <select id="paletteType">
+                                    <option>Monochromatic</option>
+                                    <option>Complementary</option>
+                                    <option>Triadic</option>
+                                    <option>Analogous</option>
+                                </select>
                             </div>
                             <button class="action-btn" onclick="generatePalette()">Generate Palette</button>
+                            <div class="result-display" id="paletteResult" style="display: none;">
+                                <div class="result-value" id="colorPalette"></div>
+                                <div class="result-label">Color Palette</div>
+                            </div>
                         </div>
-                    </div>
-                </section>
 
-                <!-- Revenue Section -->
-                <section id="revenue" class="content-section">
-                    <header class="header">
-                        <h1 class="page-title">Revenue</h1>
-                        <div class="header-actions">
-                            <button class="action-btn" onclick="generateReport()">📊 Generate Report</button>
-                            <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
+                        <div class="card">
+                            <h3 class="card-title">🔐 Password Generator</h3>
+                            <div class="input-group">
+                                <label>Password Length</label>
+                                <input type="range" id="passwordLength" min="8" max="32" value="16">
+                                <span id="lengthValue">16</span>
+                            </div>
+                            <div class="input-group">
+                                <label>Include Numbers</label>
+                                <input type="checkbox" id="includeNumbers" checked>
+                            </div>
+                            <div class="input-group">
+                                <label>Include Symbols</label>
+                                <input type="checkbox" id="includeSymbols" checked>
+                            </div>
+                            <button class="action-btn" onclick="generatePassword()">Generate Password</button>
+                            <div class="result-display" id="passwordResult" style="display: none;">
+                                <div class="result-value" id="generatedPassword"></div>
+                                <div class="result-label">Generated Password</div>
+                            </div>
                         </div>
-                    </header>
 
-                    <div class="analytics-panel">
-                        <h2 class="panel-title">💰 Revenue Overview</h2>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-value">$24,567</div>
-                                <div class="stat-label">This Month</div>
+                        <div class="card">
+                            <h3 class="card-title">📱 QR Code Generator</h3>
+                            <div class="input-group">
+                                <label>Text or URL</label>
+                                <input type="text" id="qrText" placeholder="Enter text or URL...">
                             </div>
-                            <div class="stat-card">
-                                <div class="stat-value">$198,432</div>
-                                <div class="stat-label">Total Revenue</div>
+                            <button class="action-btn" onclick="generateQR()">Generate QR Code</button>
+                            <div class="result-display" id="qrResult" style="display: none;">
+                                <div class="result-value" id="qrCode"></div>
+                                <div class="result-label">QR Code Generated</div>
                             </div>
-                            <div class="stat-card">
-                                <div class="stat-value">+18.5%</div>
-                                <div class="stat-label">Growth Rate</div>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">🌐 URL Shortener</h3>
+                            <div class="input-group">
+                                <label>Long URL</label>
+                                <input type="url" id="longUrl" placeholder="https://example.com/very-long-url...">
                             </div>
-                            <div class="stat-card">
-                                <div class="stat-value">42</div>
-                                <div class="stat-label">Active Clients</div>
+                            <button class="action-btn" onclick="shortenUrl()">Shorten URL</button>
+                            <div class="result-display" id="urlResult" style="display: none;">
+                                <div class="result-value" id="shortUrl"></div>
+                                <div class="result-label">Shortened URL</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">📊 Lorem Ipsum Generator</h3>
+                            <div class="input-group">
+                                <label>Number of Paragraphs</label>
+                                <input type="number" id="paragraphCount" min="1" max="10" value="3">
+                            </div>
+                            <button class="action-btn" onclick="generateLorem()">Generate Text</button>
+                            <div class="result-display" id="loremResult" style="display: none;">
+                                <div class="result-value" id="loremText"></div>
+                                <div class="result-label">Generated Text</div>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <!-- Projects Section -->
-                <section id="projects" class="content-section">
+                <section id="dashProjects" class="dashboard-section">
                     <header class="header">
-                        <h1 class="page-title">Projects</h1>
+                        <h1 class="page-title">Project Management</h1>
                         <div class="header-actions">
-                            <button class="action-btn" onclick="createProject()">➕ New Project</button>
+                            <button class="action-btn" onclick="showCreateProject()">➕ New Project</button>
+                            <button class="action-btn home-btn" onclick="goHome()">🏠 Home</button>
                             <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
                         </div>
                     </header>
 
-                    <div class="tools-section">
-                        <div class="tool-card">
-                            <h3 class="panel-title">🚀 Active Projects</h3>
+                    <div class="dashboard-grid">
+                        <div class="card" id="createProjectCard" style="display: none;">
+                            <h3 class="card-title">➕ Create New Project</h3>
                             <div class="input-group">
-                                <label>Project Name: ZzzZz Portfolio</label>
-                                <div style="color: #10b981; font-size: 14px;">✅ Live & Running</div>
+                                <label>Project Title</label>
+                                <input type="text" id="projectTitle" placeholder="Enter project title...">
                             </div>
                             <div class="input-group">
-                                <label>Project Name: API Dashboard</label>
-                                <div style="color: #fbbf24; font-size: 14px;">🔄 In Development</div>
+                                <label>Project Description</label>
+                                <textarea id="projectDescription" placeholder="Describe your project..."></textarea>
                             </div>
-                            <div class="input-group">
-                                <label>Project Name: Mobile App</label>
-                                <div style="color: #f87171; font-size: 14px;">⏸️ On Hold</div>
+                            <button class="action-btn" onclick="createProject()">Create Project</button>
+                            <button class="action-btn" style="background: #666; margin-left: 8px;" onclick="hideCreateProject()">Cancel</button>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">📁 Active Projects</h3>
+                            <div id="projectsList">
+                                <!-- Projects will be loaded here -->
                             </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Revenue Section -->
+                <section id="dashRevenue" class="dashboard-section">
+                    <header class="header">
+                        <h1 class="page-title">Revenue Analytics</h1>
+                        <div class="header-actions">
+                            <button class="action-btn home-btn" onclick="goHome()">🏠 Home</button>
+                            <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
+                        </div>
+                    </header>
+
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3 class="card-title">💰 Monthly Revenue</h3>
+                            <p><strong>January:</strong> $2,340</p>
+                            <p><strong>February:</strong> $1,890</p>
+                            <p><strong>March:</strong> $2,680</p>
+                            <p><strong>April:</strong> $1,510</p>
+                            <p style="color: #10b981; font-weight: bold;">Total: $8,420</p>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">📊 Revenue Sources</h3>
+                            <p><strong>Roblox Game:</strong> $4,200 (50%)</p>
+                            <p><strong>Commissions:</strong> $2,520 (30%)</p>
+                            <p><strong>Donations:</strong> $1,280 (15%)</p>
+                            <p><strong>Other:</strong> $420 (5%)</p>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">📈 Growth Metrics</h3>
+                            <p><strong>Monthly Growth:</strong> +18.5%</p>
+                            <p><strong>Active Players:</strong> 2,847</p>
+                            <p><strong>Conversion Rate:</strong> 3.2%</p>
+                            <p><strong>Average Revenue Per User:</strong> $2.96</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Performance Section -->
-                <section id="performance" class="content-section">
+                <section id="dashPerformance" class="dashboard-section">
                     <header class="header">
-                        <h1 class="page-title">Performance</h1>
+                        <h1 class="page-title">System Performance</h1>
                         <div class="header-actions">
-                            <button class="action-btn" onclick="runBenchmark()">🏃 Run Benchmark</button>
+                            <button class="action-btn home-btn" onclick="goHome()">🏠 Home</button>
                             <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
                         </div>
                     </header>
 
-                    <div class="analytics-panel">
-                        <h2 class="panel-title">⚡ System Performance</h2>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-value">1.2ms</div>
-                                <div class="stat-label">Response Time</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">15%</div>
-                                <div class="stat-label">CPU Usage</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">2.1GB</div>
-                                <div class="stat-label">Memory Used</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">847MB/s</div>
-                                <div class="stat-label">Bandwidth</div>
-                            </div>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3 class="card-title">⚡ Server Performance</h3>
+                            <p><strong>CPU Usage:</strong> 23%</p>
+                            <p><strong>Memory Usage:</strong> 1.8GB / 8GB</p>
+                            <p><strong>Disk Usage:</strong> 45GB / 200GB</p>
+                            <p><strong>Network I/O:</strong> 125MB/s</p>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">🌐 Website Metrics</h3>
+                            <p><strong>Page Load Time:</strong> 0.8s</p>
+                            <p><strong>Uptime:</strong> 99.8%</p>
+                            <p><strong>Active Users:</strong> 156</p>
+                            <p><strong>Bounce Rate:</strong> 24%</p>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">🎮 Game Performance</h3>
+                            <p><strong>Active Servers:</strong> 12</p>
+                            <p><strong>Average Ping:</strong> 45ms</p>
+                            <p><strong>Concurrent Players:</strong> 2,847</p>
+                            <p><strong>Server Response Time:</strong> 120ms</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Settings Section -->
-                <section id="settings" class="content-section">
+                <section id="dashSettings" class="dashboard-section">
                     <header class="header">
-                        <h1 class="page-title">Settings</h1>
+                        <h1 class="page-title">Dashboard Settings</h1>
                         <div class="header-actions">
-                            <button class="action-btn" onclick="saveSettings()">💾 Save Settings</button>
+                            <button class="action-btn home-btn" onclick="goHome()">🏠 Home</button>
                             <button class="action-btn logout-btn" onclick="logout()">🚪 Logout</button>
                         </div>
                     </header>
 
-                    <div class="settings-grid">
-                        <div class="setting-card">
-                            <h3 class="panel-title">🔔 Notifications</h3>
-                            <div class="input-group">
-                                <label>Email Notifications</label>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="input-group">
-                                <label>Push Notifications</label>
-                                <label class="toggle-switch">
-                                    <input type="checkbox">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="setting-card">
-                            <h3 class="panel-title">🎨 Appearance</h3>
-                            <div class="input-group">
-                                <label>Dark Mode</label>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="input-group">
-                                <label>Animations</label>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="setting-card">
-                            <h3 class="panel-title">🔐 Security</h3>
-                            <div class="input-group">
-                                <label>Two-Factor Authentication</label>
-                                <label class="toggle-switch">
-                                    <input type="checkbox">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3 class="card-title">🔐 Security Settings</h3>
                             <div class="input-group">
                                 <label>Change Access Code</label>
-                                <input type="password" placeholder="New access code...">
+                                <input type="password" id="newAccessCode" placeholder="Enter new access code...">
                             </div>
+                            <button class="action-btn" onclick="changeAccessCode()">Update Code</button>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">🔔 Notification Settings</h3>
+                            <div class="input-group">
+                                <label>Email Notifications</label>
+                                <input type="checkbox" id="emailNotifs" checked>
+                            </div>
+                            <div class="input-group">
+                                <label>Desktop Notifications</label>
+                                <input type="checkbox" id="desktopNotifs">
+                            </div>
+                            <button class="action-btn" onclick="saveNotificationSettings()">Save Settings</button>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">📊 Data Management</h3>
+                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="exportData()">Export All Data</button>
+                            <button class="action-btn" style="width: 100%; margin-bottom: 8px;" onclick="clearCache()">Clear Cache</button>
+                            <button class="action-btn" style="width: 100%; background: #ff4757;" onclick="resetDashboard()">Reset Dashboard</button>
                         </div>
                     </div>
                 </section>
@@ -1190,16 +1235,33 @@
     </div>
 
     <script>
-        // Authentication system
+        // Global variables
         const ACCESS_CODE = "takeanap";
+        let projects = JSON.parse(localStorage.getItem('zzzProjects') || '[]');
+        let currentGuestSection = 'home';
+
+        // Authentication system
+        function showLogin() {
+            document.getElementById('loginScreen').classList.add('active');
+        }
+
+        function hideLogin() {
+            document.getElementById('loginScreen').classList.remove('active');
+            document.getElementById('accessCode').value = '';
+            document.getElementById('errorMessage').classList.remove('show');
+        }
 
         function authenticate() {
             const inputCode = document.getElementById('accessCode').value;
             const errorMessage = document.getElementById('errorMessage');
             
             if (inputCode === ACCESS_CODE) {
-                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('loginScreen').classList.remove('active');
+                document.getElementById('guestPage').style.display = 'none';
                 document.getElementById('dashboard').classList.add('active');
+                document.getElementById('pageTitle').textContent = 'Developer Dashboard - ZzzZz Works';
+                loadProjects();
+                updateProjectCount();
             } else {
                 errorMessage.classList.add('show');
                 document.getElementById('accessCode').value = '';
@@ -1209,85 +1271,255 @@
             }
         }
 
-        // Allow Enter key to submit
-        document.getElementById('accessCode').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                authenticate();
-            }
-        });
-
-        // Navigation system
-        function switchSection(sectionName) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Remove active class from all nav links
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // Show selected section
-            document.getElementById(sectionName).classList.add('active');
-
-            // Add active class to clicked nav link
-            event.target.closest('.nav-link').classList.add('active');
-        }
-
-        // Logout function
         function logout() {
             document.getElementById('dashboard').classList.remove('active');
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('accessCode').value = '';
+            document.getElementById('guestPage').style.display = 'block';
+            document.getElementById('pageTitle').textContent = 'Home - ZzzZz Works';
+            hideLogin();
         }
 
-        // Action button functions
-        function deployProject() {
-            alert('🚀 Project deployment initiated!');
+        function goHome() {
+            logout();
         }
 
-        function syncData() {
-            alert('🔄 Data synchronization started!');
+        // Allow Enter key to submit login
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('accessCode').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    authenticate();
+                }
+            });
+        });
+
+        // Guest navigation
+        function showGuestSection(section) {
+            // Hide all guest sections
+            document.getElementById('guestHome').classList.add('hidden');
+            document.getElementById('guestTeam').classList.add('hidden');
+            document.getElementById('guestContact').classList.add('hidden');
+
+            // Show selected section
+            document.getElementById('guest' + section.charAt(0).toUpperCase() + section.slice(1)).classList.remove('hidden');
+
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.guest-menu a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update page title
+            if (section === 'team') {
+                document.getElementById('pageTitle').textContent = 'Team - ZzzZz Works';
+            } else {
+                document.getElementById('pageTitle').textContent = 'Home - ZzzZz Works';
+            }
+
+            currentGuestSection = section;
+        }
+
+        // Dashboard navigation
+        function switchDashboardSection(section) {
+            // Hide all dashboard sections
+            const sections = document.querySelectorAll('.dashboard-section');
+            sections.forEach(s => s.classList.remove('active'));
+
+            // Remove active class from nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById('dash' + section.charAt(0).toUpperCase() + section.slice(1)).classList.add('active');
+
+            // Add active class to clicked nav link
+            if (event && event.target) {
+                event.target.closest('.nav-link').classList.add('active');
+            }
+        }
+
+        // Project management
+        function showCreateProject() {
+            document.getElementById('createProjectCard').style.display = 'block';
+        }
+
+        function hideCreateProject() {
+            document.getElementById('createProjectCard').style.display = 'none';
+            document.getElementById('projectTitle').value = '';
+            document.getElementById('projectDescription').value = '';
         }
 
         function createProject() {
-            alert('➕ New project creation wizard opening...');
+            const title = document.getElementById('projectTitle').value;
+            const description = document.getElementById('projectDescription').value;
+
+            if (title && description) {
+                const project = {
+                    id: Date.now(),
+                    title: title,
+                    description: description,
+                    date: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString()
+                };
+
+                projects.push(project);
+                localStorage.setItem('zzzProjects', JSON.stringify(projects));
+                loadProjects();
+                updateProjectCount();
+                hideCreateProject();
+                alert('✅ Project created successfully!');
+            } else {
+                alert('❌ Please fill in all fields!');
+            }
         }
 
-        function exportData() {
-            alert('📊 Data export started!');
+        function deleteProject(id) {
+            if (confirm('Are you sure you want to delete this project?')) {
+                projects = projects.filter(p => p.id !== id);
+                localStorage.setItem('zzzProjects', JSON.stringify(projects));
+                loadProjects();
+                updateProjectCount();
+            }
         }
 
-        function refreshAnalytics() {
-            alert('🔄 Analytics refreshed!');
+        function loadProjects() {
+            const projectsList = document.getElementById('projectsList');
+            if (projects.length === 0) {
+                projectsList.innerHTML = '<p style="color: #888; text-align: center;">No projects yet. Create your first project!</p>';
+                return;
+            }
+
+            projectsList.innerHTML = projects.map(project => `
+                <div class="project-item">
+                    <button class="delete-btn" onclick="deleteProject(${project.id})">×</button>
+                    <div class="project-title">${project.title}</div>
+                    <div class="project-description">${project.description}</div>
+                    <div class="project-date">Created: ${project.date} at ${project.time}</div>
+                </div>
+            `).join('');
         }
 
-        function addTool() {
-            alert('🔧 Tool addition panel opening...');
+        function updateProjectCount() {
+            document.getElementById('projectCount').textContent = projects.length;
         }
 
+        // Tool functions
         function generateCode() {
-            alert('🔧 Code generation completed!');
+            const language = document.getElementById('codeLanguage').value;
+            const functionName = document.getElementById('functionName').value || 'myFunction';
+            const params = document.getElementById('functionParams').value || '';
+
+            let code = '';
+            switch(language) {
+                case 'JavaScript':
+                    code = `function ${functionName}(${params}) {\n    // Your code here\n    console.log('Hello from ${functionName}!');\n}`;
+                    break;
+                case 'Python':
+                    code = `def ${functionName}(${params}):\n    # Your code here\n    print(f'Hello from ${functionName}!')`;
+                    break;
+                case 'HTML':
+                    code = `<div id="${functionName}">\n    <h1>Hello World</h1>\n    <p>Generated HTML structure</p>\n</div>`;
+                    break;
+                case 'CSS':
+                    code = `.${functionName} {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}`;
+                    break;
+            }
+
+            document.getElementById('generatedCode').textContent = code;
+            document.getElementById('codeResult').style.display = 'block';
         }
 
         function generatePalette() {
-            alert('🎨 Color palette generated!');
+            const baseColor = document.getElementById('baseColor').value;
+            const type = document.getElementById('paletteType').value;
+            
+            const colors = [baseColor, '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57'];
+            document.getElementById('colorPalette').innerHTML = colors.map(color => 
+                `<div style="display: inline-block; width: 40px; height: 40px; background: ${color}; margin: 4px; border-radius: 4px;" title="${color}"></div>`
+            ).join('');
+            document.getElementById('paletteResult').style.display = 'block';
         }
 
-        function generateReport() {
-            alert('📊 Revenue report generated!');
+        function generatePassword() {
+            const length = document.getElementById('passwordLength').value;
+            const includeNumbers = document.getElementById('includeNumbers').checked;
+            const includeSymbols = document.getElementById('includeSymbols').checked;
+            
+            let chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (includeNumbers) chars += '0123456789';
+            if (includeSymbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            document.getElementById('generatedPassword').textContent = password;
+            document.getElementById('passwordResult').style.display = 'block';
         }
 
-        function runBenchmark() {
-            alert('🏃 Performance benchmark running...');
+        function generateQR() {
+            const text = document.getElementById('qrText').value;
+            if (text) {
+                document.getElementById('qrCode').textContent = `QR Code for: "${text}" would be generated here`;
+                document.getElementById('qrResult').style.display = 'block';
+            }
         }
 
-        function saveSettings() {
-            alert('💾 Settings saved successfully!');
+        function shortenUrl() {
+            const longUrl = document.getElementById('longUrl').value;
+            if (longUrl) {
+                const shortUrl = 'https://zzz.sh/' + Math.random().toString(36).substring(7);
+                document.getElementById('shortUrl').textContent = shortUrl;
+                document.getElementById('urlResult').style.display = 'block';
+            }
         }
+
+        function generateLorem() {
+            const count = document.getElementById('paragraphCount').value;
+            const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
+            const text = Array(parseInt(count)).fill(lorem).join('\n\n');
+            document.getElementById('loremText').textContent = text;
+            document.getElementById('loremResult').style.display = 'block';
+        }
+
+        // Password length slider
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('passwordLength');
+            const output = document.getElementById('lengthValue');
+            if (slider && output) {
+                slider.oninput = function() {
+                    output.textContent = this.value;
+                }
+            }
+        });
+
+        // Other functions
+        function submitContact(event) {
+            event.preventDefault();
+            alert('📧 Thank you! Your message has been sent successfully.');
+            event.target.reset();
+        }
+
+        function deployProject() { alert('🚀 Project deployment initiated!'); }
+        function syncData() { alert('🔄 Data synchronization started!'); }
+        function refreshData() { alert('🔄 Dashboard data refreshed!'); }
+        function changeAccessCode() { alert('🔐 Access code update feature coming soon!'); }
+        function saveNotificationSettings() { alert('💾 Notification settings saved!'); }
+        function exportData() { alert('📊 Data export started!'); }
+        function clearCache() { alert('🗑️ Cache cleared successfully!'); }
+        function resetDashboard() { 
+            if (confirm('⚠️ This will reset all dashboard data. Continue?')) {
+                localStorage.removeItem('zzzProjects');
+                projects = [];
+                loadProjects();
+                updateProjectCount();
+                alert('🔄 Dashboard reset complete!');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProjects();
+            updateProjectCount();
+        });
     </script>
 </body>
 </html>
