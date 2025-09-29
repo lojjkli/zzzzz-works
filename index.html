@@ -308,6 +308,13 @@
         font-size: 16px;
         color: #ddd;
         line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .team-click-hint {
+        font-size: 14px;
+        color: #aaa;
+        font-style: italic;
     }
 
     .contact {
@@ -605,10 +612,11 @@
 <section id="team" class="team-section">
     <h3>Our Team</h3>
     <div class="team-card" onclick="showRedirectModal()">
-        <div class="team-role">MAIN SOFTWARE ENGINEER</div>
+        <div class="team-role">Founder of ZzzZz Works</div>
         <img id="teamAvatar" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/420/420/AvatarHeadshot/Png/noFilter" alt="Team Member" class="team-avatar">
-        <div class="team-name" id="teamName">Loading...</div>
+        <div class="team-name" id="teamName">lojjkli</div>
         <div class="team-bio" id="teamBio">Loading profile information...</div>
+        <div class="team-click-hint">Click to view profile</div>
     </div>
 </section>
 
@@ -711,7 +719,6 @@
             }
         } catch (error) {
             console.error('Error fetching profile:', error);
-            document.getElementById('teamName').textContent = 'Click to view profile';
             document.getElementById('teamBio').textContent = 'Unable to load profile information at this time';
         }
     }
