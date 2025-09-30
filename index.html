@@ -11,7 +11,6 @@
             box-sizing: border-box;
         }
 
-        /* --- BACKGROUND IMAGE: Make sure 'banner.png' is in the same folder as this index.html file! --- */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('banner.png');
@@ -201,7 +200,7 @@
 
         .project-banner {
             width: 100%;
-            height: 250px;
+            height: 350px;
             object-fit: contain;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 20px 20px 0 0;
@@ -497,6 +496,31 @@
             color: #fff;
         }
 
+        .email-provider-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .email-provider-btn {
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .email-provider-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -547,9 +571,17 @@
                 text-align: center;
             }
 
+            .project-banner {
+                height: 200px;
+            }
+
             .modal-content {
                 margin: 20px;
                 padding: 30px;
+            }
+
+            .email-provider-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -611,7 +643,7 @@
             <div class="team-role">Founder of ZzzZz Works</div>
             <img id="teamAvatar" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/420/420/AvatarHeadshot/Png/noFilter" alt="Team Member" class="team-avatar">
             <div class="team-name" id="teamName">lojjkli</div>
-            <div class="team-bio" id="teamBio">Founder of ZzzZz Works</div>
+            <div class="team-bio" id="teamBio">Loading profile information...</div>
             <div class="team-click-hint">Click to view profile</div>
         </div>
     </section>
@@ -671,6 +703,25 @@
         </div>
     </div>
 
+    <!-- Email Provider Modal -->
+    <div class="modal" id="emailProviderModal">
+        <div class="modal-content">
+            <h4>Choose Your Email Provider</h4>
+            <p>Select your email service to send the message:</p>
+            <div class="email-provider-grid">
+                <button class="email-provider-btn" onclick="sendEmail('gmail')">Gmail</button>
+                <button class="email-provider-btn" onclick="sendEmail('outlook')">Outlook</button>
+                <button class="email-provider-btn" onclick="sendEmail('yahoo')">Yahoo</button>
+                <button class="email-provider-btn" onclick="sendEmail('apple')">Apple Mail</button>
+                <button class="email-provider-btn" onclick="sendEmail('gmx')">GMX</button>
+                <button class="email-provider-btn" onclick="sendEmail('mailto')">Default Mail App</button>
+            </div>
+            <div class="modal-buttons" style="margin-top: 20px;">
+                <button class="modal-btn cancel" onclick="closeEmailProviderModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -696,18 +747,17 @@
             }
         });
 
-        // Fetch Roblox profile data and set custom bio
+        // Fetch Roblox profile data
         async function fetchRobloxProfile() {
             const userId = 1534153669;
             try {
                 // Fetch user info using proxy to avoid CORS
                 const response = await fetch(`https://users.roblox.com/v1/users/${userId}`);
                 const data = await response.json();
-
+                
                 document.getElementById('teamName').textContent = data.displayName || data.name;
-                // Always set the bio to your custom description
-                document.getElementById('teamBio').textContent = "Founder of ZzzZz Works";
-
+                document.getElementById('teamBio').textContent = data.description || 'No description available';
+                
                 // Fetch higher quality avatar (420x420)
                 const avatarResponse = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
                 const avatarData = await avatarResponse.json();
@@ -716,7 +766,7 @@
                 }
             } catch (error) {
                 console.error('Error fetching profile:', error);
-                document.getElementById('teamBio').textContent = 'Founder of ZzzZz Works';
+                document.getElementById('teamBio').textContent = 'Unable to load profile information at this time';
             }
         }
 
@@ -731,10 +781,10 @@
             const modal = document.getElementById('redirectModal');
             const countdownEl = document.getElementById('countdown');
             let count = 3;
-
+            
             modal.classList.add('active');
             countdownEl.textContent = count;
-
+            
             countdownInterval = setInterval(() => {
                 count--;
                 countdownEl.textContent = count;
@@ -742,7 +792,7 @@
                     clearInterval(countdownInterval);
                 }
             }, 1000);
-
+            
             redirectTimer = setTimeout(() => {
                 window.open('https://www.roblox.com/users/1534153669/profile', '_blank');
                 modal.classList.remove('active');
@@ -767,26 +817,26 @@
         // Contact form handler
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
+            
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
             const statusDiv = document.getElementById('formStatus');
-
+            
             // Create email body
             const emailBody = `Username: ${username}${email ? '\nEmail: ' + email : ''}\n\nMessage:\n${message}`;
-
+            
             // Create mailto link
             const mailtoLink = `mailto:zzzzzworks@gmail.com?subject=Contact from ${username}&body=${encodeURIComponent(emailBody)}`;
-
+            
             // Open email client
             window.location.href = mailtoLink;
-
+            
             // Show success message
             statusDiv.className = 'form-status success';
             statusDiv.textContent = 'Opening your email client... If nothing happens, please email us directly at zzzzzworks@gmail.com';
             statusDiv.style.display = 'block';
-
+            
             // Reset form
             setTimeout(() => {
                 this.reset();
