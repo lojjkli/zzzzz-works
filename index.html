@@ -231,9 +231,10 @@
 
         .project-content {
             padding: 40px;
-            display: flex;
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
             gap: 30px;
-            align-items: flex-start;
+            align-items: start;
         }
 
         .project-icon {
@@ -263,9 +264,9 @@
 
         .project-stats {
             display: flex;
+            flex-direction: column;
             gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
+            min-width: 120px;
         }
 
         .stat-item {
@@ -641,13 +642,31 @@
             }
 
             .project-content {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
                 text-align: center;
+            }
+
+            .project-icon {
+                margin: 0 auto;
+            }
+
+            .project-stats {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                justify-content: center;
             }
 
             .project-banner {
                 height: 200px;
+            }
+
+            .team-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .team-avatar {
+                margin: 0 auto;
             }
 
             .modal-content {
@@ -696,21 +715,21 @@
                 <div class="project-info">
                     <h4>STUDZ</h4>
                     <p>A calm classic styled altitude obby to play with your friends.</p>
-                    <div class="project-stats" id="studzStats">
-                        <div class="stat-item">
-                            <div class="stat-label">Playing</div>
-                            <div class="stat-value" id="studzPlaying">-</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Visits</div>
-                            <div class="stat-value" id="studzVisits">-</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Favorites</div>
-                            <div class="stat-value" id="studzFavorites">-</div>
-                        </div>
-                    </div>
                     <a href="https://www.roblox.com/games/96426817378628/PASSES-Studz" target="_blank" class="project-link">Play Now on Roblox</a>
+                </div>
+                <div class="project-stats" id="studzStats">
+                    <div class="stat-item">
+                        <div class="stat-label">Playing</div>
+                        <div class="stat-value" id="studzPlaying">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Visits</div>
+                        <div class="stat-value" id="studzVisits">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Favorites</div>
+                        <div class="stat-value" id="studzFavorites">-</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -890,9 +909,13 @@
                 
                 if (data.data && data.data[0]) {
                     const game = data.data[0];
-                    document.getElementById('studzPlaying').textContent = formatNumber(game.playing || 0);
-                    document.getElementById('studzVisits').textContent = formatNumber(game.visits || 0);
-                    document.getElementById('studzFavorites').textContent = formatNumber(game.favoritedCount || 0);
+                    const playing = game.playing || 0;
+                    const visits = game.visits || 0;
+                    const favorites = game.favoritedCount || 0;
+                    
+                    document.getElementById('studzPlaying').textContent = formatNumber(playing);
+                    document.getElementById('studzVisits').textContent = formatNumber(visits);
+                    document.getElementById('studzFavorites').textContent = formatNumber(favorites);
                 } else {
                     throw new Error('No game data');
                 }
