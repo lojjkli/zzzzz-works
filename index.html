@@ -13,7 +13,10 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('banner.png');
+            background: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.9) 100%),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.7) 100%),
+                url('banner.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -817,13 +820,17 @@
                 const userResponse = await fetch(`https://corsproxy.io/?https://users.roblox.com/v1/users/${userId}`);
                 const userData = await userResponse.json();
                 
-                document.getElementById('teamName').textContent = userData.displayName || userData.name;
-                document.getElementById('teamBio').textContent = userData.description || 'No description available';
+                if (userData && userData.name) {
+                    document.getElementById('teamName').textContent = userData.displayName || userData.name;
+                    document.getElementById('teamBio').textContent = userData.description || '3D Graphical Designing, Animating, Building, UI Designing, etc..';
+                } else {
+                    throw new Error('Invalid user data');
+                }
                 
                 // Fetch avatar
                 const avatarResponse = await fetch(`https://corsproxy.io/?https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
                 const avatarData = await avatarResponse.json();
-                if (avatarData.data && avatarData.data[0]) {
+                if (avatarData.data && avatarData.data[0] && avatarData.data[0].imageUrl) {
                     document.getElementById('teamAvatar').src = avatarData.data[0].imageUrl;
                 }
 
@@ -852,9 +859,12 @@
                         statusDot.style.background = '#666';
                         statusText.textContent = 'Offline';
                     }
+                } else {
+                    throw new Error('No presence data');
                 }
             } catch (error) {
                 console.error('Error fetching profile:', error);
+                document.getElementById('teamName').textContent = 'lojjkli';
                 document.getElementById('teamBio').textContent = '3D Graphical Designing, Animating, Building, UI Designing, etc..';
                 document.getElementById('statusText').textContent = 'Status unavailable';
             }
@@ -882,9 +892,14 @@
                     document.getElementById('studzPlaying').textContent = formatNumber(game.playing || 0);
                     document.getElementById('studzVisits').textContent = formatNumber(game.visits || 0);
                     document.getElementById('studzFavorites').textContent = formatNumber(game.favoritedCount || 0);
+                } else {
+                    throw new Error('No game data');
                 }
             } catch (error) {
                 console.error('Error fetching game stats:', error);
+                document.getElementById('studzPlaying').textContent = 'N/A';
+                document.getElementById('studzVisits').textContent = 'N/A';
+                document.getElementById('studzFavorites').textContent = 'N/A';
             }
         }
 
