@@ -597,11 +597,82 @@
         color: #fff;
     }
 
+    .privacy-section {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .privacy-section h4 {
+        font-size: 28px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+
+    .privacy-section h5 {
+        font-size: 20px;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        color: #fff;
+    }
+
+    .privacy-section p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #ddd;
+        line-height: 1.8;
+    }
+
+    .privacy-section ul {
+        margin-left: 30px;
+        margin-bottom: 20px;
+    }
+
+    .privacy-section li {
+        margin-bottom: 10px;
+        color: #ddd;
+        line-height: 1.6;
+    }
+
+    .privacy-section a {
+        color: #5865F2;
+        text-decoration: none;
+    }
+
+    .privacy-section a:hover {
+        text-decoration: underline;
+    }
+
+    .highlight-box {
+        background: rgba(88, 101, 242, 0.2);
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid #5865F2;
+        margin: 25px 0;
+    }
+
     footer {
         text-align: center;
         padding: 40px 20px;
         background: rgba(0, 0, 0, 0.5);
         margin-top: 50px;
+    }
+
+    .privacy-link {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .privacy-link a {
+        color: #aaa;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .privacy-link a:hover {
+        color: #fff;
+        text-decoration: underline;
     }
 
     @media (max-width: 768px) {
@@ -677,6 +748,10 @@
             margin: 20px;
             padding: 30px;
         }
+
+        .contact {
+            padding: 40px 20px;
+        }
     }
 </style>
 ```
@@ -693,7 +768,6 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#team">Team</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="#privacy">Privacy</a></li>
         </ul>
         <a href="https://discord.gg/agQyTQjymQ" target="_blank" class="discord-btn">
             <svg width="20" height="20" viewBox="0 0 71 55" fill="currentColor">
@@ -708,7 +782,7 @@
     <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
     <h2>ZzzZz Works</h2>
     <p>A studio that takes naps serious and makes sure safety comes with it</p>
-    <button class="cta-button" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">
+    <button class="cta-button" onclick="scrollToSection('projects')">
         Explore Our Projects
     </button>
 </section>
@@ -798,8 +872,314 @@
     </div>
 </section>
 
-<section id="privacy">
+<section id="privacy" style="display: none;">
     <div class="contact">
         <h3>Privacy Policy</h3>
-        <p class="
+        <p style="text-align: center; color: #aaa; margin-bottom: 40px; font-size: 14px;">Last Updated: October 11, 2025</p>
+
+        <div class="privacy-section">
+            <p>Welcome to ZzzZz Works. We are committed to protecting your privacy and being transparent about how we handle data. This Privacy Policy explains what information we collect, how we use it, and your rights regarding your data.</p>
+
+            <h4>1. Information We Collect</h4>
+            
+            <h5>Roblox Data</h5>
+            <p>We display publicly available information from Roblox, including:</p>
+            <ul>
+                <li><strong>User Profile Data:</strong> Username, display name, avatar images, and user descriptions</li>
+                <li><strong>Online Status:</strong> Whether users are online, offline, or in-game</li>
+                <li><strong>Game Statistics:</strong> Player counts, visit counts, and favorite counts for our games</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <strong>Important:</strong> All Roblox data we display is publicly available through Roblox's official APIs. We do not collect or store any private Roblox account information, passwords, or personal details that are not publicly accessible.
+            </div>
+
+            <h5>Contact Form Data</h5>
+            <p>When you submit our contact form, we collect:</p>
+            <ul>
+                <li>Your Roblox or Discord username</li>
+                <li>Your email address</li>
+                <li>The message content you provide</li>
+            </ul>
+
+            <h4>2. How We Use Your Information</h4>
+            <p>We use the collected information for the following purposes:</p>
+            <ul>
+                <li><strong>Display Purposes:</strong> To show team member profiles and game statistics on our website</li>
+                <li><strong>Communication:</strong> To respond to inquiries submitted through our contact form</li>
+                <li><strong>Service Improvement:</strong> To understand how users interact with our games and website</li>
+            </ul>
+
+            <h4>3. Data Storage and Security</h4>
+            <p>We take data security seriously:</p>
+            <ul>
+                <li>Roblox API data is fetched in real-time and not permanently stored on our servers</li>
+                <li>Contact form submissions are handled securely</li>
+                <li>We do not sell, trade, or transfer your information to third parties</li>
+                <li>We implement reasonable security measures to protect against unauthorized access</li>
+            </ul>
+
+            <h4>4. Third-Party Services</h4>
+            <p>Our website integrates with the following third-party services:</p>
+            <ul>
+                <li><strong>Roblox:</strong> We use Roblox's public APIs to display game and user information. Please refer to <a href="https://en.help.roblox.com/hc/en-us/articles/115004630823-Roblox-Privacy-and-Cookie-Policy" target="_blank">Roblox's Privacy Policy</a> for information about how they handle data.</li>
+                <li><strong>Discord:</strong> We provide links to our Discord server. Discord has its own <a href="https://discord.com/privacy" target="_blank">Privacy Policy</a>.</li>
+            </ul>
+
+            <h4>5. Cookies and Tracking</h4>
+            <p>Our website does not use cookies or tracking technologies to collect personal information. We may use basic analytics in the future to understand website traffic, and we will update this policy accordingly.</p>
+
+            <h4>6. Children's Privacy</h4>
+            <p>We are committed to protecting the privacy of children. We do not knowingly collect personal information from children under 13 without parental consent. If you believe we have collected information from a child under 13, please contact us immediately.</p>
+
+            <h4>7. Your Rights</h4>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Request information about what data we have collected about you</li>
+                <li>Request deletion of your contact form submissions</li>
+                <li>Opt-out of communications from us</li>
+                <li>Update or correct any information you've provided</li>
+            </ul>
+
+            <h4>8. Changes to This Policy</h4>
+            <p>We may update this Privacy Policy from time to time. We will notify users of any significant changes by updating the "Last Updated" date at the top of this section. We encourage you to review this policy periodically.</p>
+
+            <h4>9. Contact Us</h4>
+            <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us through:</p>
+            <ul>
+                <li>Our website contact form above</li>
+                <li>Our Discord server: <a href="https://discord.gg/agQyTQjymQ" target="_blank">Join Here</a></li>
+            </ul>
+
+            <h4>10. Roblox Disclaimer</h4>
+            <p>ZzzZz Works is not affiliated with, maintained, authorized, endorsed, or sponsored by Roblox Corporation. All game content and trademarks are property of their respective owners.</p>
+
+            <div class="highlight-box">
+                <strong>Summary:</strong> We respect your privacy. We only display public Roblox data, don't store unnecessary information, and will never share your contact details with third parties. Your data is safe with us.
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 ZzzZz Works. All rights reserved.</p>
+    <p class="privacy-link">
+        <a href="#" onclick="showPrivacyPolicy(event)">Privacy Policy</a>
+    </p>
+</footer>
+
+<!-- Redirect Modal -->
+<div class="modal" id="redirectModal">
+    <div class="modal-content">
+        <h4>Redirecting to Roblox Profile</h4>
+        <p>You will be redirected in:</p>
+        <div class="countdown" id="countdown">3</div>
+        <div class="modal-buttons">
+            <button class="modal-btn cancel" onclick="cancelRedirect()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Smooth scroll function
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // Navigation smooth scroll
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            scrollToSection(targetId);
+        });
+    });
+
+    // Add scroll effect to navbar
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 100) {
+            nav.style.padding = '15px 50px';
+        } else {
+            nav.style.padding = '20px 50px';
+        }
+    });
+
+    // Format numbers
+    function formatNumber(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M';
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K';
+        }
+        return num.toString();
+    }
+
+    // Fetch Roblox profile data and online status with CORS proxy
+    async function fetchRobloxProfile() {
+        const userId = 1534153669;
+        try {
+            // Using AllOrigins as CORS proxy
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            
+            // Fetch user info
+            const userResponse = await fetch(`${proxyUrl}https://users.roblox.com/v1/users/${userId}`);
+            const userData = await userResponse.json();
+            
+            if (userData && userData.name) {
+                document.getElementById('teamName').textContent = userData.displayName || userData.name;
+                document.getElementById('teamBio').textContent = userData.description || '3D Graphical Designing, Animating, Building, UI Designing, etc..';
+            } else {
+                throw new Error('Invalid user data');
+            }
+            
+            // Fetch avatar
+            const avatarResponse = await fetch(`${proxyUrl}https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
+            const avatarData = await avatarResponse.json();
+            if (avatarData.data && avatarData.data[0] && avatarData.data[0].imageUrl) {
+                document.getElementById('teamAvatar').src = avatarData.data[0].imageUrl;
+            }
+
+            // Fetch online status
+            const presenceResponse = await fetch(`${proxyUrl}https://presence.roblox.com/v1/presence/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userIds: [userId] })
+            });
+            const presenceData = await presenceResponse.json();
+            
+            if (presenceData.userPresences && presenceData.userPresences[0]) {
+                const presence = presenceData.userPresences[0];
+                const statusDot = document.getElementById('statusDot');
+                const statusText = document.getElementById('statusText');
+                
+                if (presence.userPresenceType === 2) {
+                    statusDot.classList.add('online');
+                    statusText.textContent = 'Online';
+                } else if (presence.userPresenceType === 1) {
+                    statusDot.classList.add('ingame');
+                    statusText.textContent = 'In Game';
+                } else {
+                    statusDot.style.background = '#666';
+                    statusText.textContent = 'Offline';
+                }
+            } else {
+                throw new Error('No presence data');
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+            document.getElementById('teamName').textContent = 'lojjkli';
+            document.getElementById('teamBio').textContent = '3D Graphical Designing, Animating, Building, UI Designing, etc..';
+            document.getElementById('statusText').textContent = 'Status unavailable';
+        }
+    }
+
+    // Fetch Studz game stats with CORS proxy
+    async function fetchGameStats() {
+        const universeId = 96426817378628;
+        try {
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            const response = await fetch(`${proxyUrl}https://games.roblox.com/v1/games?universeIds=${universeId}`);
+            const data = await response.json();
+            
+            if (data.data && data.data[0]) {
+                const game = data.data[0];
+                const playing = game.playing || 0;
+                const visits = game.visits || 0;
+                const favorites = game.favoritedCount || 0;
+                
+                document.getElementById('studzPlaying').textContent = formatNumber(playing);
+                document.getElementById('studzVisits').textContent = formatNumber(visits);
+                document.getElementById('studzFavorites').textContent = formatNumber(favorites);
+            } else {
+                throw new Error('No game data');
+            }
+        } catch (error) {
+            console.error('Error fetching game stats:', error);
+            document.getElementById('studzPlaying').textContent = '---';
+            document.getElementById('studzVisits').textContent = '---';
+            document.getElementById('studzFavorites').textContent = '---';
+        }
+    }
+
+    // Load profile and game stats on page load
+    fetchRobloxProfile();
+    fetchGameStats();
+
+    // Refresh stats every 30 seconds
+    setInterval(() => {
+        fetchGameStats();
+        fetchRobloxProfile();
+    }, 30000);
+
+    // Redirect modal functions
+    let countdownInterval;
+
+    function showRedirectModal() {
+        const modal = document.getElementById('redirectModal');
+        modal.classList.add('active');
+        
+        let timeLeft = 3;
+        document.getElementById('countdown').textContent = timeLeft;
+        
+        countdownInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('countdown').textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                window.open('https://www.roblox.com/users/1534153669/profile', '_blank');
+                modal.classList.remove('active');
+            }
+        }, 1000);
+    }
+
+    function cancelRedirect() {
+        clearInterval(countdownInterval);
+        document.getElementById('redirectModal').classList.remove('active');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('redirectModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            cancelRedirect();
+        }
+    });
+
+    // Privacy policy toggle
+    function showPrivacyPolicy(e) {
+        e.preventDefault();
+        const privacySection = document.getElementById('privacy');
+        
+        if (privacySection.style.display === 'none' || privacySection.style.display === '') {
+            privacySection.style.display = 'block';
+            scrollToSection('privacy');
+        } else {
+            privacySection.style.display = 'none';
+        }
+    }
+
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formStatus = document.getElementById('formStatus');
+        formStatus.style.display = 'block';
+        formStatus.className = 'form-status success';
+        formStatus.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+        
+        this.reset();
+        
+        setTimeout(() => {
+            formStatus.style.display = 'none';
+        }, 5000);
+    });
+</script>
 ```
+
+</body>
+</html>
