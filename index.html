@@ -15,6 +15,19 @@
 ```
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #1a1a1a;
+        color: #fff;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background: 
             linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.9) 100%),
             linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.7) 100%),
@@ -22,8 +35,7 @@
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        color: #fff;
-        overflow-x: hidden;
+        z-index: -1;
     }
 
     nav {
@@ -610,16 +622,9 @@
         color: #fff;
     }
 
-    .privacy-section h5 {
-        font-size: 20px;
-        margin-top: 25px;
-        margin-bottom: 15px;
-        color: #fff;
-    }
-
-    .privacy-section p {
+    .privacy-section p, .privacy-section li {
         font-size: 16px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         color: #ddd;
         line-height: 1.8;
     }
@@ -629,12 +634,6 @@
         margin-bottom: 20px;
     }
 
-    .privacy-section li {
-        margin-bottom: 10px;
-        color: #ddd;
-        line-height: 1.6;
-    }
-
     .privacy-section a {
         color: #5865F2;
         text-decoration: none;
@@ -642,14 +641,6 @@
 
     .privacy-section a:hover {
         text-decoration: underline;
-    }
-
-    .highlight-box {
-        background: rgba(88, 101, 242, 0.2);
-        padding: 20px;
-        border-radius: 10px;
-        border-left: 4px solid #5865F2;
-        margin: 25px 0;
     }
 
     footer {
@@ -668,6 +659,7 @@
         color: #aaa;
         text-decoration: none;
         transition: color 0.3s ease;
+        cursor: pointer;
     }
 
     .privacy-link a:hover {
@@ -778,72 +770,6 @@
     </nav>
 
 ```
-<section id="home" class="hero">
-    <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
-    <h2>ZzzZz Works</h2>
-    <p>A studio that takes naps serious and makes sure safety comes with it</p>
-    <button class="cta-button" onclick="scrollToSection('projects')">
-        Explore Our Projects
-    </button>
-</section>
-
-<section id="projects">
-    <h3>Our Projects</h3>
-    
-    <div class="project-card">
-        <img src="studzbanner1.png" alt="Studz Banner" class="project-banner">
-        <div class="project-content">
-            <img src="Studzicon.png" alt="Studz Icon" class="project-icon">
-            <div class="project-info">
-                <h4>STUDZ</h4>
-                <p>A calm classic styled altitude obby to play with your friends.</p>
-                <a href="https://www.roblox.com/games/96426817378628/PASSES-Studz" target="_blank" class="project-link" onclick="event.stopPropagation()">Play Now on Roblox</a>
-            </div>
-            <div class="project-stats" id="studzStats">
-                <div class="stat-item">
-                    <div class="stat-label">Playing</div>
-                    <div class="stat-value" id="studzPlaying">-</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Visits</div>
-                    <div class="stat-value" id="studzVisits">-</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Favorites</div>
-                    <div class="stat-value" id="studzFavorites">-</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="project-card">
-        <img src="ZGuardbanner.png" alt="Z Guard Banner" class="project-banner">
-        <div class="project-content">
-            <img src="ZGuardicon.png" alt="Z Guard Icon" class="project-icon">
-            <div class="project-info">
-                <h4>Z GUARD</h4>
-                <p>Protection for your discord servers and roblox games, keeping threats out while you sleep.</p>
-                <span class="coming-soon-badge">Coming Soon</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="team" class="team-section">
-    <h3>Our Team</h3>
-    <div class="team-card" onclick="showRedirectModal()">
-        <div class="team-role">Founder of ZzzZz Works</div>
-        <img id="teamAvatar" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/420/420/AvatarHeadshot/Png/noFilter" alt="Team Member" class="team-avatar">
-        <div class="team-name" id="teamName">lojjkli</div>
-        <div class="online-status">
-            <span class="status-dot" id="statusDot"></span>
-            <span id="statusText">Checking status...</span>
-        </div>
-        <div class="team-bio" id="teamBio">Loading profile information...</div>
-        <div class="team-click-hint">Click to view profile</div>
-    </div>
-</section>
-
 <section id="contact">
     <div class="contact">
         <h3>Get In Touch</h3>
@@ -875,88 +801,29 @@
 <section id="privacy" style="display: none;">
     <div class="contact">
         <h3>Privacy Policy</h3>
-        <p style="text-align: center; color: #aaa; margin-bottom: 40px; font-size: 14px;">Last Updated: October 11, 2025</p>
+        <p style="text-align: center; color: #aaa; margin-bottom: 40px; font-size: 14px;">Last Updated: October 2025</p>
 
         <div class="privacy-section">
-            <p>Welcome to ZzzZz Works. We are committed to protecting your privacy and being transparent about how we handle data. This Privacy Policy explains what information we collect, how we use it, and your rights regarding your data.</p>
+            <h4>1. Introduction</h4>
+            <p>Welcome to ZzzZz Works (the "Website"). We respect your privacy and are committed to being transparent about what data (if any) we collect and how it's used.</p>
+            <p>This Privacy Policy explains what information we collect when you visit our site, how we use it, and your rights regarding that information.</p>
 
-            <h4>1. Information We Collect</h4>
-            
-            <h5>Roblox Data</h5>
-            <p>We display publicly available information from Roblox, including:</p>
-            <ul>
-                <li><strong>User Profile Data:</strong> Username, display name, avatar images, and user descriptions</li>
-                <li><strong>Online Status:</strong> Whether users are online, offline, or in-game</li>
-                <li><strong>Game Statistics:</strong> Player counts, visit counts, and favorite counts for our games</li>
-            </ul>
-            
-            <div class="highlight-box">
-                <strong>Important:</strong> All Roblox data we display is publicly available through Roblox's official APIs. We do not collect or store any private Roblox account information, passwords, or personal details that are not publicly accessible.
-            </div>
+            <h4>2. Information We Collect</h4>
+            <p>This website does not collect personal information from visitors. We do not use cookies, analytics trackers, or advertising networks.</p>
+            <p>However, the site may automatically receive basic technical data that all websites receive, such as your IP address and browser type (handled by your web host). We also use Google Search Console to view anonymous, aggregated website performance data such as impressions and clicks.</p>
 
-            <h5>Contact Form Data</h5>
-            <p>When you submit our contact form, we collect:</p>
-            <ul>
-                <li>Your Roblox or Discord username</li>
-                <li>Your email address</li>
-                <li>The message content you provide</li>
-            </ul>
+            <h4>3. Roblox Game Data</h4>
+            <p>This site displays publicly available game statistics (such as player counts and visit numbers) retrieved from the official Roblox API. These statistics are not linked to any individual users and contain no personal data.</p>
 
-            <h4>2. How We Use Your Information</h4>
-            <p>We use the collected information for the following purposes:</p>
-            <ul>
-                <li><strong>Display Purposes:</strong> To show team member profiles and game statistics on our website</li>
-                <li><strong>Communication:</strong> To respond to inquiries submitted through our contact form</li>
-                <li><strong>Service Improvement:</strong> To understand how users interact with our games and website</li>
-            </ul>
+            <h4>4. Links to Other Websites</h4>
+            <p>Our site may include links to Roblox, Discord, YouTube, and other external websites. We are not responsible for the privacy practices or content of these third-party sites. We recommend reviewing their privacy policies before interacting with them.</p>
 
-            <h4>3. Data Storage and Security</h4>
-            <p>We take data security seriously:</p>
-            <ul>
-                <li>Roblox API data is fetched in real-time and not permanently stored on our servers</li>
-                <li>Contact form submissions are handled securely</li>
-                <li>We do not sell, trade, or transfer your information to third parties</li>
-                <li>We implement reasonable security measures to protect against unauthorized access</li>
-            </ul>
+            <h4>5. Contact Information</h4>
+            <p>If you have any questions about this Privacy Policy, you can contact us at:</p>
+            <p>📧 nightfulinteractive@gmail.com</p>
 
-            <h4>4. Third-Party Services</h4>
-            <p>Our website integrates with the following third-party services:</p>
-            <ul>
-                <li><strong>Roblox:</strong> We use Roblox's public APIs to display game and user information. Please refer to <a href="https://en.help.roblox.com/hc/en-us/articles/115004630823-Roblox-Privacy-and-Cookie-Policy" target="_blank">Roblox's Privacy Policy</a> for information about how they handle data.</li>
-                <li><strong>Discord:</strong> We provide links to our Discord server. Discord has its own <a href="https://discord.com/privacy" target="_blank">Privacy Policy</a>.</li>
-            </ul>
-
-            <h4>5. Cookies and Tracking</h4>
-            <p>Our website does not use cookies or tracking technologies to collect personal information. We may use basic analytics in the future to understand website traffic, and we will update this policy accordingly.</p>
-
-            <h4>6. Children's Privacy</h4>
-            <p>We are committed to protecting the privacy of children. We do not knowingly collect personal information from children under 13 without parental consent. If you believe we have collected information from a child under 13, please contact us immediately.</p>
-
-            <h4>7. Your Rights</h4>
-            <p>You have the right to:</p>
-            <ul>
-                <li>Request information about what data we have collected about you</li>
-                <li>Request deletion of your contact form submissions</li>
-                <li>Opt-out of communications from us</li>
-                <li>Update or correct any information you've provided</li>
-            </ul>
-
-            <h4>8. Changes to This Policy</h4>
-            <p>We may update this Privacy Policy from time to time. We will notify users of any significant changes by updating the "Last Updated" date at the top of this section. We encourage you to review this policy periodically.</p>
-
-            <h4>9. Contact Us</h4>
-            <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us through:</p>
-            <ul>
-                <li>Our website contact form above</li>
-                <li>Our Discord server: <a href="https://discord.gg/agQyTQjymQ" target="_blank">Join Here</a></li>
-            </ul>
-
-            <h4>10. Roblox Disclaimer</h4>
-            <p>ZzzZz Works is not affiliated with, maintained, authorized, endorsed, or sponsored by Roblox Corporation. All game content and trademarks are property of their respective owners.</p>
-
-            <div class="highlight-box">
-                <strong>Summary:</strong> We respect your privacy. We only display public Roblox data, don't store unnecessary information, and will never share your contact details with third parties. Your data is safe with us.
-            </div>
+            <h4>6. Updates</h4>
+            <p>We may update this Privacy Policy occasionally. Any changes will be reflected by the "Last Updated" date at the top of this page.</p>
         </div>
     </div>
 </section>
@@ -964,7 +831,7 @@
 <footer>
     <p>&copy; 2025 ZzzZz Works. All rights reserved.</p>
     <p class="privacy-link">
-        <a href="#" onclick="showPrivacyPolicy(event)">Privacy Policy</a>
+        <a onclick="showPrivacyPolicy(event)">Privacy Policy</a>
     </p>
 </footer>
 
@@ -1018,33 +885,31 @@
         return num.toString();
     }
 
-    // Fetch Roblox profile data and online status with CORS proxy
+    // Fetch Roblox profile data and online status
     async function fetchRobloxProfile() {
         const userId = 1534153669;
         try {
-            // Using AllOrigins as CORS proxy
-            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            // Using RoProxy for Roblox API
+            const proxyUrl = 'https://games.roproxy.com/';
             
             // Fetch user info
-            const userResponse = await fetch(`${proxyUrl}https://users.roblox.com/v1/users/${userId}`);
+            const userResponse = await fetch(`https://users.roproxy.com/v1/users/${userId}`);
             const userData = await userResponse.json();
             
             if (userData && userData.name) {
                 document.getElementById('teamName').textContent = userData.displayName || userData.name;
                 document.getElementById('teamBio').textContent = userData.description || '3D Graphical Designing, Animating, Building, UI Designing, etc..';
-            } else {
-                throw new Error('Invalid user data');
             }
             
             // Fetch avatar
-            const avatarResponse = await fetch(`${proxyUrl}https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
+            const avatarResponse = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
             const avatarData = await avatarResponse.json();
             if (avatarData.data && avatarData.data[0] && avatarData.data[0].imageUrl) {
                 document.getElementById('teamAvatar').src = avatarData.data[0].imageUrl;
             }
 
             // Fetch online status
-            const presenceResponse = await fetch(`${proxyUrl}https://presence.roblox.com/v1/presence/users`, {
+            const presenceResponse = await fetch(`https://presence.roproxy.com/v1/presence/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1068,8 +933,6 @@
                     statusDot.style.background = '#666';
                     statusText.textContent = 'Offline';
                 }
-            } else {
-                throw new Error('No presence data');
             }
         } catch (error) {
             console.error('Error fetching profile:', error);
@@ -1079,12 +942,11 @@
         }
     }
 
-    // Fetch Studz game stats with CORS proxy
+    // Fetch Studz game stats
     async function fetchGameStats() {
         const universeId = 96426817378628;
         try {
-            const proxyUrl = 'https://api.allorigins.win/raw?url=';
-            const response = await fetch(`${proxyUrl}https://games.roblox.com/v1/games?universeIds=${universeId}`);
+            const response = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeId}`);
             const data = await response.json();
             
             if (data.data && data.data[0]) {
@@ -1096,8 +958,6 @@
                 document.getElementById('studzPlaying').textContent = formatNumber(playing);
                 document.getElementById('studzVisits').textContent = formatNumber(visits);
                 document.getElementById('studzFavorites').textContent = formatNumber(favorites);
-            } else {
-                throw new Error('No game data');
             }
         } catch (error) {
             console.error('Error fetching game stats:', error);
@@ -1182,4 +1042,72 @@
 ```
 
 </body>
-</html>
+</html>home" class="hero">
+        <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
+        <h2>ZzzZz Works</h2>
+        <p>A studio that takes naps serious and makes sure safety comes with it</p>
+        <button class="cta-button" onclick="scrollToSection('projects')">
+            Explore Our Projects
+        </button>
+    </section>
+
+```
+<section id="projects">
+    <h3>Our Projects</h3>
+    
+    <div class="project-card">
+        <img src="studzbanner1.png" alt="Studz Banner" class="project-banner">
+        <div class="project-content">
+            <img src="Studzicon.png" alt="Studz Icon" class="project-icon">
+            <div class="project-info">
+                <h4>STUDZ</h4>
+                <p>A calm classic styled altitude obby to play with your friends.</p>
+                <a href="https://www.roblox.com/games/96426817378628/PASSES-Studz" target="_blank" class="project-link" onclick="event.stopPropagation()">Play Now on Roblox</a>
+            </div>
+            <div class="project-stats" id="studzStats">
+                <div class="stat-item">
+                    <div class="stat-label">Playing</div>
+                    <div class="stat-value" id="studzPlaying">-</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Visits</div>
+                    <div class="stat-value" id="studzVisits">-</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Favorites</div>
+                    <div class="stat-value" id="studzFavorites">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="project-card">
+        <img src="ZGuardbanner.png" alt="Z Guard Banner" class="project-banner">
+        <div class="project-content">
+            <img src="ZGuardicon.png" alt="Z Guard Icon" class="project-icon">
+            <div class="project-info">
+                <h4>Z GUARD</h4>
+                <p>Protection for your discord servers and roblox games, keeping threats out while you sleep.</p>
+                <span class="coming-soon-badge">Coming Soon</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="team" class="team-section">
+    <h3>Our Team</h3>
+    <div class="team-card" onclick="showRedirectModal()">
+        <div class="team-role">Founder of ZzzZz Works</div>
+        <img id="teamAvatar" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/420/420/AvatarHeadshot/Png/noFilter" alt="Team Member" class="team-avatar">
+        <div class="team-name" id="teamName">lojjkli</div>
+        <div class="online-status">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Checking status...</span>
+        </div>
+        <div class="team-bio" id="teamBio">Loading profile information...</div>
+        <div class="team-click-hint">Click to view profile</div>
+    </div>
+</section>
+
+<section id="
+```
