@@ -452,6 +452,11 @@
         font-weight: 600;
     }
 
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: #888;
+    }
+
     .form-group input,
     .form-group textarea {
         width: 100%;
@@ -798,7 +803,7 @@
             <span class="status-dot" id="statusDot"></span>
             <span id="statusText">Checking status...</span>
         </div>
-        <div class="team-bio" id="teamBio">Loading profile information...</div>
+        <div class="team-bio" id="teamBio">3D Graphical Designing, Animating, Building, UI Designing, etc..</div>
         <div class="team-click-hint">Click to view profile</div>
     </div>
 </section>
@@ -853,7 +858,7 @@
 
             <h4>5. Contact Information</h4>
             <p>If you have any questions about this Privacy Policy, you can contact us at:</p>
-            <p>📧 nightfulinteractive@gmail.com</p>
+            <p>📧 zzzzzworks@gmail.com</p>
 
             <h4>6. Updates</h4>
             <p>We may update this Privacy Policy occasionally. Any changes will be reflected by the "Last Updated" date at the top of this page.</p>
@@ -931,7 +936,8 @@
             
             if (userData && userData.name) {
                 document.getElementById('teamName').textContent = userData.displayName || userData.name;
-                document.getElementById('teamBio').textContent = userData.description || '3D Graphical Designing, Animating, Building, UI Designing, etc..';
+                // Keep the original description instead of fetching from Roblox
+                // document.getElementById('teamBio').textContent = userData.description || '3D Graphical Designing, Animating, Building, UI Designing, etc..';
             }
             
             // Fetch avatar
@@ -970,7 +976,6 @@
         } catch (error) {
             console.error('Error fetching profile:', error);
             document.getElementById('teamName').textContent = 'lojjkli';
-            document.getElementById('teamBio').textContent = '3D Graphical Designing, Animating, Building, UI Designing, etc..';
             document.getElementById('statusText').textContent = 'Status unavailable';
         }
     }
@@ -980,8 +985,12 @@
         const universeId = 96426817378628;
         try {
             const proxy = 'https://corsproxy.io/?';
-            const response = await fetch(`${proxy}https://games.roblox.com/v1/games?universeIds=${universeId}`);
+            const url = `${proxy}https://games.roblox.com/v1/games?universeIds=${universeId}`;
+            console.log('Fetching game stats from:', url);
+            
+            const response = await fetch(url);
             const data = await response.json();
+            console.log('Game stats response:', data);
             
             if (data.data && data.data[0]) {
                 const game = data.data[0];
@@ -989,9 +998,14 @@
                 const visits = game.visits || 0;
                 const favorites = game.favoritedCount || 0;
                 
+                console.log('Playing:', playing, 'Visits:', visits, 'Favorites:', favorites);
+                
                 document.getElementById('studzPlaying').textContent = formatNumber(playing);
                 document.getElementById('studzVisits').textContent = formatNumber(visits);
                 document.getElementById('studzFavorites').textContent = formatNumber(favorites);
+            } else {
+                console.error('No game data found in response');
+                throw new Error('No game data');
             }
         } catch (error) {
             console.error('Error fetching game stats:', error);
