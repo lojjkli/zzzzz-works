@@ -224,7 +224,6 @@
         margin-bottom: 40px;
         border: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.4s ease;
-        cursor: pointer;
         overflow: hidden;
         -webkit-tap-highlight-color: transparent;
     }
@@ -593,15 +592,6 @@
         background: rgba(255, 255, 255, 0.2);
     }
 
-    .modal-btn.confirm {
-        background: #fff;
-        color: #000;
-    }
-
-    .modal-btn.confirm:hover {
-        transform: scale(1.05);
-    }
-
     .countdown {
         font-size: 48px;
         font-weight: 700;
@@ -622,25 +612,11 @@
         color: #fff;
     }
 
-    .privacy-section p, .privacy-section li {
+    .privacy-section p {
         font-size: 16px;
         margin-bottom: 15px;
         color: #ddd;
         line-height: 1.8;
-    }
-
-    .privacy-section ul {
-        margin-left: 30px;
-        margin-bottom: 20px;
-    }
-
-    .privacy-section a {
-        color: #5865F2;
-        text-decoration: none;
-    }
-
-    .privacy-section a:hover {
-        text-decoration: underline;
     }
 
     footer {
@@ -727,15 +703,6 @@
             height: 200px;
         }
 
-        .team-card {
-            grid-template-columns: 1fr;
-            text-align: center;
-        }
-
-        .team-avatar {
-            margin: 0 auto;
-        }
-
         .modal-content {
             margin: 20px;
             padding: 30px;
@@ -770,6 +737,72 @@
     </nav>
 
 ```
+<section id="home" class="hero">
+    <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
+    <h2>ZzzZz Works</h2>
+    <p>A studio that takes naps serious and makes sure safety comes with it</p>
+    <button class="cta-button" onclick="scrollToSection('projects')">
+        Explore Our Projects
+    </button>
+</section>
+
+<section id="projects">
+    <h3>Our Projects</h3>
+    
+    <div class="project-card">
+        <img src="studzbanner1.png" alt="Studz Banner" class="project-banner">
+        <div class="project-content">
+            <img src="Studzicon.png" alt="Studz Icon" class="project-icon">
+            <div class="project-info">
+                <h4>STUDZ</h4>
+                <p>A calm classic styled altitude obby to play with your friends.</p>
+                <a href="https://www.roblox.com/games/96426817378628/PASSES-Studz" target="_blank" class="project-link" onclick="event.stopPropagation()">Play Now on Roblox</a>
+            </div>
+            <div class="project-stats">
+                <div class="stat-item">
+                    <div class="stat-label">Playing</div>
+                    <div class="stat-value" id="studzPlaying">-</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Visits</div>
+                    <div class="stat-value" id="studzVisits">-</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Favorites</div>
+                    <div class="stat-value" id="studzFavorites">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="project-card">
+        <img src="ZGuardbanner.png" alt="Z Guard Banner" class="project-banner">
+        <div class="project-content">
+            <img src="ZGuardicon.png" alt="Z Guard Icon" class="project-icon">
+            <div class="project-info">
+                <h4>Z GUARD</h4>
+                <p>Protection for your discord servers and roblox games, keeping threats out while you sleep.</p>
+                <span class="coming-soon-badge">Coming Soon</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="team" class="team-section">
+    <h3>Our Team</h3>
+    <div class="team-card" onclick="showRedirectModal()">
+        <div class="team-role">Founder of ZzzZz Works</div>
+        <img id="teamAvatar" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/420/420/AvatarHeadshot/Png/noFilter" alt="Team Member" class="team-avatar">
+        <div class="team-name" id="teamName">lojjkli</div>
+        <div class="online-status">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Checking status...</span>
+        </div>
+        <div class="team-bio" id="teamBio">Loading profile information...</div>
+        <div class="team-click-hint">Click to view profile</div>
+    </div>
+</section>
+
 <section id="contact">
     <div class="contact">
         <h3>Get In Touch</h3>
@@ -885,15 +918,15 @@
         return num.toString();
     }
 
-    // Fetch Roblox profile data and online status
+    // Fetch Roblox profile data and online status using CORS proxy
     async function fetchRobloxProfile() {
         const userId = 1534153669;
         try {
-            // Using RoProxy for Roblox API
-            const proxyUrl = 'https://games.roproxy.com/';
+            // Using corsproxy.io
+            const proxy = 'https://corsproxy.io/?';
             
             // Fetch user info
-            const userResponse = await fetch(`https://users.roproxy.com/v1/users/${userId}`);
+            const userResponse = await fetch(`${proxy}https://users.roblox.com/v1/users/${userId}`);
             const userData = await userResponse.json();
             
             if (userData && userData.name) {
@@ -902,14 +935,14 @@
             }
             
             // Fetch avatar
-            const avatarResponse = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
+            const avatarResponse = await fetch(`${proxy}https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
             const avatarData = await avatarResponse.json();
             if (avatarData.data && avatarData.data[0] && avatarData.data[0].imageUrl) {
                 document.getElementById('teamAvatar').src = avatarData.data[0].imageUrl;
             }
 
             // Fetch online status
-            const presenceResponse = await fetch(`https://presence.roproxy.com/v1/presence/users`, {
+            const presenceResponse = await fetch(`${proxy}https://presence.roblox.com/v1/presence/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -942,11 +975,12 @@
         }
     }
 
-    // Fetch Studz game stats
+    // Fetch Studz game stats using CORS proxy
     async function fetchGameStats() {
         const universeId = 96426817378628;
         try {
-            const response = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeId}`);
+            const proxy = 'https://corsproxy.io/?';
+            const response = await fetch(`${proxy}https://games.roblox.com/v1/games?universeIds=${universeId}`);
             const data = await response.json();
             
             if (data.data && data.data[0]) {
@@ -1042,72 +1076,4 @@
 ```
 
 </body>
-</html>home" class="hero">
-        <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
-        <h2>ZzzZz Works</h2>
-        <p>A studio that takes naps serious and makes sure safety comes with it</p>
-        <button class="cta-button" onclick="scrollToSection('projects')">
-            Explore Our Projects
-        </button>
-    </section>
-
-```
-<section id="projects">
-    <h3>Our Projects</h3>
-    
-    <div class="project-card">
-        <img src="studzbanner1.png" alt="Studz Banner" class="project-banner">
-        <div class="project-content">
-            <img src="Studzicon.png" alt="Studz Icon" class="project-icon">
-            <div class="project-info">
-                <h4>STUDZ</h4>
-                <p>A calm classic styled altitude obby to play with your friends.</p>
-                <a href="https://www.roblox.com/games/96426817378628/PASSES-Studz" target="_blank" class="project-link" onclick="event.stopPropagation()">Play Now on Roblox</a>
-            </div>
-            <div class="project-stats" id="studzStats">
-                <div class="stat-item">
-                    <div class="stat-label">Playing</div>
-                    <div class="stat-value" id="studzPlaying">-</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Visits</div>
-                    <div class="stat-value" id="studzVisits">-</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Favorites</div>
-                    <div class="stat-value" id="studzFavorites">-</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="project-card">
-        <img src="ZGuardbanner.png" alt="Z Guard Banner" class="project-banner">
-        <div class="project-content">
-            <img src="ZGuardicon.png" alt="Z Guard Icon" class="project-icon">
-            <div class="project-info">
-                <h4>Z GUARD</h4>
-                <p>Protection for your discord servers and roblox games, keeping threats out while you sleep.</p>
-                <span class="coming-soon-badge">Coming Soon</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="team" class="team-section">
-    <h3>Our Team</h3>
-    <div class="team-card" onclick="showRedirectModal()">
-        <div class="team-role">Founder of ZzzZz Works</div>
-        <img id="teamAvatar" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/420/420/AvatarHeadshot/Png/noFilter" alt="Team Member" class="team-avatar">
-        <div class="team-name" id="teamName">lojjkli</div>
-        <div class="online-status">
-            <span class="status-dot" id="statusDot"></span>
-            <span id="statusText">Checking status...</span>
-        </div>
-        <div class="team-bio" id="teamBio">Loading profile information...</div>
-        <div class="team-click-hint">Click to view profile</div>
-    </div>
-</section>
-
-<section id="
-```
+</html>
