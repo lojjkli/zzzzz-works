@@ -13,12 +13,17 @@
         }
 
 ```
+    html {
+        background: #1a1a1a;
+    }
+
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: #1a1a1a;
         color: #fff;
         overflow-x: hidden;
         position: relative;
+        min-height: 100vh;
     }
 
     body::before {
@@ -560,7 +565,7 @@
     footer {
         text-align: center;
         padding: 40px 20px;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.8);
         margin-top: 50px;
     }
 
@@ -575,6 +580,7 @@
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        padding-bottom: 20px;
     }
 
     .discord-btn, .privacy-btn {
