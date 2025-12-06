@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZGuard Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 100px auto 50px;
+            padding: 20px;
+        }
+
+        .welcome-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .welcome-section h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .guilds-header {
+            font-size: 28px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .refresh-btn {
+            padding: 10px 20px;
+            background: #5865F2;
+            border: none;
+            color: #fff;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        .guilds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .guild-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .guild-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .guild-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            background: #2f3136;
+        }
+
+        .guild-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .guild-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-badge {
+            padding: 5px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .manage-btn {
+            width: 100%;
+            padding: 12px;
+            background: #5865F2;
+            border: none;
+            color: #fff;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .manage-btn:hover {
+            background: #4752C4;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 20px;
+            color: #aaa;
+        }
+
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid rgba(244, 67, 54, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: #ef9a9a;
+        }
+
+        .login-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 500px;
+        }
+
+        .login-card h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .login-card p {
+            font-size: 18px;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        .discord-login-btn {
+            padding: 15px 40px;
+            background: #5865F2;
+            border: none;
+            color: #fff;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .discord-login-btn:hover {
+            background: #4752C4;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .guilds-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-section {
+                padding: 30px 20px;
+            }
+
+            .guilds-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="ZGuardicon.png" alt="ZGuard Logo">
+            <h1>ZGuard Dashboard</h1>
+        </a>
+        <div class="user-info" id="userInfo" style="display: none;">
+            <img id="userAvatar" class="user-avatar" alt="User Avatar">
+            <span id="userName"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container" id="mainContainer">
+        <!-- Content will be loaded here dynamically -->
+    </div>
+
+    <script>
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000' 
+            : 'https://your-production-domain.com';
+
+        let currentUser = null;
+
+        async function checkAuth() {
+            try {
+                const response = await fetch(`${API_URL}/api/user`, {
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    currentUser = await response.json();
+                    showDashboard();
+                } else {
+                    showLogin();
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                showLogin();
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="login-section">
+                    <div class="login-card">
+                        <h2>Welcome to ZGuard</h2>
+                        <p>Manage your Discord servers with ease. Sign in with Discord to get started.</p>
+                        <button class="discord-login-btn" onclick="loginWithDiscord()">
+                            <svg width="24" height="24" viewBox="0 0 71 55" fill="currentColor">
+                                <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"/>
+                            </svg>
+                            Login with Discord
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function showDashboard() {
+            // Show user info in nav
+            document.getElementById('userInfo').style.display = 'flex';
+            document.getElementById('userName').textContent = currentUser.username;
+            document.getElementById('userAvatar').src = `https://cdn.discordapp.com/avatars/${currentUser.id}/${currentUser.avatar}.png`;
+
+            // Show loading
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="welcome-section">
+                    <h2>Welcome back, ${currentUser.username}!</h2>
+                    <p>Select a server to manage its ZGuard settings.</p>
+                </div>
+                <div class="loading">Loading your servers...</div>
+            `;
+
+            try {
+                const response = await fetch(`${API_URL}/api/guilds`, {
+                    credentials: 'include'
+                });
+
+                if (!response.ok) throw new Error('Failed to load guilds');
+
+                const guilds = await response.json();
+                displayGuilds(guilds);
+            } catch (error) {
+                console.error('Error loading guilds:', error);
+                document.getElementById('mainContainer').innerHTML = `
+                    <div class="welcome-section">
+                        <h2>Welcome back, ${currentUser.username}!</h2>
+                        <p>Select a server to manage its ZGuard settings.</p>
+                    </div>
+                    <div class="error">
+                        <h3>Failed to Load Servers</h3>
+                        <p>Please try refreshing the page or contact support if the issue persists.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayGuilds(guilds) {
+            const container = document.getElementById('mainContainer');
+            
+            if (guilds.length === 0) {
+                container.innerHTML = `
+                    <div class="welcome-section">
+                        <h2>Welcome back, ${currentUser.username}!</h2>
+                        <p>Select a server to manage its ZGuard settings.</p>
+                    </div>
+                    <div class="error">
+                        <h3>No Servers Found</h3>
+                        <p>You don't have any servers where ZGuard is installed and you have management permissions.</p>
+                        <p style="margin-top: 20px;">
+                            <a href="https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands" 
+                               target="_blank" 
+                               style="color: #5865F2; text-decoration: underline;">
+                                Invite ZGuard to your server
+                            </a>
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            const guildsHTML = guilds.map(guild => {
+                const iconUrl = guild.icon 
+                    ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`
+                    : 'ZGuardicon.png';
+
+                return `
+                    <div class="guild-card" onclick="manageGuild('${guild.id}', '${guild.name}')">
+                        <img src="${iconUrl}" alt="${guild.name}" class="guild-icon" onerror="this.src='ZGuardicon.png'">
+                        <div class="guild-name">${guild.name}</div>
+                        <div class="guild-info">
+                            <span class="info-badge">ID: ${guild.id}</span>
+                        </div>
+                        <button class="manage-btn">Manage Server</button>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="welcome-section">
+                    <h2>Welcome back, ${currentUser.username}!</h2>
+                    <p>Select a server to manage its ZGuard settings.</p>
+                </div>
+                <div class="guilds-header">
+                    <h3>Your Servers (${guilds.length})</h3>
+                    <button class="refresh-btn" onclick="checkAuth()">
+                        <span>↻</span> Refresh
+                    </button>
+                </div>
+                <div class="guilds-grid">
+                    ${guildsHTML}
+                </div>
+            `;
+        }
+
+        function loginWithDiscord() {
+            window.location.href = `${API_URL}/auth/discord`;
+        }
+
+        function logout() {
+            // Clear session by redirecting to a logout endpoint
+            window.location.href = `${API_URL}/auth/logout`;
+        }
+
+        function manageGuild(guildId, guildName) {
+            // Store guild info and redirect to management page
+            localStorage.setItem('currentGuild', JSON.stringify({ id: guildId, name: guildName }));
+            window.location.href = `manage.html?guild=${guildId}`;
+        }
+
+        // Initialize
+        checkAuth();
+    </script>
+</body>
+</html>
