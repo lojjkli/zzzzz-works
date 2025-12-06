@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Server - ZGuard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 20px;
+        }
+
+        .server-header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .server-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: #2f3136;
+        }
+
+        .server-info h2 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .server-info p {
+            color: #aaa;
+        }
+
+        .settings-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .setting-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .setting-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .setting-card p {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .form-group select option {
+            background: #2f3136;
+            color: #fff;
+        }
+
+        .save-btn {
+            padding: 12px 30px;
+            background: #5865F2;
+            border: none;
+            color: #fff;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        .save-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .status-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid rgba(76, 175, 80, 0.5);
+            color: #a5d6a7;
+        }
+
+        .status-message.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid rgba(244, 67, 54, 0.5);
+            color: #ef9a9a;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #5865F2;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 20px;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .server-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="dashboard.html" class="logo">
+            <img src="ZGuardicon.png" alt="ZGuard Logo">
+            <span id="serverName">Server Settings</span>
+        </a>
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+    </nav>
+
+    <div class="container" id="mainContainer">
+        <div class="loading">Loading server settings...</div>
+    </div>
+
+    <script>
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000' 
+            : 'https://your-production-domain.com';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const guildId = urlParams.get('guild');
+        let currentSettings = {};
+
+        if (!guildId) {
+            window.location.href = 'dashboard.html';
+        }
+
+        async function loadServerSettings() {
+            try {
+                const guildInfo = JSON.parse(localStorage.getItem('currentGuild') || '{}');
+                document.getElementById('serverName').textContent = guildInfo.name || 'Server Settings';
+
+                const response = await fetch(`${API_URL}/api/guild/${guildId}/settings`, {
+                    credentials: 'include'
+                });
+
+                if (!response.ok) throw new Error('Failed to load settings');
+
+                currentSettings = await response.json();
+                displaySettings(guildInfo);
+            } catch (error) {
+                console.error('Error loading settings:', error);
+                document.getElementById('mainContainer').innerHTML = `
+                    <div style="background: rgba(244, 67, 54, 0.2); border: 2px solid rgba(244, 67, 54, 0.5); border-radius: 15px; padding: 30px; text-align: center; color: #ef9a9a;">
+                        <h3>Failed to Load Settings</h3>
+                        <p>Please try again or contact support if the issue persists.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displaySettings(guildInfo) {
+            const iconUrl = 'ZGuardicon.png';
+
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="server-header">
+                    <img src="${iconUrl}" alt="${guildInfo.name}" class="server-icon">
+                    <div class="server-info">
+                        <h2>${guildInfo.name}</h2>
+                        <p>Configure ZGuard settings for this server</p>
+                    </div>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Moderation Logs -->
+                    <div class="setting-card">
+                        <h3>📋 Moderation Logs</h3>
+                        <p>Set where moderation actions should be logged</p>
+                        <div class="form-group">
+                            <label for="modLogChannel">Mod Log Channel</label>
+                            <input type="text" id="modLogChannel" placeholder="Channel ID" value="${currentSettings.modLogChannel || ''}">
+                        </div>
+                        <button class="save-btn" onclick="saveSetting('modLogChannel')">Save</button>
+                        <div class="status-message" id="modLogStatus"></div>
+                    </div>
+
+                    <!-- Verification Roles -->
+                    <div class="setting-card">
+                        <h3>✅ Verification Roles</h3>
+                        <p>Set roles for verified and unverified members</p>
+                        <div class="form-group">
+                            <label for="verifiedRoleId">Verified Role ID</label>
+                            <input type="text" id="verifiedRoleId" placeholder="Role ID" value="${currentSettings.verifiedRoleId || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label for="unverifiedRoleId">Unverified Role ID (Optional)</label>
+                            <input type="text" id="unverifiedRoleId" placeholder="Role ID" value="${currentSettings.unverifiedRoleId || ''}">
+                        </div>
+                        <button class="save-btn" onclick="saveSetting('verificationRoles')">Save</button>
+                        <div class="status-message" id="verificationRolesStatus"></div>
+                    </div>
+
+                    <!-- Server Streak -->
+                    <div class="setting-card">
+                        <h3>🔥 Server Streak</h3>
+                        <p>Enable the daily message streak system</p>
+                        <div class="form-group">
+                            <label>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Streak System Enabled</span>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="streakEnabled" ${currentSettings.streakEnabled ? 'checked' : ''}>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="streakChannel">Streak Channel ID</label>
+                            <input type="text" id="streakChannel" placeholder="Channel ID" value="${currentSettings.streakChannel || ''}" ${!currentSettings.streakEnabled ? 'disabled' : ''}>
+                        </div>
+                        <div style="background: rgba(255, 165, 0, 0.1); border: 1px solid rgba(255, 165, 0, 0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                            <strong>Current Streak:</strong> ${currentSettings.streakCount || 0} days<br>
+                            <strong>Messages Today:</strong> ${currentSettings.streakDailyMessages || 0}
+                        </div>
+                        <button class="save-btn" onclick="saveSetting('streak')">Save</button>
+                        <div class="status-message" id="streakStatus"></div>
+                    </div>
+
+                    <!-- Suspension System -->
+                    <div class="setting-card">
+                        <h3>🔒 Suspension System</h3>
+                        <p>Configure the server suspension system</p>
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                            <strong>Status:</strong> ${currentSettings.suspensionRoleId ? '✅ Configured' : '❌ Not Set Up'}<br>
+                            ${currentSettings.suspensionRoleId ? `<strong>Role ID:</strong> ${currentSettings.suspensionRoleId}` : ''}
+                        </div>
+                        <p style="color: #aaa; font-size: 14px;">Use the /suspension setup command in Discord to configure this system.</p>
+                    </div>
+                </div>
+            `;
+
+            // Add event listener for streak toggle
+            document.getElementById('streakEnabled').addEventListener('change', function() {
+                document.getElementById('streakChannel').disabled = !this.checked;
+            });
+        }
+
+        async function saveSetting(type) {
+            const statusElement = document.getElementById(`${type}Status`);
+            const saveBtn = event.target;
+            
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving...';
+
+            let updates = {};
+
+            if (type === 'modLogChannel') {
+                updates.modLogChannel = document.getElementById('modLogChannel').value;
+            } else if (type === 'verificationRoles') {
+                updates.verifiedRoleId = document.getElementById('verifiedRoleId').value;
+                updates.unverifiedRoleId = document.getElementById('unverifiedRoleId').value;
+            } else if (type === 'streak') {
+                updates.streakEnabled = document.getElementById('streakEnabled').checked;
+                updates.streakChannel = document.getElementById('streakChannel').value;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/guild/${guildId}/settings`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(updates)
+                });
+
+                if (!response.ok) throw new Error('Failed to save settings');
+
+                statusElement.className = 'status-message success';
+                statusElement.textContent = '✅ Settings saved successfully!';
+                statusElement.style.display = 'block';
+
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 3000);
+            } catch (error) {
+                console.error('Error saving settings:', error);
+                statusElement.className = 'status-message error';
+                statusElement.textContent = '❌ Failed to save settings. Please try again.';
+                statusElement.style.display = 'block';
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save';
+            }
+        }
+
+        // Initialize
+        loadServerSettings();
+    </script>
+</body>
+</html>
