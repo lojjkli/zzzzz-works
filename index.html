@@ -807,5 +807,416 @@
     <div class="footer-buttons">
         <a href="https://discord.gg/HTzQ6DGhnr" target="_blank" class="discord-btn">
             <svg width="20" height="20" viewBox="0 0 71 55" fill="currentColor">
-                <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253Z
+                <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"/>
+            </svg>
+            Join Discord
+        </a>
+        <a href="#privacy" class="privacy-btn" onclick="event.preventDefault(); showPrivacyModal();">
+            Privacy Policy
+        </a>
+    </div>
+</footer>
+
+<!-- Modals -->
+<div class="modal" id="betaModal">
+    <div class="modal-content">
+        <h4>Z Guard Beta Access</h4>
+        <p>Contact us to get access to the latest Z Guard version!</p>
+        <div class="modal-buttons">
+            <button class="modal-btn cancel" onclick="closeBetaModal()">Close</button>
+            <button class="modal-btn" style="background: #5865F2; color: white;" onclick="window.location.href='#contact'; closeBetaModal();">Contact Us</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="privacyModal">
+    <div class="modal-content" style="max-width: 800px; max-height: 80vh; overflow-y: auto;">
+        <h4>Privacy Policy</h4>
+        <div style="text-align: left; color: #ddd; line-height: 1.8;">
+            <p style="margin-bottom: 20px;"><strong style="color: #fff;">Last Updated:</strong> December 20, 2025</p>
+            
+            <h4 style="color: #fff; margin-top: 30px; margin-bottom: 15px; font-size: 20px;">1. Information We Collect</h4>
+            <p style="margin-bottom: 15px;">When you contact us through our contact form, we collect:</p>
+            <ul style="margin-left: 20px; margin-bottom: 20px;">
+                <li>Your Roblox or Discord username</li>
+                <li>Your email address</li>
+                <li>The message content you provide</li>
+            </ul>
+
+            <h4 style="color: #fff; margin-top: 30px; margin-bottom: 15px; font-size: 20px;">2. How We Use Your Information</h4>
+            <p style="margin-bottom: 15px;">We collect and use your information solely to:</p>
+            <ul style="margin-left: 20px; margin-bottom: 20px;">
+                <li>Respond to your inquiries and messages</li>
+                <li>Provide customer support</li>
+                <li>Improve our services and games</li>
+            </ul>
+
+            <h4 style="color: #fff; margin-top: 30px; margin-bottom: 15px; font-size: 20px;">3. Contact Us</h4>
+            <p style="margin-bottom: 20px;">If you have any questions about this Privacy Policy, please contact us at: <strong style="color: #fff;">zzzzzworks@gmail.com</strong></p>
+        </div>
+        <div class="modal-buttons" style="margin-top: 30px;">
+            <button class="modal-btn cancel" onclick="closePrivacyModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="redirectModal">
+    <div class="modal-content">
+        <h4>Redirecting to Roblox Profile</h4>
+        <p>You will be redirected in:</p>
+        <div style="font-size: 48px; font-weight: 700; margin: 20px 0; color: #fff;" id="countdown">3</div>
+        <div class="modal-buttons">
+            <button class="modal-btn cancel" onclick="cancelRedirect()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="secretGameModal">
+    <div class="modal-content" style="max-width: 600px;">
+        <h4>🎮 Secret Snake Game 🎮</h4>
+        <p style="margin-bottom: 20px;">Use arrow keys or swipe to move!</p>
+        <canvas id="gameCanvas" width="400" height="400" style="border: 2px solid #fff; border-radius: 15px; background: #000; max-width: 100%; touch-action: none;"></canvas>
+        <p style="margin-top: 15px; font-size: 20px; font-weight: 700; color: #fff;">Score: <span id="gameScore">0</span></p>
+        <div class="modal-buttons" style="margin-top: 20px;">
+            <button class="modal-btn cancel" onclick="closeSecretGame()">Close</button>
+            <button class="modal-btn" style="background: #4CAF50; color: white;" onclick="restartGame()">Restart</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Modal functions
+    function showBetaModal() {
+        document.getElementById('betaModal').classList.add('active');
+    }
+    function closeBetaModal() {
+        document.getElementById('betaModal').classList.remove('active');
+    }
+    function showPrivacyModal() {
+        document.getElementById('privacyModal').classList.add('active');
+    }
+    function closePrivacyModal() {
+        document.getElementById('privacyModal').classList.remove('active');
+    }
+
+    // Close modals when clicking outside
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+    });
+
+    // Smooth scroll
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            if (this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            }
+        });
+    });
+
+    // Format numbers
+    function formatNumber(num) {
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+        else if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+        return num.toString();
+    }
+
+    // Fetch Roblox profile
+    async function fetchRobloxProfile() {
+        const userId = 1534153669;
+        try {
+            const proxy = 'https://corsproxy.io/?';
+            
+            const userResponse = await fetch(`${proxy}https://users.roblox.com/v1/users/${userId}`);
+            const userData = await userResponse.json();
+            if (userData && userData.name) {
+                document.getElementById('teamName').textContent = userData.displayName || userData.name;
+            }
+            
+            const avatarResponse = await fetch(`${proxy}https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
+            const avatarData = await avatarResponse.json();
+            if (avatarData.data && avatarData.data[0] && avatarData.data[0].imageUrl) {
+                document.getElementById('teamAvatar').src = avatarData.data[0].imageUrl;
+            }
+
+            const presenceResponse = await fetch(`${proxy}https://presence.roblox.com/v1/presence/users`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userIds: [userId] })
+            });
+            const presenceData = await presenceResponse.json();
+            
+            if (presenceData.userPresences && presenceData.userPresences[0]) {
+                const presence = presenceData.userPresences[0];
+                const statusDot = document.getElementById('statusDot');
+                const statusText = document.getElementById('statusText');
+                
+                if (presence.userPresenceType === 2) {
+                    statusDot.classList.add('online');
+                    statusText.textContent = 'Online';
+                } else if (presence.userPresenceType === 1) {
+                    statusDot.classList.add('ingame');
+                    statusText.textContent = 'In Game';
+                } else {
+                    statusText.textContent = 'Offline';
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    }
+
+    // Fetch game stats
+    async function fetchGameStats() {
+        const placeId = 96426817378628;
+        try {
+            const proxy = 'https://corsproxy.io/?';
+            const placeUrl = `${proxy}https://apis.roblox.com/universes/v1/places/${placeId}/universe`;
+            const placeResponse = await fetch(placeUrl);
+            const placeData = await placeResponse.json();
+            
+            if (!placeData.universeId) throw new Error('Could not get universe ID');
+            
+            const gameUrl = `${proxy}https://games.roblox.com/v1/games?universeIds=${placeData.universeId}`;
+            const gameResponse = await fetch(gameUrl);
+            const gameData = await gameResponse.json();
+            
+            if (gameData.data && gameData.data[0]) {
+                const game = gameData.data[0];
+                document.getElementById('studzPlaying').textContent = formatNumber(game.playing || 0);
+                document.getElementById('studzVisits').textContent = formatNumber(game.visits || 0);
+                document.getElementById('studzFavorites').textContent = formatNumber(game.favoritedCount || 0);
+            }
+        } catch (error) {
+            console.error('Error fetching game stats:', error);
+            document.getElementById('studzPlaying').textContent = '---';
+            document.getElementById('studzVisits').textContent = '---';
+            document.getElementById('studzFavorites').textContent = '---';
+        }
+    }
+
+    // Load data
+    fetchRobloxProfile();
+    fetchGameStats();
+    setInterval(() => {
+        fetchGameStats();
+        fetchRobloxProfile();
+    }, 30000);
+
+    // Redirect modal
+    let countdownInterval;
+    function showRedirectModal() {
+        const modal = document.getElementById('redirectModal');
+        modal.classList.add('active');
+        
+        let timeLeft = 3;
+        document.getElementById('countdown').textContent = timeLeft;
+        
+        countdownInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('countdown').textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                window.open('https://www.roblox.com/users/1534153669/profile', '_blank');
+                modal.classList.remove('active');
+            }
+        }, 1000);
+    }
+
+    function cancelRedirect() {
+        clearInterval(countdownInterval);
+        document.getElementById('redirectModal').classList.remove('active');
+    }
+
+    // Snake game
+    let gameCanvas, gameCtx, snake, food, dx, dy, score, gameInterval;
+    let touchStartX = 0, touchStartY = 0;
+
+    function showSecretGame() {
+        document.getElementById('secretGameModal').classList.add('active');
+        setTimeout(initGame, 100);
+    }
+
+    function closeSecretGame() {
+        document.getElementById('secretGameModal').classList.remove('active');
+        if (gameInterval) clearInterval(gameInterval);
+    }
+
+    function initGame() {
+        gameCanvas = document.getElementById('gameCanvas');
+        if (!gameCanvas) return;
+        
+        gameCtx = gameCanvas.getContext('2d');
+        snake = [{x: 200, y: 200}];
+        food = {x: 0, y: 0};
+        dx = 20;
+        dy = 0;
+        score = 0;
+        
+        document.getElementById('gameScore').textContent = score;
+        generateFood();
+        
+        if (gameInterval) clearInterval(gameInterval);
+        drawGame();
+        gameInterval = setInterval(gameLoop, 100);
+
+        gameCanvas.removeEventListener('touchstart', handleTouchStart);
+        gameCanvas.removeEventListener('touchmove', handleTouchMove);
+        gameCanvas.addEventListener('touchstart', handleTouchStart, {passive: false});
+        gameCanvas.addEventListener('touchmove', handleTouchMove, {passive: false});
+    }
+
+    function handleTouchStart(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }
+
+    function handleTouchMove(e) {
+        e.preventDefault();
+        if (!touchStartX || !touchStartY) return;
+
+        const touch = e.touches[0];
+        const diffX = touch.clientX - touchStartX;
+        const diffY = touch.clientY - touchStartY;
+
+        if (Math.abs(diffX) > 30 || Math.abs(diffY) > 30) {
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0 && dx === 0) { dx = 20; dy = 0; }
+                else if (diffX < 0 && dx === 0) { dx = -20; dy = 0; }
+            } else {
+                if (diffY > 0 && dy === 0) { dx = 0; dy = 20; }
+                else if (diffY < 0 && dy === 0) { dx = 0; dy = -20; }
+            }
+            touchStartX = 0;
+            touchStartY = 0;
+        }
+    }
+
+    function generateFood() {
+        food.x = Math.floor(Math.random() * 20) * 20;
+        food.y = Math.floor(Math.random() * 20) * 20;
+    }
+
+    function drawGame() {
+        gameCtx.fillStyle = '#000';
+        gameCtx.fillRect(0, 0, 400, 400);
+        
+        gameCtx.fillStyle = '#4CAF50';
+        for (let segment of snake) {
+            gameCtx.fillRect(segment.x, segment.y, 18, 18);
+        }
+        
+        gameCtx.fillStyle = '#FF5252';
+        gameCtx.fillRect(food.x, food.y, 18, 18);
+    }
+
+    function gameLoop() {
+        const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        
+        if (head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400) {
+            gameOver();
+            return;
+        }
+        
+        for (let segment of snake) {
+            if (head.x === segment.x && head.y === segment.y) {
+                gameOver();
+                return;
+            }
+        }
+        
+        snake.unshift(head);
+        
+        if (head.x === food.x && head.y === food.y) {
+            score++;
+            document.getElementById('gameScore').textContent = score;
+            generateFood();
+        } else {
+            snake.pop();
+        }
+        
+        drawGame();
+    }
+
+    function gameOver() {
+        clearInterval(gameInterval);
+        gameCtx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+        gameCtx.fillRect(0, 0, 400, 400);
+        gameCtx.fillStyle = '#fff';
+        gameCtx.font = '30px Arial';
+        gameCtx.textAlign = 'center';
+        gameCtx.fillText('Game Over!', 200, 180);
+        gameCtx.fillText('Score: ' + score, 200, 220);
+    }
+
+    function restartGame() {
+        initGame();
+    }
+
+    // Keyboard controls
+    document.addEventListener('keydown', function(e) {
+        if (!document.getElementById('secretGameModal').classList.contains('active')) return;
+        
+        if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -20; }
+        else if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 20; }
+        else if (e.key === 'ArrowLeft' && dx === 0) { dx = -20; dy = 0; }
+        else if (e.key === 'ArrowRight' && dx === 0) { dx = 20; dy = 0; }
+    });
+
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formStatus = document.getElementById('formStatus');
+        const submitBtn = this.querySelector('.submit-btn');
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        
+        const templateParams = {
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        };
+        
+        emailjs.send('service_xwfsexm', 'template_d8izibm', templateParams)
+            .then(function(response) {
+                return emailjs.send('service_xwfsexm', 'template_3sh1f4f', templateParams);
+            })
+            .then(function(response) {
+                formStatus.style.display = 'block';
+                formStatus.className = 'form-status success';
+                formStatus.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+                document.getElementById('contactForm').reset();
+                setTimeout(() => { formStatus.style.display = 'none'; }, 5000);
+            })
+            .catch(function(error) {
+                formStatus.style.display = 'block';
+                formStatus.className = 'form-status error';
+                formStatus.textContent = 'Oops! Something went wrong. Please try again.';
+                setTimeout(() => { formStatus.style.display = 'none'; }, 5000);
+            })
+            .finally(function() {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            });
+    });
+</script>
 ```
+
+</body>
+</html>
