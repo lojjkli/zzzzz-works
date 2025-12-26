@@ -209,6 +209,7 @@
         font-weight: 700;
         color: #fff;
         margin-bottom: 1rem;
+        word-break: break-word;
     }
 
     .team-status {
@@ -516,7 +517,17 @@
         }
 
         .team-name {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .team-role {
+            font-size: 0.75rem;
+        }
+
+        .team-bio {
+            font-size: 0.95rem;
         }
 
         .contact-intro h2 {
@@ -560,6 +571,19 @@
 
         .hero-section p {
             font-size: 1rem;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+        }
+
+        .team-card {
+            padding: 1.5rem 1rem;
+        }
+
+        .nav-tabs a {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.6rem;
         }
     }
 </style>
@@ -712,12 +736,16 @@
         const userId = 1534153669;
         try {
             const proxy = 'https://corsproxy.io/?';
+            
+            // Fetch user data
             const userResponse = await fetch(`${proxy}https://users.roblox.com/v1/users/${userId}`);
             const userData = await userResponse.json();
             if (userData.name) {
-                document.getElementById('teamName').textContent = userData.displayName || userData.name;
+                const displayName = userData.displayName || userData.name;
+                document.getElementById('teamName').textContent = displayName;
             }
 
+            // Fetch presence data
             const presenceResponse = await fetch(`${proxy}https://presence.roblox.com/v1/presence/users`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -739,9 +767,12 @@
                 } else {
                     text.textContent = 'Offline';
                 }
+            } else {
+                document.getElementById('statusText').textContent = 'Offline';
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error fetching profile:', error);
+            document.getElementById('statusText').textContent = 'Status Unknown';
         }
     }
 
