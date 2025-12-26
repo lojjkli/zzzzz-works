@@ -1181,6 +1181,13 @@
                                         <label>Announcement Content</label>
                                         <textarea id="announcementContent" required></textarea>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Image (Optional)</label>
+                                        <input type="file" id="announcementImage" accept="image/*">
+                                        <div id="imagePreview" style="margin-top: 0.5rem; display: none;">
+                                            <img id="previewImg" style="max-width: 200px; border-radius: 8px;">
+                                        </div>
+                                    </div>
                                     <button type="submit" class="btn" style="width: 100%;">Add Announcement</button>
                                     <div class="form-status" id="addAnnouncementStatus"></div>
                                 </form>
@@ -1528,6 +1535,7 @@
                                 </div>
                             </div>
                             <div class="announcement-content">${announcement.content}</div>
+                            ${announcement.imageUrl ? `<img src="${announcement.imageUrl}" style="max-width: 100%; border-radius: 8px; margin-top: 1rem;">` : ''}
                             ${commentsHTML}
                         </div>
                     `);
@@ -1700,6 +1708,24 @@
             document.getElementById('registerForm').style.display = 'none';
             document.getElementById('loginForm').style.display = 'block';
         };
+
+        // Image preview
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageInput = document.getElementById('announcementImage');
+            if (imageInput) {
+                imageInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('previewImg').src = e.target.result;
+                            document.getElementById('imagePreview').style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        });
 
         // User authentication
         let currentUser = null;
