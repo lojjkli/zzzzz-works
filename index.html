@@ -1325,6 +1325,7 @@
         // Firebase imports
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, deleteDoc, updateDoc, query, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
         // Firebase configuration
         const firebaseConfig = {
@@ -1340,14 +1341,41 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        // Make auth available globally
+        // Make available globally
         window.firebaseAuth = auth;
+        window.firebaseDb = db;
         window.firebaseSignOut = signOut;
         window.firebaseSignIn = signInWithEmailAndPassword;
         window.firebaseCreateUser = createUserWithEmailAndPassword;
 
         emailjs.init("7-YrM5K_SzZC2Mn1s");
+
+        // Tab switching
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tab-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    // Update active states
+                    document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    // Load announcements if switching to announcements tab
+                    if (targetId === 'announcements') {
+                        fetchAnnouncements();
+                    }
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        });
 
         document.querySelectorAll('.tab-link').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -1447,23 +1475,22 @@
             const container = document.getElementById('announcementsContainer');
             
             try {
-                const result = await window.storage.get('announcements', true);
+                const db = window.firebaseDb;
+                const announcementsRef = collection(db, 'announcements');
+                const q = query(announcementsRef, orderBy('timestamp', 'desc'));
+                const querySnapshot = await getDocs(q);
                 
-                if (!result || !result.value) {
+                if (querySnapshot.empty) {
                     container.innerHTML = '<div class="announcements-empty"><p>No announcements yet. Check back soon!</p></div>';
                     return;
                 }
                 
-                const data = JSON.parse(result.value);
+                const announcementsHTML = [];
                 
-                if (!data || data.length === 0) {
-                    container.innerHTML = '<div class="announcements-empty"><p>No announcements yet. Check back soon!</p></div>';
-                    return;
-                }
-                
-                const announcementsHTML = await Promise.all(data.map(async (announcement, index) => {
-                    const commentsHTML = await renderComments(announcement.id || index, announcement.comments || []);
-                    return `
+                for (const docSnap of querySnapshot.docs) {
+                    const announcement = docSnap.data();
+                    const commentsHTML = await renderComments(docSnap.id, announcement);
+                    announcementsHTML.push(`
                         <div class="announcement-card">
                             <div class="announcement-header">
                                 <div class="announcement-icon">📢</div>
@@ -1475,8 +1502,8 @@
                             <div class="announcement-content">${announcement.content}</div>
                             ${commentsHTML}
                         </div>
-                    `;
-                }));
+                    `);
+                }
                 
                 container.innerHTML = `<div class="announcements-grid">${announcementsHTML.join('')}</div>`;
                 
@@ -1486,27 +1513,41 @@
             }
         }
 
-        async function renderComments(announcementId, comments = []) {
+        async function renderComments(announcementId, announcement) {
             const user = window.firebaseAuth.currentUser;
             const isLoggedIn = !!user;
             
-            // Get user data
             let userData = null;
             let isAdmin = false;
             if (user) {
                 try {
-                    const userDataResult = await window.storage.get(`user:${user.uid}`);
-                    if (userDataResult) {
-                        userData = JSON.parse(userDataResult.value);
+                    const db = window.firebaseDb;
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    if (userDoc.exists()) {
+                        userData = userDoc.data();
                         isAdmin = userData.username === 'lojjkli';
                     }
-                } catch (e) {}
+                } catch (e) {
+                    console.error('Error fetching user data:', e);
+                }
+            }
+            
+            // Get comments
+            let comments = [];
+            try {
+                const db = window.firebaseDb;
+                const commentsRef = collection(db, 'announcements', announcementId, 'comments');
+                const q = query(commentsRef, orderBy('timestamp', 'asc'));
+                const commentsSnapshot = await getDocs(q);
+                comments = commentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            } catch (e) {
+                console.error('Error fetching comments:', e);
             }
             
             // Sort comments - pinned first
             const sortedComments = [...comments].sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
             
-            const commentsListHTML = sortedComments.map((comment, idx) => `
+            const commentsListHTML = sortedComments.map(comment => `
                 <div class="comment-item ${comment.pinned ? 'pinned' : ''}">
                     <div class="comment-header">
                         <div class="comment-author">
@@ -1519,8 +1560,8 @@
                     <div class="comment-text">${comment.text}</div>
                     ${isAdmin ? `
                         <div class="comment-controls">
-                            ${!comment.pinned ? `<button class="comment-btn" onclick="pinComment(${announcementId}, ${idx})">📌 Pin</button>` : `<button class="comment-btn" onclick="unpinComment(${announcementId}, ${idx})">Unpin</button>`}
-                            <button class="comment-btn delete" onclick="deleteComment(${announcementId}, ${idx})">Delete</button>
+                            ${!comment.pinned ? `<button class="comment-btn" onclick="pinComment('${announcementId}', '${comment.id}')">📌 Pin</button>` : `<button class="comment-btn" onclick="unpinComment('${announcementId}', '${comment.id}')">Unpin</button>`}
+                            <button class="comment-btn delete" onclick="deleteComment('${announcementId}', '${comment.id}')">Delete</button>
                         </div>
                     ` : ''}
                 </div>
@@ -1535,7 +1576,7 @@
                         <div class="comment-form">
                             <textarea class="comment-input" id="commentInput${announcementId}" placeholder="Write a comment..."></textarea>
                             <div class="comment-actions">
-                                <button class="btn btn-small" onclick="postComment(${announcementId})">Post Comment</button>
+                                <button class="btn btn-small" onclick="postComment('${announcementId}')">Post Comment</button>
                             </div>
                         </div>
                     ` : `
@@ -1557,27 +1598,20 @@
             if (!text) return;
             
             try {
-                // Get user data
-                const userDataResult = await window.storage.get(`user:${user.uid}`);
-                const userData = userDataResult ? JSON.parse(userDataResult.value) : { username: user.email.split('@')[0] };
+                const db = window.firebaseDb;
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                const userData = userDoc.exists() ? userDoc.data() : { username: user.email.split('@')[0] };
                 
-                // Get announcements
-                const result = await window.storage.get('announcements', true);
-                const announcements = result && result.value ? JSON.parse(result.value) : [];
-                
-                const announcement = announcements[announcementId];
-                if (!announcement.comments) announcement.comments = [];
-                
-                announcement.comments.push({
+                const commentsRef = collection(db, 'announcements', announcementId, 'comments');
+                await addDoc(commentsRef, {
                     text,
                     username: userData.username,
                     isAdmin: userData.username === 'lojjkli',
                     date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                    timestamp: Date.now(),
+                    timestamp: serverTimestamp(),
                     pinned: false
                 });
                 
-                await window.storage.set('announcements', JSON.stringify(announcements), true);
                 input.value = '';
                 fetchAnnouncements();
             } catch (error) {
@@ -1586,16 +1620,12 @@
             }
         };
 
-        window.deleteComment = async function(announcementId, commentIdx) {
+        window.deleteComment = async function(announcementId, commentId) {
             if (!confirm('Delete this comment?')) return;
             
             try {
-                const result = await window.storage.get('announcements', true);
-                const announcements = result && result.value ? JSON.parse(result.value) : [];
-                
-                announcements[announcementId].comments.splice(commentIdx, 1);
-                
-                await window.storage.set('announcements', JSON.stringify(announcements), true);
+                const db = window.firebaseDb;
+                await deleteDoc(doc(db, 'announcements', announcementId, 'comments', commentId));
                 fetchAnnouncements();
             } catch (error) {
                 console.error('Error deleting comment:', error);
@@ -1603,14 +1633,12 @@
             }
         };
 
-        window.pinComment = async function(announcementId, commentIdx) {
+        window.pinComment = async function(announcementId, commentId) {
             try {
-                const result = await window.storage.get('announcements', true);
-                const announcements = result && result.value ? JSON.parse(result.value) : [];
-                
-                announcements[announcementId].comments[commentIdx].pinned = true;
-                
-                await window.storage.set('announcements', JSON.stringify(announcements), true);
+                const db = window.firebaseDb;
+                await updateDoc(doc(db, 'announcements', announcementId, 'comments', commentId), {
+                    pinned: true
+                });
                 fetchAnnouncements();
             } catch (error) {
                 console.error('Error pinning comment:', error);
@@ -1618,14 +1646,12 @@
             }
         };
 
-        window.unpinComment = async function(announcementId, commentIdx) {
+        window.unpinComment = async function(announcementId, commentId) {
             try {
-                const result = await window.storage.get('announcements', true);
-                const announcements = result && result.value ? JSON.parse(result.value) : [];
-                
-                announcements[announcementId].comments[commentIdx].pinned = false;
-                
-                await window.storage.set('announcements', JSON.stringify(announcements), true);
+                const db = window.firebaseDb;
+                await updateDoc(doc(db, 'announcements', announcementId, 'comments', commentId), {
+                    pinned: false
+                });
                 fetchAnnouncements();
             } catch (error) {
                 console.error('Error unpinning comment:', error);
@@ -1657,13 +1683,16 @@
             if (user) {
                 currentUser = user;
                 
-                // Load user data
+                // Load user data from Firestore
                 try {
-                    const userDataResult = await window.storage.get(`user:${user.uid}`);
-                    if (userDataResult) {
-                        currentUserData = JSON.parse(userDataResult.value);
+                    const db = window.firebaseDb;
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    if (userDoc.exists()) {
+                        currentUserData = userDoc.data();
                     }
-                } catch (e) {}
+                } catch (e) {
+                    console.error('Error loading user data:', e);
+                }
                 
                 // Update UI
                 document.getElementById('authView').style.display = 'none';
@@ -1751,11 +1780,12 @@
             btn.textContent = 'Creating account...';
             
             try {
-                // Check if username already exists
-                const usernamesResult = await window.storage.get('usernames', true);
-                const usernames = usernamesResult && usernamesResult.value ? JSON.parse(usernamesResult.value) : {};
+                const db = window.firebaseDb;
                 
-                if (usernames[username.toLowerCase()]) {
+                // Check if username already exists
+                const usernameDoc = await getDoc(doc(db, 'usernames', username.toLowerCase()));
+                
+                if (usernameDoc.exists()) {
                     status.style.display = 'block';
                     status.className = 'form-status error';
                     status.textContent = '✗ This username is already taken';
@@ -1768,15 +1798,17 @@
                 const userCredential = await window.firebaseCreateUser(auth, email, password);
                 
                 // Reserve username
-                usernames[username.toLowerCase()] = userCredential.user.uid;
-                await window.storage.set('usernames', JSON.stringify(usernames), true);
+                await setDoc(doc(db, 'usernames', username.toLowerCase()), {
+                    uid: userCredential.user.uid,
+                    username: username
+                });
                 
                 // Save user data
-                await window.storage.set(`user:${userCredential.user.uid}`, JSON.stringify({
+                await setDoc(doc(db, 'users', userCredential.user.uid), {
                     username: username,
                     email: email,
-                    createdAt: Date.now()
-                }));
+                    createdAt: serverTimestamp()
+                });
                 
                 status.style.display = 'block';
                 status.className = 'form-status success';
