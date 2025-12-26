@@ -20,7 +20,6 @@
         overflow-x: hidden;
     }
 
-    /* Background */
     .bg-wrapper {
         position: fixed;
         top: 0;
@@ -37,7 +36,6 @@
         filter: brightness(0.3) blur(2px);
     }
 
-    /* Navigation */
     nav {
         background: rgba(15, 15, 15, 0.95);
         backdrop-filter: blur(10px);
@@ -97,7 +95,6 @@
         border-bottom-color: #fff;
     }
 
-    /* Main Content Area */
     .content-wrapper {
         max-width: 1400px;
         margin: 0 auto;
@@ -125,7 +122,6 @@
         }
     }
 
-    /* Home Tab */
     .hero-section {
         text-align: center;
         padding: 4rem 0;
@@ -153,7 +149,6 @@
         margin: 0 auto 2rem;
     }
 
-    /* No Projects Section */
     .no-projects {
         text-align: center;
         padding: 5rem 2rem;
@@ -174,7 +169,6 @@
         line-height: 1.6;
     }
 
-    /* Team Tab */
     .team-container {
         max-width: 500px;
         margin: 0 auto;
@@ -209,7 +203,9 @@
         font-weight: 700;
         color: #fff;
         margin-bottom: 1rem;
-        word-break: break-word;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
     .team-status {
@@ -258,7 +254,6 @@
         opacity: 1;
     }
 
-    /* Contact Tab */
     .contact-container {
         max-width: 600px;
         margin: 0 auto;
@@ -352,7 +347,6 @@
         color: #e57373;
     }
 
-    /* Privacy Policy */
     .privacy-container {
         max-width: 800px;
         margin: 0 auto;
@@ -416,7 +410,6 @@
         opacity: 0.8;
     }
 
-    /* Footer */
     footer {
         background: rgba(10, 10, 10, 0.95);
         border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -453,7 +446,6 @@
         font-size: 0.9rem;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
         nav {
             padding: 0.8rem 0;
@@ -482,7 +474,7 @@
         }
 
         .nav-tabs a {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             padding: 0.4rem 0.8rem;
         }
 
@@ -518,8 +510,6 @@
 
         .team-name {
             font-size: 1.8rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
         }
 
         .team-role {
@@ -574,7 +564,7 @@
         }
 
         .team-name {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
 
         .team-card {
@@ -610,7 +600,6 @@
 </nav>
 
 <div class="content-wrapper">
-    <!-- Home Tab -->
     <div id="home" class="tab-content active">
         <div class="hero-section">
             <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
@@ -625,7 +614,6 @@
         </div>
     </div>
 
-    <!-- Team Tab -->
     <div id="team" class="tab-content">
         <div class="team-container">
             <div class="team-card">
@@ -665,7 +653,6 @@
         </div>
     </div>
 
-    <!-- Privacy Policy Tab -->
     <div id="privacy" class="tab-content">
         <div class="privacy-container">
             <h1>Privacy Policy</h1>
@@ -713,31 +700,26 @@
 <script>
     emailjs.init("7-YrM5K_SzZC2Mn1s");
 
-    // Tab switching
     document.querySelectorAll('.tab-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             
-            // Update active states
             document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
             this.classList.add('active');
             document.getElementById(targetId).classList.add('active');
             
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
 
-    // Fetch profile
     async function fetchProfile() {
         const userId = 1534153669;
         try {
             const proxy = 'https://corsproxy.io/?';
             
-            // Fetch user data
             const userResponse = await fetch(`${proxy}https://users.roblox.com/v1/users/${userId}`);
             const userData = await userResponse.json();
             if (userData.name) {
@@ -745,7 +727,6 @@
                 document.getElementById('teamName').textContent = displayName;
             }
 
-            // Fetch presence data
             const presenceResponse = await fetch(`${proxy}https://presence.roblox.com/v1/presence/users`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -776,7 +757,6 @@
         }
     }
 
-    // Form submission
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -814,7 +794,6 @@
             });
     });
 
-    // Load data
     fetchProfile();
 </script>
 ```
