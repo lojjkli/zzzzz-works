@@ -73,7 +73,7 @@
 
         .nav-tabs {
             display: flex;
-            gap: 2rem;
+            gap: 1rem;
             list-style: none;
         }
 
@@ -748,12 +748,9 @@
                     const dot = document.getElementById('statusDot');
                     const text = document.getElementById('statusText');
                     
-                    if (presence.userPresenceType === 2) {
+                    if (presence.userPresenceType === 2 || presence.userPresenceType === 1) {
                         dot.classList.add('online');
                         text.textContent = 'Online';
-                    } else if (presence.userPresenceType === 1) {
-                        dot.classList.add('ingame');
-                        text.textContent = 'In Game';
                     } else {
                         text.textContent = 'Offline';
                     }
