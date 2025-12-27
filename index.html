@@ -1515,12 +1515,16 @@
         window.firebaseSignOut = signOut;
         window.firebaseSignIn = signInWithEmailAndPassword;
         window.firebaseCreateUser = createUserWithEmailAndPassword;
-
-        // Make Firestore functions available globally
         window.firestoreDoc = doc;
         window.firestoreGetDoc = getDoc;
         window.firestoreSetDoc = setDoc;
         window.firestoreServerTimestamp = serverTimestamp;
+
+        console.log('Firebase loaded:', {
+            auth: !!window.firebaseAuth,
+            db: !!window.firebaseDb,
+            doc: !!window.firestoreDoc
+        });
 
         emailjs.init("7-YrM5K_SzZC2Mn1s");
 
