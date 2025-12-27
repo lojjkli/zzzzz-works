@@ -1422,9 +1422,11 @@
                 const auth = window.firebaseAuth;
                 const db = window.firebaseDb;
                 
-                // Import Firestore functions
-                const firestoreModule = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
-                const { getDoc, doc, setDoc, serverTimestamp, collection } = firestoreModule;
+                // Use globally available Firestore functions
+                const doc = window.firestoreDoc;
+                const getDoc = window.firestoreGetDoc;
+                const setDoc = window.firestoreSetDoc;
+                const serverTimestamp = window.firestoreServerTimestamp;
                 
                 // Check if username exists
                 const usernameDocRef = doc(db, 'usernames', username.toLowerCase());
@@ -1508,6 +1510,12 @@
         window.firebaseSignOut = signOut;
         window.firebaseSignIn = signInWithEmailAndPassword;
         window.firebaseCreateUser = createUserWithEmailAndPassword;
+
+        // Make Firestore functions available globally
+        window.firestoreDoc = doc;
+        window.firestoreGetDoc = getDoc;
+        window.firestoreSetDoc = setDoc;
+        window.firestoreServerTimestamp = serverTimestamp;
 
         emailjs.init("7-YrM5K_SzZC2Mn1s");
 
