@@ -1354,6 +1354,17 @@
                 });
             });
         });
+
+        // Show/hide login and register forms (must be global)
+        window.showRegisterForm = function() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        };
+
+        window.showLoginForm = function() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        };
     </script>
     
     <script type="module">
@@ -1697,17 +1708,6 @@
 
         // Load announcements when tab is opened
         // (Handled in tab switching code above)
-
-        // Show/hide login and register forms
-        window.showRegisterForm = function() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        };
-
-        window.showLoginForm = function() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-        };
 
         // Image preview
         document.addEventListener('DOMContentLoaded', function() {
