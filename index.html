@@ -1419,18 +1419,23 @@
             btn.textContent = 'Creating account...';
             
             try {
+                // Wait for Firebase to be ready
+                let attempts = 0;
+                while (!window.firestoreDoc && attempts < 50) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    attempts++;
+                }
+                
+                if (!window.firestoreDoc) {
+                    throw new Error('Firebase not loaded');
+                }
+                
                 const auth = window.firebaseAuth;
                 const db = window.firebaseDb;
                 
-                // Use globally available Firestore functions
-                const doc = window.firestoreDoc;
-                const getDoc = window.firestoreGetDoc;
-                const setDoc = window.firestoreSetDoc;
-                const serverTimestamp = window.firestoreServerTimestamp;
-                
                 // Check if username exists
-                const usernameDocRef = doc(db, 'usernames', username.toLowerCase());
-                const usernameDoc = await getDoc(usernameDocRef);
+                const usernameDocRef = window.firestoreDoc(db, 'usernames', username.toLowerCase());
+                const usernameDoc = await window.firestoreGetDoc(usernameDocRef);
                 
                 if (usernameDoc.exists()) {
                     status.style.display = 'block';
@@ -1445,16 +1450,16 @@
                 const userCredential = await window.firebaseCreateUser(auth, email, password);
                 
                 // Reserve username
-                await setDoc(doc(db, 'usernames', username.toLowerCase()), {
+                await window.firestoreSetDoc(window.firestoreDoc(db, 'usernames', username.toLowerCase()), {
                     uid: userCredential.user.uid,
                     username: username
                 });
                 
                 // Save user data
-                await setDoc(doc(db, 'users', userCredential.user.uid), {
+                await window.firestoreSetDoc(window.firestoreDoc(db, 'users', userCredential.user.uid), {
                     username: username,
                     email: email,
-                    createdAt: serverTimestamp()
+                    createdAt: window.firestoreServerTimestamp()
                 });
                 
                 status.style.display = 'block';
