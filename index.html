@@ -1779,6 +1779,7 @@
         // Login form
         document.getElementById('loginFormElement').addEventListener('submit', async function(e) {
             e.preventDefault();
+            e.stopPropagation();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             const status = document.getElementById('loginStatus');
@@ -1810,11 +1811,14 @@
                 btn.disabled = false;
                 btn.textContent = 'Login';
             }
+            
+            return false;
         });
 
         // Register form
         document.getElementById('registerFormElement').addEventListener('submit', async function(e) {
             e.preventDefault();
+            e.stopPropagation();
             const username = document.getElementById('registerUsername').value.trim();
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
@@ -1827,7 +1831,7 @@
                 status.className = 'form-status error';
                 status.textContent = '✗ Passwords do not match';
                 setTimeout(() => status.style.display = 'none', 3000);
-                return;
+                return false;
             }
             
             btn.disabled = true;
@@ -1846,7 +1850,7 @@
                     setTimeout(() => status.style.display = 'none', 3000);
                     btn.disabled = false;
                     btn.textContent = 'Create Account';
-                    return;
+                    return false;
                 }
                 
                 const userCredential = await window.firebaseCreateUser(auth, email, password);
@@ -1885,6 +1889,8 @@
                 btn.disabled = false;
                 btn.textContent = 'Create Account';
             }
+            
+            return false;
         });
 
         window.userLogout = async function() {
