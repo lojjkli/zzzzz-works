@@ -238,11 +238,6 @@
             box-shadow: 0 0 8px #4CAF50;
         }
 
-        .status-dot.ingame {
-            background: #FFA500;
-            box-shadow: 0 0 8px #FFA500;
-        }
-
         .team-bio {
             color: #999;
             line-height: 1.6;
@@ -420,7 +415,7 @@
         /* Announcements */
         .announcements-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .announcements-header h1 {
@@ -436,57 +431,103 @@
 
         .announcements-grid {
             display: grid;
-            gap: 1.5rem;
+            gap: 0.5rem;
             max-width: 900px;
             margin: 0 auto;
         }
 
         .announcement-card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s;
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            transition: all 0.2s;
+            cursor: pointer;
         }
 
         .announcement-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
+            background: rgba(30, 30, 30, 0.7);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .announcement-card.expanded {
+            background: rgba(25, 25, 25, 0.8);
+            cursor: default;
+            padding: 1.5rem;
+        }
+
+        .announcement-card.expanded:hover {
+            background: rgba(25, 25, 25, 0.8);
         }
 
         .announcement-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
+            margin-bottom: 0;
+        }
+
+        .announcement-card.expanded .announcement-header {
             margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .announcement-icon {
+        .announcement-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .announcement-meta {
             flex: 1;
+            min-width: 0;
         }
 
         .announcement-author {
             font-weight: 600;
             color: #fff;
-            margin-bottom: 0.2rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.15rem;
         }
 
         .announcement-date {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #777;
+        }
+
+        .announcement-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #ddd;
+            margin-top: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.4;
+        }
+
+        .announcement-card.expanded .announcement-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            display: block;
+            -webkit-line-clamp: unset;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .announcement-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .announcement-card.expanded .announcement-body {
+            max-height: 2000px;
         }
 
         .announcement-content {
@@ -494,331 +535,25 @@
             line-height: 1.6;
             white-space: pre-wrap;
             word-wrap: break-word;
-        }
-
-        .announcements-loading {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: #999;
-        }
-
-        .announcements-error {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: rgba(244, 67, 54, 0.1);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-            border-radius: 12px;
-            color: #e57373;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .announcements-empty {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: #999;
-        }
-
-        .announcement-comments {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .comments-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 1rem;
-        }
-
-        .comments-count {
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        .comment-form {
-            margin-bottom: 1.5rem;
-        }
-
-        .comment-input {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #fff;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 60px;
-            margin-bottom: 0.5rem;
-        }
-
-        .comment-input:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .comment-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-small {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.85rem;
-        }
-
-        .comment-item {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .comment-item.pinned {
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            background: rgba(255, 193, 7, 0.05);
-        }
-
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .comment-author {
-            font-weight: 600;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .admin-badge {
-            background: #FFA500;
-            color: #000;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-
-        .pinned-badge {
-            background: rgba(255, 193, 7, 0.3);
-            color: #FFC107;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-
-        .comment-date {
-            font-size: 0.8rem;
-            color: #777;
-        }
-
-        .comment-text {
-            color: #ccc;
-            line-height: 1.5;
-            word-wrap: break-word;
-        }
-
-        .comment-controls {
-            margin-top: 0.5rem;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .comment-btn {
-            background: none;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            font-size: 0.8rem;
-            padding: 0.3rem 0.5rem;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .comment-btn:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .comment-btn.delete {
-            color: #e57373;
-        }
-
-        .comment-btn.delete:hover {
-            background: rgba(244, 67, 54, 0.2);
-        }
-
-        /* Profile / Admin */
-        /* Profile / Admin */
-        .profile-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .profile-card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .profile-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .profile-info h2 {
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-email {
-            color: #999;
             font-size: 0.95rem;
         }
 
-        .profile-actions {
-            display: flex;
-            gap: 1rem;
+        .announcement-content a {
+            color: #6db3f2;
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        .admin-section {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .announcement-content a:hover {
+            color: #8cc5ff;
+            text-decoration: underline;
         }
 
-        .admin-section h3 {
-            color: #FFA500;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .admin-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .admin-login {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            text-align: center;
-        }
-
-        .admin-login h2 {
-            color: #fff;
-            margin-bottom: 2rem;
-        }
-
-        .admin-panel {
-            display: none;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .admin-header h2 {
-            color: #fff;
-            font-size: 2rem;
-        }
-
-        .admin-logout {
-            padding: 0.5rem 1rem;
-            background: rgba(244, 67, 54, 0.2);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-            color: #e57373;
+        .announcement-image {
+            width: 100%;
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .admin-logout:hover {
-            background: rgba(244, 67, 54, 0.3);
-        }
-
-        .admin-form {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .admin-form h3 {
-            color: #fff;
-            margin-bottom: 1.5rem;
-        }
-
-        .admin-announcements-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .admin-announcement-item {
-            background: rgba(30, 30, 30, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .admin-announcement-content {
-            flex: 1;
-        }
-
-        .admin-announcement-text {
-            color: #ccc;
-            margin-bottom: 0.5rem;
-            word-wrap: break-word;
-        }
-
-        .admin-announcement-date {
-            font-size: 0.85rem;
-            color: #777;
-        }
-
-        .admin-announcement-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .admin-btn-delete {
-            padding: 0.5rem 1rem;
-            background: rgba(244, 67, 54, 0.2);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-            color: #e57373;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        .admin-btn-delete:hover {
-            background: rgba(244, 67, 54, 0.3);
+            margin-top: 1rem;
         }
 
         footer {
@@ -974,16 +709,6 @@
             .announcement-card {
                 padding: 1.2rem;
             }
-
-            .admin-header {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-            }
-
-            .admin-announcement-item {
-                flex-direction: column;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1027,9 +752,6 @@
                 <li><a href="#home" class="tab-link active">Home</a></li>
                 <li><a href="#announcements" class="tab-link">Announcements</a></li>
                 <li><a href="#team" class="tab-link">Team</a></li>
-                <li><a href="#profile" class="tab-link" id="profileTab">
-                    <span id="profileTabText">Login</span>
-                </a></li>
             </ul>
         </div>
     </nav>
@@ -1052,11 +774,45 @@
         <div id="announcements" class="tab-content">
             <div class="announcements-header">
                 <h1>Announcements</h1>
-                <p>Latest updates from our Discord server</p>
+                <p>Latest updates from ZzzZz Works</p>
             </div>
-            <div id="announcementsContainer">
-                <div class="announcements-loading">
-                    <p>Loading announcements...</p>
+            <div class="announcements-grid">
+                <div class="announcement-card" onclick="this.classList.toggle('expanded')">
+                    <div class="announcement-header">
+                        <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Author" class="announcement-avatar">
+                        <div class="announcement-meta">
+                            <div class="announcement-author">ZzzZz Works</div>
+                            <div class="announcement-date">Jan 16, 2025</div>
+                        </div>
+                    </div>
+                    <div class="announcement-title">website update</div>
+                    <div class="announcement-body">
+                        <div class="announcement-content">hey everyone
+
+so ive been working on updating the website to make it look better and more professional. added some new features like announcements tab where you can see all our updates and also made it easier to navigate. the website now has a cleaner look and is more responsive on mobile devices too
+
+hope you like the new design and let me know if you have any suggestions or feedback. you can always reach out through the contact form or join our discord
+
+thanks for your support</div>
+                        <img src="websiteupdate.png" alt="Website Update" class="announcement-image">
+                    </div>
+                </div>
+
+                <div class="announcement-card" onclick="this.classList.toggle('expanded')">
+                    <div class="announcement-header">
+                        <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Author" class="announcement-avatar">
+                        <div class="announcement-meta">
+                            <div class="announcement-author">ZzzZz Works | A.I</div>
+                            <div class="announcement-date">Dec 27, 2024</div>
+                        </div>
+                    </div>
+                    <div class="announcement-title">i will no longer work on our old projects since it had ai slop only and will lock onto making games/projects using human skill</div>
+                    <div class="announcement-body">
+                        <div class="announcement-content">hi after failing to release zguards update i have realized that prob no one will use it and that its just ai which made me think what the purpose of creating a bot that wont even help me level up my skill in anything well maybe my patience since ai would make me go crazy sometimes so after some thinking i have decided to quit ai and actually make games with other people that have the skill to code build model animate etc just whatever a game would need. so this means i will be retiring all existing projects such as studz zguard avatar editor pro z hub 1 second circles minigames and much more
+
+well yeah that everything for now more will be announced soon but also checkout our discord for more information: <a href="https://discord.gg/Td4ZuW2Sgf" target="_blank" onclick="event.stopPropagation()">https://discord.gg/Td4ZuW2Sgf</a></div>
+                        <img src="nomoreai.png" alt="No More AI" class="announcement-image">
+                    </div>
                 </div>
             </div>
         </div>
@@ -1097,190 +853,6 @@
                     <button type="submit" class="btn" style="width: 100%;">Send Message</button>
                     <div class="form-status" id="formStatus"></div>
                 </form>
-            </div>
-        </div>
-
-        <div id="profile" class="tab-content">
-            <div class="profile-container">
-                <!-- Login/Register View -->
-                <div id="authView" class="profile-card">
-                    <div id="loginForm" style="display: block;">
-                        <h2 style="margin-bottom: 1.5rem;">Login</h2>
-                        <form id="loginFormElement" onsubmit="return false;">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="loginEmail" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" id="loginPassword" required>
-                            </div>
-                            <button type="button" onclick="handleLogin()" class="btn" style="width: 100%;">Login</button>
-                            <div class="form-status" id="loginStatus"></div>
-                        </form>
-                        <p style="margin-top: 1rem; color: #999; text-align: center;">
-                            Don't have an account? <a href="#" onclick="showRegisterForm(); return false;" style="color: #fff;">Register</a>
-                        </p>
-                    </div>
-
-                    <div id="registerForm" style="display: none;">
-                        <h2 style="margin-bottom: 1.5rem;">Create Account</h2>
-                        <form id="registerFormElement" onsubmit="return false;">
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" id="registerUsername" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="registerEmail" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" id="registerPassword" minlength="6" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm Password</label>
-                                <input type="password" id="registerPasswordConfirm" minlength="6" required>
-                            </div>
-                            <button type="button" onclick="handleRegister()" class="btn" style="width: 100%;">Create Account</button>
-                            <div class="form-status" id="registerStatus"></div>
-                        </form>
-                        <p style="margin-top: 1rem; color: #999; text-align: center;">
-                            Already have an account? <a href="#" onclick="showLoginForm(); return false;" style="color: #fff;">Login</a>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Profile View -->
-                <div id="profileView" style="display: none;">
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-info">
-                                <h2 id="profileUsername">Username</h2>
-                                <p class="profile-email" id="profileEmail">email@example.com</p>
-                            </div>
-                            <div class="profile-actions">
-                                <button class="btn" onclick="userLogout()">Logout</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Admin Panel (only visible to lojjkli) -->
-                    <div id="adminPanel" style="display: none;">
-                        <div class="profile-card admin-section">
-                            <h3>🔑 Admin Panel</h3>
-                            
-                            <div class="admin-form">
-                                <h4 style="color: #fff; margin-bottom: 1rem;">Add New Announcement</h4>
-                                <form id="addAnnouncementForm">
-                                    <div class="form-group">
-                                        <label>Author Name</label>
-                                        <input type="text" id="announcementAuthor" value="ZzzZz Works" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Announcement Content</label>
-                                        <textarea id="announcementContent" required></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Image (Optional)</label>
-                                        <input type="file" id="announcementImage" accept="image/*">
-                                        <div id="imagePreview" style="margin-top: 0.5rem; display: none;">
-                                            <img id="previewImg" style="max-width: 200px; border-radius: 8px;">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn" style="width: 100%;">Add Announcement</button>
-                                    <div class="form-status" id="addAnnouncementStatus"></div>
-                                </form>
-                            </div>
-
-                            <div style="margin-top: 2rem;">
-                                <h4 style="color: #fff; margin-bottom: 1rem;">Manage Announcements</h4>
-                                <div id="adminAnnouncementsList" class="admin-announcements-list">
-                                    <div class="announcements-loading">Loading...</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="admin" class="tab-content" style="display: none;">
-            <div class="admin-container">
-                <div id="adminLogin" class="admin-login">
-                    <h2>Admin Access</h2>
-                    
-                    <div id="loginForm" style="display: block;">
-                        <h3 style="color: #999; font-size: 1.2rem; margin-bottom: 1.5rem;">Login</h3>
-                        <form id="adminLoginForm">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="loginEmail" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" id="loginPassword" required>
-                            </div>
-                            <button type="submit" class="btn" style="width: 100%;">Login</button>
-                            <div class="form-status" id="adminLoginStatus"></div>
-                        </form>
-                        <p style="margin-top: 1rem; color: #999;">Don't have an account? <a href="#" onclick="showRegisterForm(); return false;" style="color: #fff;">Register</a></p>
-                    </div>
-
-                    <div id="registerForm" style="display: none;">
-                        <h3 style="color: #999; font-size: 1.2rem; margin-bottom: 1.5rem;">Create Account</h3>
-                        <form id="adminRegisterForm">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="registerEmail" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" id="registerPassword" minlength="6" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm Password</label>
-                                <input type="password" id="registerPasswordConfirm" minlength="6" required>
-                            </div>
-                            <button type="submit" class="btn" style="width: 100%;">Create Account</button>
-                            <div class="form-status" id="adminRegisterStatus"></div>
-                        </form>
-                        <p style="margin-top: 1rem; color: #999;">Already have an account? <a href="#" onclick="showLoginForm(); return false;" style="color: #fff;">Login</a></p>
-                    </div>
-                </div>
-
-                <div id="adminPanel" class="admin-panel">
-                    <div class="admin-header">
-                        <div>
-                            <h2>Manage Announcements</h2>
-                            <p style="color: #999; font-size: 0.9rem; margin-top: 0.5rem;">Logged in as: <span id="currentUserEmail" style="color: #fff;"></span></p>
-                        </div>
-                        <button class="admin-logout" onclick="adminLogout()">Logout</button>
-                    </div>
-
-                    <div class="admin-form">
-                        <h3>Add New Announcement</h3>
-                        <form id="addAnnouncementForm">
-                            <div class="form-group">
-                                <label>Author Name</label>
-                                <input type="text" id="announcementAuthor" value="ZzzZz Works" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Announcement Content</label>
-                                <textarea id="announcementContent" required></textarea>
-                            </div>
-                            <button type="submit" class="btn" style="width: 100%;">Add Announcement</button>
-                            <div class="form-status" id="addAnnouncementStatus"></div>
-                        </form>
-                    </div>
-
-                    <div class="admin-form">
-                        <h3>Existing Announcements</h3>
-                        <div id="adminAnnouncementsList" class="admin-announcements-list">
-                            <div class="announcements-loading">Loading...</div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -1328,210 +900,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
     <script>
-        // Tab switching (must be outside module for immediate execution)
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.tab-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    
-                    // Update active states
-                    document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    
-                    this.classList.add('active');
-                    document.getElementById(targetId).classList.add('active');
-                    
-                    // Load announcements if switching to announcements tab
-                    if (targetId === 'announcements' && window.fetchAnnouncements) {
-                        window.fetchAnnouncements();
-                    }
-                    
-                    // Scroll to top
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            });
-        });
-
-        // Show/hide login and register forms (must be global)
-        window.showRegisterForm = function() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        };
-
-        window.showLoginForm = function() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-        };
-
-        // Login handler
-        window.handleLogin = async function() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            const status = document.getElementById('loginStatus');
-            const btn = document.querySelector('#loginFormElement button');
-            
-            btn.disabled = true;
-            btn.textContent = 'Logging in...';
-            
-            try {
-                const auth = window.firebaseAuth;
-                await window.firebaseSignIn(auth, email, password);
-                status.style.display = 'block';
-                status.className = 'form-status success';
-                status.textContent = '✓ Login successful!';
-                document.getElementById('loginFormElement').reset();
-            } catch (error) {
-                status.style.display = 'block';
-                status.className = 'form-status error';
-                if (error.code === 'auth/invalid-credential') {
-                    status.textContent = '✗ Invalid email or password';
-                } else {
-                    status.textContent = '✗ Login failed: ' + error.message;
-                }
-                setTimeout(() => status.style.display = 'none', 5000);
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Login';
-            }
-        };
-
-        // Register handler
-        window.handleRegister = async function() {
-            const username = document.getElementById('registerUsername').value.trim();
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerPasswordConfirm').value;
-            const status = document.getElementById('registerStatus');
-            const btn = document.querySelector('#registerFormElement button');
-            
-            if (password !== confirmPassword) {
-                status.style.display = 'block';
-                status.className = 'form-status error';
-                status.textContent = '✗ Passwords do not match';
-                setTimeout(() => status.style.display = 'none', 3000);
-                return;
-            }
-            
-            btn.disabled = true;
-            btn.textContent = 'Creating account...';
-            
-            try {
-                // Import Firebase modules fresh each time
-                const { getAuth, createUserWithEmailAndPassword } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js');
-                const { getFirestore, doc, getDoc, setDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
-                
-                // Wait for Firebase to be initialized
-                let attempts = 0;
-                while ((!window.firebaseAuth || !window.firebaseDb) && attempts < 50) {
-                    await new Promise(resolve => setTimeout(resolve, 100));
-                    attempts++;
-                }
-                
-                const auth = window.firebaseAuth;
-                const db = window.firebaseDb;
-                
-                if (!auth || !db) {
-                    throw new Error('Firebase not initialized. Please refresh the page.');
-                }
-                
-                console.log('Auth:', !!auth, 'DB:', !!db, 'DB type:', typeof db);
-                
-                // Check if username exists
-                const usernameDocRef = doc(db, 'usernames', username.toLowerCase());
-                const usernameDocSnap = await getDoc(usernameDocRef);
-                
-                if (usernameDocSnap.exists()) {
-                    status.style.display = 'block';
-                    status.className = 'form-status error';
-                    status.textContent = '✗ This username is already taken';
-                    setTimeout(() => status.style.display = 'none', 3000);
-                    btn.disabled = false;
-                    btn.textContent = 'Create Account';
-                    return;
-                }
-                
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                
-                // Reserve username
-                await setDoc(doc(db, 'usernames', username.toLowerCase()), {
-                    uid: userCredential.user.uid,
-                    username: username
-                });
-                
-                // Save user data
-                await setDoc(doc(db, 'users', userCredential.user.uid), {
-                    username: username,
-                    email: email,
-                    createdAt: serverTimestamp()
-                });
-                
-                status.style.display = 'block';
-                status.className = 'form-status success';
-                status.textContent = '✓ Account created successfully!';
-                document.getElementById('registerFormElement').reset();
-            } catch (error) {
-                console.error('Registration error:', error);
-                status.style.display = 'block';
-                status.className = 'form-status error';
-                if (error.code === 'auth/email-already-in-use') {
-                    status.textContent = '✗ This email is already registered';
-                } else if (error.code === 'auth/weak-password') {
-                    status.textContent = '✗ Password should be at least 6 characters';
-                } else if (error.code === 'auth/invalid-email') {
-                    status.textContent = '✗ Invalid email address';
-                } else {
-                    status.textContent = '✗ Registration failed: ' + error.message;
-                }
-                setTimeout(() => status.style.display = 'none', 5000);
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Create Account';
-            }
-        };
-    </script>
-    
-    <script type="module">
-        // Firebase imports
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-        import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, deleteDoc, updateDoc, query, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDi1Gd5BdqVi5Qil0H0b9mFbxU31t9-RtA",
-            authDomain: "zzzzz-works.firebaseapp.com",
-            projectId: "zzzzz-works",
-            storageBucket: "zzzzz-works.firebasestorage.app",
-            messagingSenderId: "192987314536",
-            appId: "1:192987314536:web:fbafff23e860fb63d9bedd",
-            measurementId: "G-9H4BFMES8J"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Make available globally
-        window.firebaseAuth = auth;
-        window.firebaseDb = db;
-        window.firebaseSignOut = signOut;
-        window.firebaseSignIn = signInWithEmailAndPassword;
-        window.firebaseCreateUser = createUserWithEmailAndPassword;
-        window.firestoreDoc = doc;
-        window.firestoreGetDoc = getDoc;
-        window.firestoreSetDoc = setDoc;
-        window.firestoreServerTimestamp = serverTimestamp;
-
-        console.log('Firebase loaded:', {
-            auth: !!window.firebaseAuth,
-            db: !!window.firebaseDb,
-            doc: !!window.firestoreDoc
-        });
-
         emailjs.init("7-YrM5K_SzZC2Mn1s");
 
         // Tab switching
@@ -1541,52 +910,31 @@
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
                     
-                    // Update active states
                     document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
                     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                     
                     this.classList.add('active');
                     document.getElementById(targetId).classList.add('active');
                     
-                    // Load announcements if switching to announcements tab
-                    if (targetId === 'announcements') {
-                        fetchAnnouncements();
-                    }
-                    
-                    // Scroll to top
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             });
         });
 
-        document.querySelectorAll('.tab-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                
-                document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                this.classList.add('active');
-                document.getElementById(targetId).classList.add('active');
-                
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-
+        // Fetch profile
         async function fetchProfile() {
             const userId = 1534153669;
             try {
-                const proxy = 'https://corsproxy.io/?';
+                const proxy = 'https://api.allorigins.win/raw?url=';
                 
-                const userResponse = await fetch(`${proxy}https://users.roblox.com/v1/users/${userId}`);
+                const userResponse = await fetch(`${proxy}${encodeURIComponent('https://users.roblox.com/v1/users/' + userId)}`);
                 const userData = await userResponse.json();
                 if (userData.name) {
                     const displayName = userData.displayName || userData.name;
                     document.getElementById('teamName').textContent = displayName;
                 }
 
-                const presenceResponse = await fetch(`${proxy}https://presence.roblox.com/v1/presence/users`, {
+                const presenceResponse = await fetch(`${proxy}${encodeURIComponent('https://presence.roblox.com/v1/presence/users')}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ userIds: [userId] })
@@ -1613,6 +961,7 @@
             }
         }
 
+        // Form submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1651,380 +1000,6 @@
         });
 
         fetchProfile();
-
-        // Fetch announcements with comments
-        window.fetchAnnouncements = async function() {
-            const container = document.getElementById('announcementsContainer');
-            
-            try {
-                const db = window.firebaseDb;
-                const announcementsRef = collection(db, 'announcements');
-                const q = query(announcementsRef, orderBy('timestamp', 'desc'));
-                const querySnapshot = await getDocs(q);
-                
-                if (querySnapshot.empty) {
-                    container.innerHTML = '<div class="announcements-empty"><p>No announcements yet. Check back soon!</p></div>';
-                    return;
-                }
-                
-                const announcementsHTML = [];
-                
-                for (const docSnap of querySnapshot.docs) {
-                    const announcement = docSnap.data();
-                    const commentsHTML = await renderComments(docSnap.id, announcement);
-                    announcementsHTML.push(`
-                        <div class="announcement-card">
-                            <div class="announcement-header">
-                                <div class="announcement-icon">📢</div>
-                                <div class="announcement-meta">
-                                    <div class="announcement-author">${announcement.author || 'ZzzZz Works'}</div>
-                                    <div class="announcement-date">${announcement.date || 'Recently'}</div>
-                                </div>
-                            </div>
-                            <div class="announcement-content">${announcement.content}</div>
-                            ${announcement.imageUrl ? `<img src="${announcement.imageUrl}" style="max-width: 100%; border-radius: 8px; margin-top: 1rem;">` : ''}
-                            ${commentsHTML}
-                        </div>
-                    `);
-                }
-                
-                container.innerHTML = `<div class="announcements-grid">${announcementsHTML.join('')}</div>`;
-                
-            } catch (error) {
-                console.error('Error fetching announcements:', error);
-                container.innerHTML = '<div class="announcements-empty"><p>No announcements yet. Check back soon!</p></div>';
-            }
-        }
-
-        async function renderComments(announcementId, announcement) {
-            const user = window.firebaseAuth.currentUser;
-            const isLoggedIn = !!user;
-            
-            let userData = null;
-            let isAdmin = false;
-            if (user) {
-                try {
-                    const db = window.firebaseDb;
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
-                    if (userDoc.exists()) {
-                        userData = userDoc.data();
-                        isAdmin = userData.username === 'lojjkli';
-                    }
-                } catch (e) {
-                    console.error('Error fetching user data:', e);
-                }
-            }
-            
-            // Get comments
-            let comments = [];
-            try {
-                const db = window.firebaseDb;
-                const commentsRef = collection(db, 'announcements', announcementId, 'comments');
-                const q = query(commentsRef, orderBy('timestamp', 'asc'));
-                const commentsSnapshot = await getDocs(q);
-                comments = commentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            } catch (e) {
-                console.error('Error fetching comments:', e);
-            }
-            
-            // Sort comments - pinned first
-            const sortedComments = [...comments].sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
-            
-            const commentsListHTML = sortedComments.map(comment => `
-                <div class="comment-item ${comment.pinned ? 'pinned' : ''}">
-                    <div class="comment-header">
-                        <div class="comment-author">
-                            ${comment.username}
-                            ${comment.isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}
-                            ${comment.pinned ? '<span class="pinned-badge">📌 PINNED</span>' : ''}
-                        </div>
-                        <div class="comment-date">${comment.date}</div>
-                    </div>
-                    <div class="comment-text">${comment.text}</div>
-                    ${isAdmin ? `
-                        <div class="comment-controls">
-                            ${!comment.pinned ? `<button class="comment-btn" onclick="pinComment('${announcementId}', '${comment.id}')">📌 Pin</button>` : `<button class="comment-btn" onclick="unpinComment('${announcementId}', '${comment.id}')">Unpin</button>`}
-                            <button class="comment-btn delete" onclick="deleteComment('${announcementId}', '${comment.id}')">Delete</button>
-                        </div>
-                    ` : ''}
-                </div>
-            `).join('');
-            
-            return `
-                <div class="announcement-comments">
-                    <div class="comments-header">
-                        <span class="comments-count">${comments.length} comment${comments.length !== 1 ? 's' : ''}</span>
-                    </div>
-                    ${isLoggedIn ? `
-                        <div class="comment-form">
-                            <textarea class="comment-input" id="commentInput${announcementId}" placeholder="Write a comment..."></textarea>
-                            <div class="comment-actions">
-                                <button class="btn btn-small" onclick="postComment('${announcementId}')">Post Comment</button>
-                            </div>
-                        </div>
-                    ` : `
-                        <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 1rem;">
-                            <p style="color: #999;">Please <a href="#profile" class="tab-link" style="color: #fff;">login</a> to comment</p>
-                        </div>
-                    `}
-                    <div>${commentsListHTML}</div>
-                </div>
-            `;
-        }
-
-        window.postComment = async function(announcementId) {
-            const user = window.firebaseAuth.currentUser;
-            if (!user) return;
-            
-            const input = document.getElementById(`commentInput${announcementId}`);
-            const text = input.value.trim();
-            if (!text) return;
-            
-            try {
-                const db = window.firebaseDb;
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                const userData = userDoc.exists() ? userDoc.data() : { username: user.email.split('@')[0] };
-                
-                const commentsRef = collection(db, 'announcements', announcementId, 'comments');
-                await addDoc(commentsRef, {
-                    text,
-                    username: userData.username,
-                    isAdmin: userData.username === 'lojjkli',
-                    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                    timestamp: serverTimestamp(),
-                    pinned: false
-                });
-                
-                input.value = '';
-                fetchAnnouncements();
-            } catch (error) {
-                console.error('Error posting comment:', error);
-                alert('Failed to post comment');
-            }
-        };
-
-        window.deleteComment = async function(announcementId, commentId) {
-            if (!confirm('Delete this comment?')) return;
-            
-            try {
-                const db = window.firebaseDb;
-                await deleteDoc(doc(db, 'announcements', announcementId, 'comments', commentId));
-                fetchAnnouncements();
-            } catch (error) {
-                console.error('Error deleting comment:', error);
-                alert('Failed to delete comment');
-            }
-        };
-
-        window.pinComment = async function(announcementId, commentId) {
-            try {
-                const db = window.firebaseDb;
-                await updateDoc(doc(db, 'announcements', announcementId, 'comments', commentId), {
-                    pinned: true
-                });
-                fetchAnnouncements();
-            } catch (error) {
-                console.error('Error pinning comment:', error);
-                alert('Failed to pin comment');
-            }
-        };
-
-        window.unpinComment = async function(announcementId, commentId) {
-            try {
-                const db = window.firebaseDb;
-                await updateDoc(doc(db, 'announcements', announcementId, 'comments', commentId), {
-                    pinned: false
-                });
-                fetchAnnouncements();
-            } catch (error) {
-                console.error('Error unpinning comment:', error);
-                alert('Failed to unpin comment');
-            }
-        };
-
-        // Load announcements when tab is opened
-        // (Handled in tab switching code above)
-
-        // Image preview
-        document.addEventListener('DOMContentLoaded', function() {
-            const imageInput = document.getElementById('announcementImage');
-            if (imageInput) {
-                imageInput.addEventListener('change', function(e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            document.getElementById('previewImg').src = e.target.result;
-                            document.getElementById('imagePreview').style.display = 'block';
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-        });
-
-        // User authentication
-        let currentUser = null;
-        let currentUserData = null;
-
-        // Wait for DOM to be ready before attaching form handlers
-        // (Form handlers are now in global scope as onclick handlers)
-
-        // Check authentication state
-        const auth = window.firebaseAuth;
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                currentUser = user;
-                
-                // Load user data from Firestore
-                try {
-                    const db = window.firebaseDb;
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
-                    if (userDoc.exists()) {
-                        currentUserData = userDoc.data();
-                    }
-                } catch (e) {
-                    console.error('Error loading user data:', e);
-                }
-                
-                // Update UI
-                document.getElementById('authView').style.display = 'none';
-                document.getElementById('profileView').style.display = 'block';
-                document.getElementById('profileUsername').textContent = currentUserData?.username || user.email.split('@')[0];
-                document.getElementById('profileEmail').textContent = user.email;
-                document.getElementById('profileTabText').textContent = currentUserData?.username || 'Profile';
-                
-                // Show admin panel if user is lojjkli
-                if (currentUserData?.username === 'lojjkli') {
-                    document.getElementById('adminPanel').style.display = 'block';
-                    loadAdminAnnouncements();
-                } else {
-                    document.getElementById('adminPanel').style.display = 'none';
-                }
-                
-                // Reload announcements to show comment forms
-                if (document.getElementById('announcements').classList.contains('active')) {
-                    fetchAnnouncements();
-                }
-            } else {
-                currentUser = null;
-                currentUserData = null;
-                document.getElementById('authView').style.display = 'block';
-                document.getElementById('profileView').style.display = 'none';
-                document.getElementById('profileTabText').textContent = 'Login';
-            }
-        });
-
-        window.userLogout = async function() {
-            try {
-                await window.firebaseSignOut(auth);
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-                showLoginForm();
-            } catch (error) {
-                console.error('Logout error:', error);
-                alert('Failed to logout');
-            }
-        };
-
-        async function loadAdminAnnouncements() {
-            const list = document.getElementById('adminAnnouncementsList');
-            
-            try {
-                const result = await window.storage.get('announcements', true);
-                const announcements = result && result.value ? JSON.parse(result.value) : [];
-                
-                if (announcements.length === 0) {
-                    list.innerHTML = '<div class="announcements-empty"><p>No announcements yet.</p></div>';
-                    return;
-                }
-                
-                list.innerHTML = announcements.map((ann, index) => `
-                    <div class="admin-announcement-item">
-                        <div class="admin-announcement-content">
-                            <div class="admin-announcement-text">${ann.content}</div>
-                            <div class="admin-announcement-date">${ann.author} • ${ann.date}</div>
-                        </div>
-                        <div class="admin-announcement-actions">
-                            <button class="admin-btn-delete" onclick="deleteAnnouncement(${index})">Delete</button>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (error) {
-                console.error('Error loading admin announcements:', error);
-                list.innerHTML = '<div class="announcements-error"><p>Error loading announcements</p></div>';
-            }
-        }
-
-        document.getElementById('addAnnouncementForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const status = document.getElementById('addAnnouncementStatus');
-            const btn = this.querySelector('button');
-            
-            btn.disabled = true;
-            btn.textContent = 'Adding...';
-            
-            try {
-                const result = await window.storage.get('announcements', true);
-                const announcements = result && result.value ? JSON.parse(result.value) : [];
-                
-                const newAnnouncement = {
-                    id: Date.now(),
-                    author: document.getElementById('announcementAuthor').value,
-                    content: document.getElementById('announcementContent').value,
-                    date: new Date().toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                    }),
-                    timestamp: Date.now(),
-                    comments: []
-                };
-                
-                announcements.unshift(newAnnouncement);
-                
-                await window.storage.set('announcements', JSON.stringify(announcements), true);
-                
-                status.style.display = 'block';
-                status.className = 'form-status success';
-                status.textContent = '✓ Announcement added successfully!';
-                
-                this.reset();
-                document.getElementById('announcementAuthor').value = 'ZzzZz Works';
-                loadAdminAnnouncements();
-                
-                setTimeout(() => status.style.display = 'none', 3000);
-            } catch (error) {
-                console.error('Error adding announcement:', error);
-                status.style.display = 'block';
-                status.className = 'form-status error';
-                status.textContent = '✗ Failed to add announcement';
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Add Announcement';
-            }
-        });
-
-        async function deleteAnnouncement(index) {
-            if (!confirm('Are you sure you want to delete this announcement?')) {
-                return;
-            }
-            
-            try {
-                const result = await window.storage.get('announcements', true);
-                const announcements = result && result.value ? JSON.parse(result.value) : [];
-                
-                announcements.splice(index, 1);
-                
-                await window.storage.set('announcements', JSON.stringify(announcements), true);
-                
-                loadAdminAnnouncements();
-            } catch (error) {
-                console.error('Error deleting announcement:', error);
-                alert('Failed to delete announcement');
-            }
-        }
     </script>
 </body>
 </html>
