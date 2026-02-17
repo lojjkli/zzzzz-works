@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,994 +13,984 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
-        }
+```
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #0a0a0a;
+        color: #e0e0e0;
+        overflow-x: hidden;
+        position: relative;
+        min-height: 100vh;
+    }
 
-        .bg-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
+    /* Purple ambient glow */
+    body::before {
+        content: '';
+        position: fixed;
+        top: -200px;
+        left: -200px;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(circle, rgba(120, 60, 200, 0.13) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
 
-        .bg-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.3) blur(2px);
-        }
+    body::after {
+        content: '';
+        position: fixed;
+        bottom: -200px;
+        right: -200px;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(circle, rgba(90, 40, 170, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
 
-        nav {
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+    .bg-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    .bg-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.3) blur(2px);
+    }
+
+    nav {
+        background: rgba(15, 15, 15, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(140, 80, 220, 0.25);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 20px rgba(100, 50, 180, 0.1);
+    }
+
+    .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 3%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 22px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .logo img {
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+    }
+
+    .nav-tabs {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+    }
+
+    .nav-tabs a {
+        color: #999;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+    }
+
+    .nav-tabs a:hover {
+        color: #fff;
+    }
+
+    .nav-tabs a.active {
+        color: #c084fc;
+        border-bottom-color: #9b59f5;
+    }
+
+    .content-wrapper {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 3rem 3%;
+        min-height: calc(100vh - 200px);
+        position: relative;
+        z-index: 1;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.4s ease-in;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
         }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hero-section {
+        text-align: center;
+        padding: 4rem 0;
+    }
+
+    .hero-logo {
+        width: 140px;
+        height: 140px;
+        border-radius: 18px;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 40px rgba(120, 60, 200, 0.2);
+    }
+
+    .hero-section h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        color: #fff;
+        font-weight: 800;
+    }
+
+    .hero-section p {
+        font-size: 1.3rem;
+        color: #999;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+
+    .new-updates {
+        text-align: center;
+        padding: 4rem 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+        background: rgba(100, 40, 200, 0.06);
+        border: 1px solid rgba(140, 80, 220, 0.15);
+        border-radius: 16px;
+    }
+
+    .new-updates h2 {
+        font-size: 2rem;
+        color: #fff;
+        margin-bottom: 1rem;
+    }
+
+    .new-updates p {
+        color: #999;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .team-container {
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .team-card {
+        background: rgba(20, 20, 20, 0.8);
+        border: 1px solid rgba(140, 80, 220, 0.15);
+        border-radius: 16px;
+        padding: 3rem;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .team-avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        border: 3px solid rgba(140, 80, 220, 0.3);
+    }
+
+    .team-role {
+        color: #777;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 1rem;
+    }
+
+    .team-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+        max-width: 100%;
+    }
+
+    .team-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0.5rem 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 25px;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #555;
+    }
+
+    .status-dot.online {
+        background: #4CAF50;
+        box-shadow: 0 0 8px #4CAF50;
+    }
+
+    .team-bio {
+        color: #999;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .team-link {
+        color: #c084fc;
+        text-decoration: none;
+        font-size: 0.9rem;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+    }
+
+    .team-link:hover {
+        opacity: 1;
+    }
+
+    .contact-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .contact-intro {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .contact-intro h2 {
+        font-size: 2rem;
+        color: #fff;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-intro p {
+        color: #999;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        color: #ccc;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.9rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: #fff;
+        font-family: inherit;
+        transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: rgba(140, 80, 220, 0.5);
+        background: rgba(100, 40, 200, 0.07);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 140px;
+    }
+
+    .btn {
+        padding: 0.7rem 1.5rem;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #7b35d8, #9b59f5);
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 0.95rem;
+        box-shadow: 0 4px 15px rgba(130, 60, 210, 0.35);
+    }
+
+    .btn:hover {
+        background: linear-gradient(135deg, #8c40f0, #a96bf7);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(130, 60, 210, 0.5);
+    }
+
+    .form-status {
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 10px;
+        display: none;
+    }
+
+    .form-status.success {
+        background: rgba(76, 175, 80, 0.15);
+        border: 1px solid rgba(76, 175, 80, 0.3);
+        color: #81c784;
+    }
+
+    .form-status.error {
+        background: rgba(244, 67, 54, 0.15);
+        border: 1px solid rgba(244, 67, 54, 0.3);
+        color: #e57373;
+    }
+
+    .privacy-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .privacy-container h1 {
+        font-size: 2.5rem;
+        color: #fff;
+        margin-bottom: 0.5rem;
+    }
+
+    .updated-date {
+        color: #777;
+        font-size: 0.95rem;
+        margin-bottom: 3rem;
+    }
+
+    .privacy-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .privacy-section h2 {
+        font-size: 1.5rem;
+        color: #fff;
+        margin-bottom: 1rem;
+    }
+
+    .privacy-section p {
+        color: #aaa;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+
+    .privacy-section ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .privacy-section li {
+        color: #aaa;
+        line-height: 1.8;
+        padding-left: 1.5rem;
+        position: relative;
+        margin-bottom: 0.5rem;
+    }
+
+    .privacy-section li:before {
+        content: "•";
+        color: #9b59f5;
+        position: absolute;
+        left: 0;
+    }
+
+    .privacy-section a {
+        color: #c084fc;
+        text-decoration: underline;
+    }
+
+    .privacy-section a:hover {
+        opacity: 0.8;
+    }
+
+    /* Announcements */
+    .announcements-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .announcements-header h1 {
+        font-size: 2.5rem;
+        color: #fff;
+        margin-bottom: 0.5rem;
+    }
+
+    .announcements-header p {
+        color: #999;
+        font-size: 1.1rem;
+    }
+
+    .announcements-grid {
+        display: grid;
+        gap: 0.5rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .announcement-card {
+        background: rgba(20, 20, 20, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 1rem 1.2rem;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+
+    .announcement-card:hover {
+        background: rgba(30, 30, 30, 0.7);
+        border-color: rgba(140, 80, 220, 0.2);
+    }
+
+    .announcement-card.expanded {
+        background: rgba(25, 25, 25, 0.8);
+        border-color: rgba(140, 80, 220, 0.25);
+        cursor: default;
+        padding: 1.5rem;
+    }
+
+    .announcement-card.expanded:hover {
+        background: rgba(25, 25, 25, 0.8);
+    }
+
+    .announcement-header {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 0;
+    }
+
+    .announcement-card.expanded .announcement-header {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .announcement-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid rgba(140, 80, 220, 0.2);
+    }
+
+    .announcement-meta {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .announcement-author {
+        font-weight: 600;
+        color: #fff;
+        font-size: 0.95rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .announcement-date {
+        font-size: 0.75rem;
+        color: #777;
+    }
+
+    .announcement-title {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #ddd;
+        margin-top: 0.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4;
+    }
+
+    .announcement-card.expanded .announcement-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        display: block;
+        -webkit-line-clamp: unset;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    .announcement-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .announcement-card.expanded .announcement-body {
+        max-height: 2000px;
+    }
+
+    .announcement-content {
+        color: #ccc;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .announcement-content a {
+        color: #c084fc;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .announcement-content a:hover {
+        color: #d8b4fe;
+        text-decoration: underline;
+    }
+
+    .announcement-image {
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 1rem;
+    }
+
+    footer {
+        background: rgba(10, 10, 10, 0.95);
+        border-top: 1px solid rgba(140, 80, 220, 0.15);
+        padding: 2rem 3%;
+        text-align: center;
+        margin-top: 4rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-link {
+        color: #999;
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+    }
+
+    .footer-link:hover {
+        color: #c084fc;
+    }
+
+    .copyright {
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        nav { padding: 0.8rem 0; }
 
         .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 3%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0 5%;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 22px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .logo img {
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-        }
+        .logo { font-size: 18px; }
+        .logo img { width: 38px; height: 38px; }
 
         .nav-tabs {
-            display: flex;
-            gap: 1rem;
-            list-style: none;
-        }
-
-        .nav-tabs a {
-            color: #999;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            transition: all 0.3s;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-        }
-
-        .nav-tabs a:hover {
-            color: #fff;
-        }
-
-        .nav-tabs a.active {
-            color: #fff;
-            border-bottom-color: #fff;
-        }
-
-        .content-wrapper {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 3%;
-            min-height: calc(100vh - 200px);
-            position: relative;
-            z-index: 1;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-in;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-section {
-            text-align: center;
-            padding: 4rem 0;
-        }
-
-        .hero-logo {
-            width: 140px;
-            height: 140px;
-            border-radius: 18px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-section h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: #fff;
-            font-weight: 800;
-        }
-
-        .hero-section p {
-            font-size: 1.3rem;
-            color: #999;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .no-projects {
-            text-align: center;
-            padding: 5rem 2rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .no-projects h2 {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        .no-projects p {
-            color: #999;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .team-container {
-            max-width: 500px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .team-card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 3rem;
             width: 100%;
-            max-width: 500px;
-        }
-
-        .team-avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .team-role {
-            color: #777;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            margin-bottom: 1rem;
-        }
-
-        .team-name {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 1rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            word-break: break-word;
-            hyphens: auto;
-            max-width: 100%;
-        }
-
-        .team-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 25px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #555;
-        }
-
-        .status-dot.online {
-            background: #4CAF50;
-            box-shadow: 0 0 8px #4CAF50;
-        }
-
-        .team-bio {
-            color: #999;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .team-link {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-        }
-
-        .team-link:hover {
-            opacity: 1;
-        }
-
-        .contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-intro {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .contact-intro h2 {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-intro p {
-            color: #999;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            color: #ccc;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.9rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-family: inherit;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 140px;
-        }
-
-        .btn {
-            padding: 0.7rem 1.5rem;
-            border: none;
-            border-radius: 10px;
-            background: #fff;
-            color: #000;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 0.95rem;
-        }
-
-        .btn:hover {
-            background: #e0e0e0;
-            transform: translateY(-2px);
-        }
-
-        .form-status {
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .form-status.success {
-            background: rgba(76, 175, 80, 0.15);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            color: #81c784;
-        }
-
-        .form-status.error {
-            background: rgba(244, 67, 54, 0.15);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-            color: #e57373;
-        }
-
-        .privacy-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .privacy-container h1 {
-            font-size: 2.5rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .updated-date {
-            color: #777;
-            font-size: 0.95rem;
-            margin-bottom: 3rem;
-        }
-
-        .privacy-section {
-            margin-bottom: 2.5rem;
-        }
-
-        .privacy-section h2 {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        .privacy-section p {
-            color: #aaa;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-
-        .privacy-section ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .privacy-section li {
-            color: #aaa;
-            line-height: 1.8;
-            padding-left: 1.5rem;
-            position: relative;
-            margin-bottom: 0.5rem;
-        }
-
-        .privacy-section li:before {
-            content: "•";
-            color: #fff;
-            position: absolute;
-            left: 0;
-        }
-
-        .privacy-section a {
-            color: #fff;
-            text-decoration: underline;
-        }
-
-        .privacy-section a:hover {
-            opacity: 0.8;
-        }
-
-        /* Announcements */
-        .announcements-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .announcements-header h1 {
-            font-size: 2.5rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .announcements-header p {
-            color: #999;
-            font-size: 1.1rem;
-        }
-
-        .announcements-grid {
-            display: grid;
+            justify-content: space-around;
             gap: 0.5rem;
-            max-width: 900px;
-            margin: 0 auto;
+            flex-wrap: wrap;
         }
 
-        .announcement-card {
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 1rem 1.2rem;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
+        .nav-tabs a { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+        .content-wrapper { padding: 2rem 5%; }
+        .hero-section { padding: 2rem 0; }
+        .hero-logo { width: 100px; height: 100px; }
+        .hero-section h1 { font-size: 2.2rem; }
+        .hero-section p { font-size: 1.1rem; }
+        .team-card { padding: 2rem 1.5rem; }
+        .team-avatar { width: 120px; height: 120px; }
+        .team-name { font-size: 1.8rem; }
+        .team-role { font-size: 0.75rem; }
+        .team-bio { font-size: 0.95rem; }
+        .contact-intro h2 { font-size: 1.6rem; }
+        footer { padding: 1.5rem 5%; }
+        .footer-links { flex-direction: column; gap: 0.8rem; }
+        .privacy-container { padding: 1rem; }
+        .privacy-container h1 { font-size: 1.8rem; }
+        .privacy-section h2 { font-size: 1.3rem; }
+        .new-updates { padding: 3rem 1rem; }
+        .new-updates h2 { font-size: 1.6rem; }
+        .announcements-header h1 { font-size: 1.8rem; }
+        .announcement-card { padding: 1.2rem; }
+    }
 
-        .announcement-card:hover {
-            background: rgba(30, 30, 30, 0.7);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
+    @media (max-width: 480px) {
+        .hero-section h1 { font-size: 1.8rem; }
+        .hero-section p { font-size: 1rem; }
+        .team-name { font-size: 1.6rem; word-break: break-all; }
+        .team-card { padding: 1.5rem 1rem; max-width: 100%; }
+        .nav-tabs a { font-size: 0.8rem; padding: 0.3rem 0.6rem; }
+    }
+</style>
+```
 
-        .announcement-card.expanded {
-            background: rgba(25, 25, 25, 0.8);
-            cursor: default;
-            padding: 1.5rem;
-        }
-
-        .announcement-card.expanded:hover {
-            background: rgba(25, 25, 25, 0.8);
-        }
-
-        .announcement-header {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 0;
-        }
-
-        .announcement-card.expanded .announcement-header {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .announcement-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .announcement-meta {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .announcement-author {
-            font-weight: 600;
-            color: #fff;
-            font-size: 0.95rem;
-            margin-bottom: 0.15rem;
-        }
-
-        .announcement-date {
-            font-size: 0.75rem;
-            color: #777;
-        }
-
-        .announcement-title {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #ddd;
-            margin-top: 0.5rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.4;
-        }
-
-        .announcement-card.expanded .announcement-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
-            display: block;
-            -webkit-line-clamp: unset;
-            margin-top: 0;
-            margin-bottom: 1rem;
-        }
-
-        .announcement-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .announcement-card.expanded .announcement-body {
-            max-height: 2000px;
-        }
-
-        .announcement-content {
-            color: #ccc;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .announcement-content a {
-            color: #6db3f2;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .announcement-content a:hover {
-            color: #8cc5ff;
-            text-decoration: underline;
-        }
-
-        .announcement-image {
-            width: 100%;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        footer {
-            background: rgba(10, 10, 10, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2rem 3%;
-            text-align: center;
-            margin-top: 4rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-link {
-            color: #999;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-
-        .footer-link:hover {
-            color: #fff;
-        }
-
-        .copyright {
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 0.8rem 0;
-            }
-
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 0 5%;
-            }
-
-            .logo {
-                font-size: 18px;
-            }
-
-            .logo img {
-                width: 38px;
-                height: 38px;
-            }
-
-            .nav-tabs {
-                width: 100%;
-                justify-content: space-around;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-            }
-
-            .nav-tabs a {
-                font-size: 0.9rem;
-                padding: 0.4rem 0.8rem;
-            }
-
-            .content-wrapper {
-                padding: 2rem 5%;
-            }
-
-            .hero-section {
-                padding: 2rem 0;
-            }
-
-            .hero-logo {
-                width: 100px;
-                height: 100px;
-            }
-
-            .hero-section h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero-section p {
-                font-size: 1.1rem;
-            }
-
-            .team-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .team-avatar {
-                width: 120px;
-                height: 120px;
-            }
-
-            .team-name {
-                font-size: 1.8rem;
-            }
-
-            .team-role {
-                font-size: 0.75rem;
-            }
-
-            .team-bio {
-                font-size: 0.95rem;
-            }
-
-            .contact-intro h2 {
-                font-size: 1.6rem;
-            }
-
-            footer {
-                padding: 1.5rem 5%;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-
-            .privacy-container {
-                padding: 1rem;
-            }
-
-            .privacy-container h1 {
-                font-size: 1.8rem;
-            }
-
-            .privacy-section h2 {
-                font-size: 1.3rem;
-            }
-
-            .no-projects {
-                padding: 3rem 1rem;
-            }
-
-            .no-projects h2 {
-                font-size: 1.6rem;
-            }
-
-            .announcements-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .announcement-card {
-                padding: 1.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-section h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero-section p {
-                font-size: 1rem;
-            }
-
-            .team-name {
-                font-size: 1.6rem;
-                word-break: break-all;
-            }
-
-            .team-card {
-                padding: 1.5rem 1rem;
-                max-width: 100%;
-            }
-
-            .nav-tabs a {
-                font-size: 0.8rem;
-                padding: 0.3rem 0.6rem;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="bg-wrapper">
         <img src="banner.png" alt="Background" class="bg-image">
     </div>
 
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <img src="Z.png" alt="ZzzZz">
-                ZzzZz Works
-            </div>
-            <ul class="nav-tabs">
-                <li><a href="#home" class="tab-link active">Home</a></li>
-                <li><a href="#announcements" class="tab-link">Announcements</a></li>
-                <li><a href="#team" class="tab-link">Team</a></li>
-            </ul>
+```
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <img src="Z.png" alt="ZzzZz">
+            ZzzZz Works
         </div>
-    </nav>
+        <ul class="nav-tabs">
+            <li><a href="#home" class="tab-link active">Home</a></li>
+            <li><a href="#announcements" class="tab-link">Announcements</a></li>
+            <li><a href="#team" class="tab-link">Team</a></li>
+        </ul>
+    </div>
+</nav>
 
-    <div class="content-wrapper">
-        <div id="home" class="tab-content active">
-            <div class="hero-section">
-                <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
-                <h1>ZzzZz Works</h1>
-                <p>Creating safe and engaging gaming experiences for players worldwide</p>
-            </div>
-
-            <div class="no-projects">
-                <h2>Our Previous Projects Have Been Retired</h2>
-                <p>We've decided to move in a new direction and are excited to explore fresh ideas. Do you have a concept or suggestion for our next project? We'd love to hear from you!</p>
-                <a href="#team" class="btn tab-link">Suggest Your Ideas</a>
-            </div>
+<div class="content-wrapper">
+    <div id="home" class="tab-content active">
+        <div class="hero-section">
+            <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
+            <h1>ZzzZz Works</h1>
+            <p>Creating safe and engaging gaming experiences for players worldwide</p>
         </div>
 
-        <div id="announcements" class="tab-content">
-            <div class="announcements-header">
-                <h1>Announcements</h1>
-                <p>Latest updates from ZzzZz Works</p>
-            </div>
-            <div class="announcements-grid">
-                <div class="announcement-card" onclick="this.classList.toggle('expanded')">
-                    <div class="announcement-header">
-                        <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Author" class="announcement-avatar">
-                        <div class="announcement-meta">
-                            <div class="announcement-author">ZzzZz Works</div>
-                            <div class="announcement-date">Jan 16, 2025</div>
-                        </div>
-                    </div>
-                    <div class="announcement-title">website update</div>
-                    <div class="announcement-body">
-                        <div class="announcement-content">hey everyone
-
-so ive been working on updating the website to make it look better and more professional. added some new features like announcements tab where you can see all our updates and also made it easier to navigate. the website now has a cleaner look and is more responsive on mobile devices too
-
-hope you like the new design and let me know if you have any suggestions or feedback. you can always reach out through the contact form or join our discord
-
-thanks for your support</div>
-                        <img src="websiteupdate.png" alt="Website Update" class="announcement-image">
-                    </div>
-                </div>
-
-                <div class="announcement-card" onclick="this.classList.toggle('expanded')">
-                    <div class="announcement-header">
-                        <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Author" class="announcement-avatar">
-                        <div class="announcement-meta">
-                            <div class="announcement-author">ZzzZz Works | A.I</div>
-                            <div class="announcement-date">Dec 27, 2024</div>
-                        </div>
-                    </div>
-                    <div class="announcement-title">i will no longer work on our old projects since it had ai slop only and will lock onto making games/projects using human skill</div>
-                    <div class="announcement-body">
-                        <div class="announcement-content">hi after failing to release zguards update i have realized that prob no one will use it and that its just ai which made me think what the purpose of creating a bot that wont even help me level up my skill in anything well maybe my patience since ai would make me go crazy sometimes so after some thinking i have decided to quit ai and actually make games with other people that have the skill to code build model animate etc just whatever a game would need. so this means i will be retiring all existing projects such as studz zguard avatar editor pro z hub 1 second circles minigames and much more
-
-well yeah that everything for now more will be announced soon but also checkout our discord for more information: <a href="https://discord.gg/Td4ZuW2Sgf" target="_blank" onclick="event.stopPropagation()">https://discord.gg/Td4ZuW2Sgf</a></div>
-                        <img src="nomoreai.png" alt="No More AI" class="announcement-image">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="team" class="tab-content">
-            <div class="team-container">
-                <div class="team-card">
-                    <img id="teamAvatar" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/420/420/AvatarHeadshot/Png/noFilter" alt="Founder" class="team-avatar">
-                    <div class="team-role">Founder of ZzzZz Works</div>
-                    <h2 class="team-name" id="teamName">lojjkli</h2>
-                    <div class="team-status">
-                        <span class="status-dot" id="statusDot"></span>
-                        <span id="statusText">Checking status...</span>
-                    </div>
-                    <p class="team-bio">3D Graphical Designing, Animating, Building, UI Designing, and more. Passionate about creating unique gaming experiences.</p>
-                    <a href="https://www.roblox.com/users/1534153669/profile" target="_blank" class="team-link">View Roblox Profile →</a>
-                </div>
-            </div>
-
-            <div class="contact-container" style="margin-top: 4rem;">
-                <div class="contact-intro">
-                    <h2>Get In Touch</h2>
-                    <p>Have a question, suggestion, or want to collaborate? Send us a message.</p>
-                </div>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label>Roblox or Discord Username *</label>
-                        <input type="text" id="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address *</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Your Message *</label>
-                        <textarea id="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Send Message</button>
-                    <div class="form-status" id="formStatus"></div>
-                </form>
-            </div>
-        </div>
-
-        <div id="privacy" class="tab-content">
-            <div class="privacy-container">
-                <h1>Privacy Policy</h1>
-                <p class="updated-date">Last Updated: December 20, 2025</p>
-
-                <div class="privacy-section">
-                    <h2>1. Information We Collect</h2>
-                    <p>When you contact us through our contact form, we collect:</p>
-                    <ul>
-                        <li>Your Roblox or Discord username</li>
-                        <li>Your email address</li>
-                        <li>The message content you provide</li>
-                    </ul>
-                </div>
-
-                <div class="privacy-section">
-                    <h2>2. How We Use Your Information</h2>
-                    <p>We collect and use your information solely to:</p>
-                    <ul>
-                        <li>Respond to your inquiries and messages</li>
-                        <li>Provide customer support</li>
-                        <li>Improve our services and games</li>
-                    </ul>
-                </div>
-
-                <div class="privacy-section">
-                    <h2>3. Contact Us</h2>
-                    <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:zzzzzworks@gmail.com">zzzzzworks@gmail.com</a></p>
-                </div>
-            </div>
+        <div class="new-updates">
+            <h2>We Have New Updates!</h2>
+            <p>Check the announcements tab to see what we've been working on and stay up to date with everything happening at ZzzZz Works.</p>
+            <a href="#announcements" class="btn tab-link">See Announcements</a>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://discord.gg/HTzQ6DGhnr" target="_blank" class="footer-link">Discord</a>
-                <a href="#privacy" class="footer-link tab-link">Privacy Policy</a>
-            </div>
-            <p class="copyright">&copy; 2025 ZzzZz Works. All rights reserved.</p>
+    <div id="announcements" class="tab-content">
+        <div class="announcements-header">
+            <h1>Announcements</h1>
+            <p>Latest updates from ZzzZz Works</p>
         </div>
-    </footer>
+        <div class="announcements-grid">
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        emailjs.init("7-YrM5K_SzZC2Mn1s");
+            <div class="announcement-card" onclick="toggleAnnouncement(this)">
+                <div class="announcement-header">
+                    <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Author" class="announcement-avatar">
+                    <div class="announcement-meta">
+                        <div class="announcement-author">ZzzZz Works | Website Update</div>
+                        <div class="announcement-date">Jan 16, 2025</div>
+                    </div>
+                </div>
+                <div class="announcement-title">Website Update</div>
+                <div class="announcement-body">
+                    <div class="announcement-content">Hey everyone,
+```
 
-        // Tab switching
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.tab-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    
-                    document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    
-                    this.classList.add('active');
-                    document.getElementById(targetId).classList.add('active');
-                    
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
+I’ve been working on updating the website to make it look better and more professional. I added some new features like the Announcements tab where you can see all our updates, and I also made it easier to navigate. The website now has a cleaner look and is more responsive on mobile devices too.
+
+I hope you like the new design! Let me know if you have any suggestions or feedback you can always reach out through the contact form or join our Discord.
+
+Thanks for your support!</div>
+<img src="websiteupdate.png" alt="Website Update" class="announcement-image">
+</div>
+</div>
+
+```
+            <div class="announcement-card" onclick="toggleAnnouncement(this)">
+                <div class="announcement-header">
+                    <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Author" class="announcement-avatar">
+                    <div class="announcement-meta">
+                        <div class="announcement-author">ZzzZz Works | A.I</div>
+                        <div class="announcement-date">Dec 27, 2025</div>
+                    </div>
+                </div>
+                <div class="announcement-title">No more AI will be used for projects.</div>
+                <div class="announcement-body">
+                    <div class="announcement-content">Hi everyone,
+```
+
+After failing to release the ZGuard update, I realized that probably no one would use it anyway and that it was just AI generated content. This made me think what the purpose of creating a bot that won’t even help me level up my own skills
+
+After some thinking, I’ve decided to quit using AI and actually make games with other people who have real skills coding, building, modeling, animating, whatever a game needs. This means I’ll be retiring all existing projects, including StudZ, ZGuard, Avatar Editor Pro, Z Hub, 1 Second Circles, Minigames, and more.
+
+That’s everything for now. More will be announced soon! Also, check out our Discord for more information: <a href="https://discord.gg/Td4ZuW2Sgf" target="_blank" onclick="event.stopPropagation()">https://discord.gg/Td4ZuW2Sgf</a></div>
+<img src="nomoreai.png" alt="No More AI" class="announcement-image">
+</div>
+</div>
+
+```
+        </div>
+    </div>
+
+    <div id="team" class="tab-content">
+        <div class="team-container">
+            <div class="team-card">
+                <img id="teamAvatar" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-9F821AD4357D4F8B6F95A1E3D5394FB1-Png/420/420/AvatarHeadshot/Png/noFilter" alt="Founder" class="team-avatar">
+                <div class="team-role">Founder of ZzzZz Works</div>
+                <h2 class="team-name" id="teamName">lojjkli</h2>
+                <div class="team-status">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Checking status...</span>
+                </div>
+                <p class="team-bio">3D Graphical Designing, Animating, Building, UI Designing, and more. Passionate about creating unique gaming experiences.</p>
+                <a href="https://www.roblox.com/users/1534153669/profile" target="_blank" class="team-link">View Roblox Profile →</a>
+            </div>
+        </div>
+
+        <div class="contact-container" style="margin-top: 4rem;">
+            <div class="contact-intro">
+                <h2>Get In Touch</h2>
+                <p>Have a question, suggestion, or want to collaborate? Send us a message.</p>
+            </div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>Roblox or Discord Username *</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Your Message *</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                <div class="form-status" id="formStatus"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="privacy" class="tab-content">
+        <div class="privacy-container">
+            <h1>Privacy Policy</h1>
+            <p class="updated-date">Last Updated: February 17, 2026</p>
+
+            <div class="privacy-section">
+                <h2>1. Information We Collect</h2>
+                <p>When you contact us through our contact form, we collect:</p>
+                <ul>
+                    <li>Your Roblox or Discord username</li>
+                    <li>Your email address</li>
+                    <li>The message content you provide</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>2. How We Use Your Information</h2>
+                <p>We collect and use your information solely to:</p>
+                <ul>
+                    <li>Respond to your inquiries and messages</li>
+                    <li>Provide customer support</li>
+                    <li>Improve our services and games</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>3. Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:zzzzzworks@gmail.com">zzzzzworks@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="https://discord.gg/HTzQ6DGhnr" target="_blank" class="footer-link">Discord</a>
+            <a href="#privacy" class="footer-link tab-link">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 ZzzZz Works. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    emailjs.init("7-YrM5K_SzZC2Mn1s");
+
+    // Tab switching
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.tab-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+
+                document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                // Mark all nav links pointing to this target as active
+                document.querySelectorAll(`.tab-link[href="#${targetId}"]`).forEach(l => l.classList.add('active'));
+                document.getElementById(targetId).classList.add('active');
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
+    });
 
-        // Fetch profile
-        async function fetchProfile() {
-            const userId = 1534153669;
-            try {
-                const proxy = 'https://api.allorigins.win/raw?url=';
-                
-                const userResponse = await fetch(`${proxy}${encodeURIComponent('https://users.roblox.com/v1/users/' + userId)}`);
-                const userData = await userResponse.json();
-                if (userData.name) {
-                    const displayName = userData.displayName || userData.name;
-                    document.getElementById('teamName').textContent = displayName;
-                }
+    // Toggle announcement expand/collapse (don't collapse when clicking links)
+    function toggleAnnouncement(card) {
+        card.classList.toggle('expanded');
+    }
 
-                const presenceResponse = await fetch(`${proxy}${encodeURIComponent('https://presence.roblox.com/v1/presence/users')}`, {
+    // Fetch Roblox profile & presence
+    async function fetchProfile() {
+        const userId = 1534153669;
+        const statusText = document.getElementById('statusText');
+        const statusDot = document.getElementById('statusDot');
+
+        // Fetch username/display name
+        try {
+            const res = await fetch(`https://users.roblox.com/v1/users/${userId}`, {
+                headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                document.getElementById('teamName').textContent = data.displayName || data.name;
+            }
+        } catch (e) {
+            // silently fail, keep default name
+        }
+
+        // Fetch presence — try multiple proxies since POST proxying is tricky
+        const presenceBody = JSON.stringify({ userIds: [userId] });
+        const presenceUrl = 'https://presence.roblox.com/v1/presence/users';
+
+        const proxies = [
+            async () => {
+                // Proxy 1: corsproxy.io
+                const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(presenceUrl)}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userIds: [userId] })
+                    body: presenceBody
                 });
-                const presenceData = await presenceResponse.json();
-                
-                if (presenceData.userPresences && presenceData.userPresences[0]) {
-                    const presence = presenceData.userPresences[0];
-                    const dot = document.getElementById('statusDot');
-                    const text = document.getElementById('statusText');
-                    
-                    if (presence.userPresenceType === 2 || presence.userPresenceType === 1) {
-                        dot.classList.add('online');
-                        text.textContent = 'Online';
+                return r.ok ? r.json() : null;
+            },
+            async () => {
+                // Proxy 2: allorigins as a GET workaround via encoded URL isn't feasible for POST,
+                // so fall back to direct (works if user has CORS extension or on same origin)
+                const r = await fetch(presenceUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: presenceBody
+                });
+                return r.ok ? r.json() : null;
+            }
+        ];
+
+        for (const proxy of proxies) {
+            try {
+                const data = await proxy();
+                if (data && data.userPresences && data.userPresences[0]) {
+                    const type = data.userPresences[0].userPresenceType;
+                    if (type === 1) {
+                        statusDot.classList.add('online');
+                        statusText.textContent = 'Online';
+                    } else if (type === 2) {
+                        statusDot.classList.add('online');
+                        statusText.textContent = 'In Game';
                     } else {
-                        text.textContent = 'Offline';
+                        statusText.textContent = 'Offline';
                     }
-                } else {
-                    document.getElementById('statusText').textContent = 'Offline';
+                    return;
                 }
-            } catch (error) {
-                console.error('Error fetching profile:', error);
-                document.getElementById('statusText').textContent = 'Status Unknown';
+            } catch (e) {
+                // try next proxy
             }
         }
 
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const status = document.getElementById('formStatus');
-            const btn = this.querySelector('button');
-            
-            btn.disabled = true;
-            btn.textContent = 'Sending...';
-            
-            const params = {
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                message: document.getElementById('message').value
-            };
-            
-            emailjs.send('service_xwfsexm', 'template_d8izibm', params)
-                .then(() => {
-                    return emailjs.send('service_xwfsexm', 'template_3sh1f4f', params);
-                })
-                .then(() => {
-                    status.style.display = 'block';
-                    status.className = 'form-status success';
-                    status.textContent = '✓ Message sent successfully!';
-                    this.reset();
-                    setTimeout(() => status.style.display = 'none', 5000);
-                })
-                .catch(() => {
-                    status.style.display = 'block';
-                    status.className = 'form-status error';
-                    status.textContent = '✗ Failed to send. Please try again.';
-                })
-                .finally(() => {
-                    btn.disabled = false;
-                    btn.textContent = 'Send Message';
-                });
-        });
+        statusText.textContent = 'Offline';
+    }
 
-        fetchProfile();
-    </script>
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const status = document.getElementById('formStatus');
+        const btn = this.querySelector('button');
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        const params = {
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        };
+
+        emailjs.send('service_xwfsexm', 'template_d8izibm', params)
+            .then(() => emailjs.send('service_xwfsexm', 'template_3sh1f4f', params))
+            .then(() => {
+                status.style.display = 'block';
+                status.className = 'form-status success';
+                status.textContent = '✓ Message sent successfully!';
+                this.reset();
+                setTimeout(() => status.style.display = 'none', 5000);
+            })
+            .catch(() => {
+                status.style.display = 'block';
+                status.className = 'form-status error';
+                status.textContent = '✗ Failed to send. Please try again.';
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.textContent = 'Send Message';
+            });
+    });
+
+    fetchProfile();
+</script>
+```
+
 </body>
 </html>
