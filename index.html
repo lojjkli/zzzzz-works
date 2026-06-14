@@ -1,679 +1,609 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="ZzzZz Works - Creating safe and engaging gaming experiences">
-    <title>ZzzZz Works</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>lojjkli // 3D Modeler &amp; Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#020103;
+    --surface:#0A0710;
+    --raised:#0F0B17;
+    --raised-2:#160F22;
+    --violet:#A855F7;
+    --violet-bright:#C084FC;
+    --magenta:#E879F9;
+    --lilac:#D8B4FE;
+    --text:#EDE7F6;
+    --dim:#9C90B4;
+    --faint:#6E647E;
+    --line:#2A2138;
+    --line-bright:#3A2C50;
+    --glow:0 0 40px rgba(168,85,247,.35);
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+    --max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--void);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* ambient violet field */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(680px 480px at 80% -8%, rgba(168,85,247,.12), transparent 60%),
+      radial-gradient(560px 560px at 6% 16%, rgba(232,121,249,.06), transparent 55%),
+      radial-gradient(860px 680px at 50% 118%, rgba(124,58,237,.10), transparent 62%);
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+  .mono{font-family:var(--mono)}
+  .eyebrow{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--violet-bright);
+  }
+  section{position:relative;z-index:1}
 
-```
-    body {
-        font-family: 'Inter', 'Segoe UI', sans-serif;
-        font-weight: 500;
-        background: #0a0a0a;
-        color: #e0e0e0;
-        overflow-x: hidden;
-        min-height: 100vh;
-    }
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(2,1,3,.78);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.18rem;letter-spacing:-.01em}
+  .logo .cube{width:24px;height:24px;flex:none}
+  .logo b{color:var(--violet-bright)}
+  nav.links{display:flex;gap:30px}
+  nav.links a{font-size:.92rem;color:var(--dim);transition:color .2s;position:relative;padding:4px 0}
+  nav.links a:hover,nav.links a:focus-visible{color:var(--text)}
+  nav.links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:var(--violet);transition:width .25s}
+  nav.links a:hover::after,nav.links a:focus-visible::after{width:100%}
+  .btn{
+    font-family:var(--mono);font-size:.82rem;font-weight:500;
+    padding:10px 18px;border-radius:9px;border:1px solid var(--line-bright);
+    background:linear-gradient(180deg,var(--raised-2),var(--raised));
+    color:var(--text);transition:.22s;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn:hover,.btn:focus-visible{border-color:var(--violet);box-shadow:var(--glow);transform:translateY(-1px)}
+  .btn.primary{
+    background:linear-gradient(180deg,var(--violet),#7C3AED);
+    border-color:transparent;color:#fff;font-weight:600;
+  }
+  .btn.primary:hover,.btn.primary:focus-visible{box-shadow:0 0 34px rgba(168,85,247,.55)}
+  .nav-toggle{display:none}
 
-    body::before {
-        content: '';
-        position: fixed;
-        top: -200px; left: -200px;
-        width: 700px; height: 700px;
-        background: radial-gradient(circle, rgba(120,60,200,0.13) 0%, transparent 70%);
-        pointer-events: none;
-        z-index: 0;
-    }
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 86px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  .status{
+    display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);
+    font-size:.74rem;letter-spacing:.05em;color:var(--lilac);
+    border:1px solid var(--line-bright);border-radius:999px;padding:6px 14px;margin-bottom:26px;
+    background:rgba(27,20,41,.6);
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:#34D399;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2.4s infinite}
+  .dot.off{background:#F59E0B;animation:none;box-shadow:0 0 8px rgba(245,158,11,.6)}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}70%{box-shadow:0 0 0 9px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+  h1.hello{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,6vw,4.3rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:6px}
+  h1.hello .grad{background:linear-gradient(110deg,var(--violet-bright),var(--magenta) 55%,var(--lilac));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .alias{font-family:var(--mono);font-size:.86rem;color:var(--faint);margin-bottom:22px}
+  .lead{color:var(--dim);font-size:1.05rem;max-width:38ch;margin-bottom:30px}
+  .lead strong{color:var(--lilac);font-weight:600}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:42px}
+  .stats{display:flex;gap:38px;flex-wrap:wrap}
+  .stat .n{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;background:linear-gradient(180deg,#fff,var(--lilac));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:7px}
 
-    body::after {
-        content: '';
-        position: fixed;
-        bottom: -200px; right: -200px;
-        width: 700px; height: 700px;
-        background: radial-gradient(circle, rgba(90,40,170,0.1) 0%, transparent 70%);
-        pointer-events: none;
-        z-index: 0;
-    }
+  /* ---------- viewport (hero signature) ---------- */
+  .viewport{
+    position:relative;border:1px solid var(--line-bright);border-radius:16px;
+    background:
+      radial-gradient(120% 120% at 70% 10%, rgba(168,85,247,.14), transparent 55%),
+      linear-gradient(180deg,#100B1B,#0A0712);
+    aspect-ratio:1/1;overflow:hidden;box-shadow:0 30px 80px -30px rgba(124,58,237,.5);
+  }
+  .viewer-wrap{display:flex;flex-direction:column;gap:14px}
+  model-viewer{position:absolute;inset:0;width:100%;height:100%;display:block;--poster-color:transparent;background:transparent}
+  .mv-progress{display:none}
+  .switcher{display:flex;gap:8px;flex-wrap:wrap}
+  .swatch{
+    flex:1;min-width:72px;font-family:var(--mono);font-size:.74rem;letter-spacing:.02em;
+    padding:9px 8px;border-radius:9px;cursor:pointer;color:var(--dim);
+    border:1px solid var(--line);background:linear-gradient(180deg,var(--raised),var(--surface));
+    transition:.2s;
+  }
+  .swatch:hover{color:var(--text);border-color:var(--line-bright)}
+  .swatch[aria-selected="true"]{color:#fff;border-color:var(--violet);box-shadow:0 0 22px rgba(168,85,247,.35);background:linear-gradient(180deg,rgba(168,85,247,.22),rgba(124,58,237,.10))}
+  .vp-chrome{position:absolute;inset:0;pointer-events:none}
+  .vp-corner{position:absolute;width:18px;height:18px;border:1.5px solid var(--violet);opacity:.55}
+  .vp-corner.tl{top:12px;left:12px;border-right:0;border-bottom:0}
+  .vp-corner.tr{top:12px;right:12px;border-left:0;border-bottom:0}
+  .vp-corner.bl{bottom:12px;left:12px;border-right:0;border-top:0}
+  .vp-corner.br{bottom:12px;right:12px;border-left:0;border-top:0}
+  .vp-tag{position:absolute;top:14px;left:38px;font-family:var(--mono);font-size:.68rem;color:var(--lilac);letter-spacing:.08em;display:flex;gap:12px}
+  .vp-tag span{opacity:.7}
+  .vp-readout{position:absolute;bottom:14px;left:38px;right:38px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:.66rem;color:var(--faint);letter-spacing:.05em}
+  .vp-readout b{color:var(--violet-bright);font-weight:500}
+  .gizmo{position:absolute;top:14px;right:38px;font-family:var(--mono);font-size:.6rem}
+  .gizmo svg{width:46px;height:46px;opacity:.85}
 
-    .bg-wrapper {
-        position: fixed; top: 0; left: 0;
-        width: 100%; height: 100%; z-index: -1;
-    }
-    .bg-image {
-        width: 100%; height: 100%;
-        object-fit: cover;
-        filter: brightness(0.3) blur(2px);
-    }
+  /* ---------- section heading ---------- */
+  .sec{padding:88px 0}
+  .sec-head{max-width:62ch;margin-bottom:48px}
+  .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.7rem);letter-spacing:-.02em;margin:14px 0 12px}
+  .sec-head p{color:var(--dim);font-size:1.02rem}
 
-    /* NAV */
-    nav {
-        background: rgba(15,15,15,0.95);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(140,80,220,0.25);
-        padding: 1rem 0;
-        position: sticky; top: 0; z-index: 100;
-        box-shadow: 0 2px 20px rgba(100,50,180,0.1);
-    }
-    .nav-container {
-        max-width: 1400px; margin: 0 auto; padding: 0 3%;
-        display: flex; justify-content: space-between; align-items: center;
-    }
-    .logo {
-        display: flex; align-items: center; gap: 12px;
-        font-size: 22px; font-weight: 800; color: #fff;
-        text-decoration: none;
-    }
-    .logo img { width: 45px; height: 45px; border-radius: 10px; }
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
+  .about p{color:var(--dim);margin-bottom:18px;font-size:1.05rem}
+  .about p strong{color:var(--lilac);font-weight:600}
+  .about-card{
+    border:1px solid var(--line);border-radius:14px;padding:26px;
+    background:linear-gradient(180deg,var(--raised),var(--surface));
+  }
+  .about-card h3{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--violet-bright);margin-bottom:18px}
+  .avatar{width:84px;height:84px;border-radius:16px;overflow:hidden;border:1px solid var(--line-bright);margin-bottom:20px;box-shadow:0 0 28px rgba(168,85,247,.3)}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .spec{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+  .spec:last-child{border-bottom:0}
+  .spec .k{color:var(--faint);font-family:var(--mono);font-size:.82rem}
+  .spec .v{color:var(--text)}
 
-    .nav-tabs { display: flex; gap: 0.5rem; list-style: none; }
-    .nav-tabs li a {
-        color: #999;
-        text-decoration: none;
-        font-weight: 600;
-        padding: 0.5rem 1rem;
-        border-bottom: 2px solid transparent;
-        transition: color 0.2s, border-color 0.2s;
-        display: block;
-    }
-    .nav-tabs li a:hover { color: #fff; }
-    .nav-tabs li a.active {
-        color: #c084fc;
-        border-bottom-color: #9b59f5;
-    }
+  /* ---------- projects ---------- */
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .card{
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    background:linear-gradient(180deg,var(--raised),var(--surface));
+    transition:.28s;display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--line-bright);box-shadow:0 22px 60px -28px rgba(124,58,237,.7)}
+  .render{
+    position:relative;aspect-ratio:16/10;
+    background:radial-gradient(120% 120% at 30% 20%, #1E1530, #0B0814 70%);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--line);
+  }
+  .render::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,8,20,.7))}
+  .render svg.mesh{width:54%;height:54%;position:relative;z-index:1;filter:drop-shadow(0 0 18px rgba(168,85,247,.5))}
+  .render .floor{position:absolute;left:0;right:0;bottom:0;height:42%;background:
+    linear-gradient(transparent, rgba(168,85,247,.05)),
+    repeating-linear-gradient(90deg,transparent 0 34px,rgba(168,85,247,.10) 34px 35px),
+    repeating-linear-gradient(0deg,transparent 0 34px,rgba(168,85,247,.07) 34px 35px);
+    transform:perspective(300px) rotateX(62deg);transform-origin:bottom;opacity:.6}
+  .render .badge{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lilac);background:rgba(12,9,19,.7);border:1px solid var(--line-bright);padding:4px 10px;border-radius:6px}
+  .render .stat-line{position:absolute;bottom:10px;left:12px;z-index:2;font-family:var(--mono);font-size:.62rem;color:var(--faint)}
+  .render .stat-line b{color:var(--violet-bright);font-weight:500}
+  .card-body{padding:22px;flex:1;display:flex;flex-direction:column}
+  .card-body h3{font-family:var(--display);font-weight:600;font-size:1.22rem;margin-bottom:10px;letter-spacing:-.01em}
+  .card-body p{color:var(--dim);font-size:.94rem;margin-bottom:18px;flex:1}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+  .tag{font-family:var(--mono);font-size:.68rem;color:var(--lilac);border:1px solid var(--line-bright);border-radius:6px;padding:3px 9px;background:rgba(168,85,247,.06)}
+  .card-link{font-family:var(--mono);font-size:.82rem;color:var(--violet-bright);display:inline-flex;align-items:center;gap:7px;transition:gap .2s;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+  .card-link:hover{gap:12px}
 
-    /* CONTENT */
-    .content-wrapper {
-        max-width: 1400px; margin: 0 auto; padding: 3rem 3%;
-        min-height: calc(100vh - 200px);
-        position: relative; z-index: 1;
-    }
+  /* ---------- skills ---------- */
+  .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .skill-col{border:1px solid var(--line);border-radius:14px;padding:24px;background:linear-gradient(180deg,var(--raised),var(--surface))}
+  .skill-col h3{font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  .skill-col h3 .ic{width:20px;height:20px;color:var(--violet-bright);flex:none}
+  .skill-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .skill-col li{font-size:.9rem;color:var(--dim);display:flex;gap:10px;align-items:flex-start}
+  .skill-col li .chk{color:var(--violet);flex:none;margin-top:1px}
+  .skill-col li .pend{color:var(--faint)}
 
-    .tab-pane { display: none; }
-    .tab-pane.active {
-        display: block;
-        animation: fadeIn 0.4s ease-in both;
-    }
+  /* ---------- contact ---------- */
+  .contact{
+    border:1px solid var(--line-bright);border-radius:20px;padding:54px 44px;
+    background:
+      radial-gradient(120% 160% at 50% -30%, rgba(168,85,247,.22), transparent 60%),
+      linear-gradient(180deg,var(--raised),var(--surface));
+    text-align:center;
+  }
+  .contact h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.6rem);letter-spacing:-.02em;margin:14px 0 12px}
+  .contact p{color:var(--dim);max-width:46ch;margin:0 auto 32px}
+  .socials{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:760px;margin:0 auto}
+  .socials.one{grid-template-columns:minmax(240px,300px);justify-content:center}
+  .social{
+    border:1px solid var(--line);border-radius:13px;padding:22px 16px;background:rgba(12,9,19,.4);
+    transition:.24s;display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .social:hover,.social:focus-visible{border-color:var(--violet);background:rgba(168,85,247,.08);transform:translateY(-3px)}
+  .social svg{width:26px;height:26px;color:var(--violet-bright)}
+  .social .name{font-family:var(--display);font-weight:600;font-size:.95rem}
+  .social .sub{font-family:var(--mono);font-size:.66rem;color:var(--faint)}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(12px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);margin-top:96px;padding:54px 0 40px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;margin-bottom:42px}
+  .foot-brand .logo{margin-bottom:16px}
+  .foot-brand p{color:var(--dim);font-size:.92rem;max-width:40ch}
+  .foot-col h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+  .foot-col a{display:block;color:var(--dim);font-size:.92rem;padding:5px 0;transition:color .2s}
+  .foot-col a:hover{color:var(--violet-bright)}
+  .foot-bot{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  .foot-bot small{font-family:var(--mono);font-size:.74rem;color:var(--faint)}
+  .foot-social{display:flex;gap:14px}
+  .foot-social a{width:36px;height:36px;border:1px solid var(--line);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--dim);transition:.2s}
+  .foot-social a:hover{color:var(--violet-bright);border-color:var(--violet)}
+  .foot-social svg{width:17px;height:17px}
 
-    /* HOME */
-    .hero-section { text-align: center; padding: 4rem 0; }
-    .hero-logo {
-        width: 140px; height: 140px; border-radius: 18px; margin-bottom: 2rem;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 40px rgba(120,60,200,0.2);
-    }
-    .hero-section h1 { font-size: 3.5rem; font-weight: 900; color: #fff; margin-bottom: 1rem; }
-    .hero-section p  { font-size: 1.3rem; color: #999; max-width: 600px; margin: 0 auto 2rem; }
-
-    .new-updates {
-        text-align: center; padding: 4rem 2rem; max-width: 600px; margin: 0 auto;
-        background: rgba(100,40,200,0.06);
-        border: 1px solid rgba(140,80,220,0.15);
-        border-radius: 16px;
-    }
-    .new-updates h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 1rem; }
-    .new-updates p  { color: #999; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6; }
-
-    /* ANNOUNCEMENTS */
-    .announcements-header { text-align: center; margin-bottom: 2rem; }
-    .announcements-header h1 { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; }
-    .announcements-header p  { color: #999; font-size: 1.1rem; }
-
-    .announcements-grid { display: grid; gap: 0.5rem; max-width: 900px; margin: 0 auto; }
-
-    .announcement-card {
-        background: rgba(20,20,20,0.6);
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: 8px; padding: 1rem 1.2rem;
-        transition: background 0.2s, border-color 0.2s;
-        cursor: pointer;
-    }
-    .announcement-card:hover {
-        background: rgba(30,30,30,0.7);
-        border-color: rgba(140,80,220,0.2);
-    }
-    .announcement-card.expanded {
-        background: rgba(25,25,25,0.8);
-        border-color: rgba(140,80,220,0.25);
-        cursor: default; padding: 1.5rem;
-    }
-    .announcement-card.expanded:hover { background: rgba(25,25,25,0.8); }
-
-    .ann-header {
-        display: flex; align-items: center; gap: 0.8rem;
-    }
-    .announcement-card.expanded .ann-header {
-        margin-bottom: 1rem; padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .ann-avatar {
-        width: 40px; height: 40px; border-radius: 50%;
-        border: 2px solid rgba(140,80,220,0.2);
-        flex-shrink: 0;
-    }
-    .ann-meta { flex: 1; min-width: 0; }
-    .ann-author { font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 0.1rem; }
-    .ann-date   { font-size: 0.75rem; font-weight: 600; color: #777; }
-
-    .ann-title {
-        font-size: 0.95rem; font-weight: 600; color: #ddd; margin-top: 0.5rem;
-        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-        overflow: hidden; line-height: 1.4;
-    }
-    .announcement-card.expanded .ann-title {
-        font-size: 1.1rem; font-weight: 700; color: #fff;
-        display: block; margin-top: 0; margin-bottom: 1rem;
-        -webkit-line-clamp: unset;
-    }
-
-    .ann-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-    .announcement-card.expanded .ann-body { max-height: 3000px; }
-
-    .ann-content {
-        color: #ccc; line-height: 1.7; white-space: pre-wrap;
-        word-wrap: break-word; font-size: 0.95rem; margin-bottom: 1rem;
-    }
-    .ann-content a { color: #c084fc; font-weight: 600; text-decoration: none; }
-    .ann-content a:hover { color: #d8b4fe; text-decoration: underline; }
-
-    .ann-image {
-        width: 100%; border-radius: 8px; margin-top: 1rem; display: block;
-    }
-
-    /* TEAM */
-    .team-container { max-width: 500px; margin: 0 auto; text-align: center; }
-    .team-card {
-        background: rgba(20,20,20,0.8);
-        border: 1px solid rgba(140,80,220,0.15);
-        border-radius: 16px; padding: 3rem; width: 100%;
-    }
-    .team-avatar {
-        width: 140px; height: 140px; border-radius: 50%;
-        margin: 0 auto 1.5rem; display: block;
-        border: 3px solid rgba(140,80,220,0.3);
-    }
-    .team-role {
-        color: #777; text-transform: uppercase;
-        font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 1rem;
-    }
-    .team-name {
-        font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 1rem;
-        word-break: break-word;
-    }
-    .team-status {
-        display: inline-flex; align-items: center; gap: 8px;
-        padding: 0.5rem 1rem; background: rgba(0,0,0,0.3);
-        border-radius: 25px; margin-bottom: 1.5rem;
-        font-size: 0.9rem; font-weight: 600;
-    }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #555; }
-    .status-dot.online { background: #4CAF50; box-shadow: 0 0 8px #4CAF50; }
-    .team-bio { color: #999; line-height: 1.6; margin-bottom: 1.5rem; }
-    .team-link {
-        color: #c084fc; text-decoration: none;
-        font-size: 0.9rem; font-weight: 600; opacity: 0.8; transition: opacity 0.3s;
-    }
-    .team-link:hover { opacity: 1; }
-
-    /* CONTACT */
-    .contact-container { max-width: 600px; margin: 0 auto; }
-    .contact-intro { text-align: center; margin-bottom: 3rem; }
-    .contact-intro h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
-    .contact-intro p  { color: #999; }
-
-    .form-group { margin-bottom: 1.5rem; }
-    .form-group label { display: block; color: #ccc; margin-bottom: 0.5rem; font-weight: 700; }
-    .form-group input,
-    .form-group textarea {
-        width: 100%; padding: 0.9rem;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 10px; color: #fff;
-        font-family: inherit; font-weight: 500; transition: all 0.3s;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus {
-        outline: none;
-        border-color: rgba(140,80,220,0.5);
-        background: rgba(100,40,200,0.07);
-    }
-    .form-group textarea { resize: vertical; min-height: 140px; }
-
-    .btn {
-        padding: 0.7rem 1.5rem; border: none; border-radius: 10px;
-        background: linear-gradient(135deg, #7b35d8, #9b59f5);
-        color: #fff; font-weight: 700; cursor: pointer;
-        text-decoration: none; display: inline-block;
-        font-size: 0.95rem; font-family: inherit;
-        box-shadow: 0 4px 15px rgba(130,60,210,0.35);
-        transition: all 0.3s;
-    }
-    .btn:hover {
-        background: linear-gradient(135deg, #8c40f0, #a96bf7);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(130,60,210,0.5);
-    }
-
-    .form-status {
-        padding: 1rem; margin-top: 1rem;
-        border-radius: 10px; display: none; font-weight: 600;
-    }
-    .form-status.success { background: rgba(76,175,80,0.15); border: 1px solid rgba(76,175,80,0.3); color: #81c784; }
-    .form-status.error   { background: rgba(244,67,54,0.15);  border: 1px solid rgba(244,67,54,0.3);  color: #e57373; }
-
-    /* PRIVACY */
-    .privacy-container { max-width: 800px; margin: 0 auto; padding: 2rem; }
-    .privacy-container h1 { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; }
-    .updated-date { color: #777; font-size: 0.95rem; margin-bottom: 3rem; }
-    .privacy-section { margin-bottom: 2.5rem; }
-    .privacy-section h2 { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 1rem; }
-    .privacy-section p  { color: #aaa; line-height: 1.8; margin-bottom: 1rem; }
-    .privacy-section ul { list-style: none; padding-left: 0; }
-    .privacy-section li {
-        color: #aaa; line-height: 1.8; padding-left: 1.5rem;
-        position: relative; margin-bottom: 0.5rem;
-    }
-    .privacy-section li:before { content: "•"; color: #9b59f5; position: absolute; left: 0; }
-    .privacy-section a { color: #c084fc; text-decoration: underline; }
-
-    /* FOOTER */
-    footer {
-        background: rgba(10,10,10,0.95);
-        border-top: 1px solid rgba(140,80,220,0.15);
-        padding: 2rem 3%; text-align: center;
-        margin-top: 4rem; position: relative; z-index: 1;
-    }
-    .footer-content { max-width: 1400px; margin: 0 auto; }
-    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; }
-    .footer-link {
-        color: #999; text-decoration: none;
-        font-size: 0.95rem; font-weight: 600; transition: color 0.3s;
-    }
-    .footer-link:hover { color: #c084fc; }
-    .copyright { color: #666; font-size: 0.9rem; margin-top: 0.5rem; }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-        nav { padding: 0.8rem 0; }
-        .nav-container { flex-direction: column; gap: 1rem; padding: 0 5%; }
-        .logo { font-size: 18px; }
-        .logo img { width: 38px; height: 38px; }
-        .nav-tabs { width: 100%; justify-content: space-around; flex-wrap: wrap; gap: 0.3rem; }
-        .nav-tabs li a { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
-        .content-wrapper { padding: 2rem 5%; }
-        .hero-section { padding: 2rem 0; }
-        .hero-logo { width: 100px; height: 100px; }
-        .hero-section h1 { font-size: 2.2rem; }
-        .hero-section p  { font-size: 1.1rem; }
-        .team-card { padding: 2rem 1.5rem; }
-        .team-avatar { width: 120px; height: 120px; }
-        .team-name { font-size: 1.8rem; }
-        .contact-intro h2 { font-size: 1.6rem; }
-        footer { padding: 1.5rem 5%; }
-        .footer-links { flex-direction: column; gap: 0.8rem; }
-        .privacy-container { padding: 1rem; }
-        .privacy-container h1 { font-size: 1.8rem; }
-        .new-updates { padding: 3rem 1rem; }
-        .new-updates h2 { font-size: 1.6rem; }
-        .announcements-header h1 { font-size: 1.8rem; }
-    }
-    @media (max-width: 480px) {
-        .hero-section h1 { font-size: 1.8rem; }
-        .team-name { font-size: 1.6rem; }
-        .team-card { padding: 1.5rem 1rem; }
-        .nav-tabs li a { font-size: 0.8rem; padding: 0.3rem 0.6rem; }
-    }
+  /* ---------- responsive ---------- */
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:44px}
+    .viewer-wrap{max-width:460px;margin:0 auto;width:100%}
+    .about-grid{grid-template-columns:1fr}
+    .skill-grid{grid-template-columns:repeat(2,1fr)}
+    .socials{grid-template-columns:repeat(2,1fr)}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:680px){
+    nav.links{display:none}
+    .cards{grid-template-columns:1fr}
+    .skill-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .vp-tag,.gizmo{display:none}
+    .sec{padding:64px 0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+  }
+  :focus-visible{outline:2px solid var(--violet-bright);outline-offset:3px;border-radius:4px}
 </style>
-```
-
 </head>
 <body>
 
-<div class="bg-wrapper">
-    <img src="banner.png" alt="" class="bg-image">
-</div>
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo">
+      <svg class="cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+        <path d="M12 2 21 7v10l-9 5-9-5V7z" stroke="#C084FC"/>
+        <path d="M3 7l9 5 9-5M12 12v10" stroke="#A855F7"/>
+      </svg>
+      <span>lojj<b>kli</b></span>
+    </a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn">Contact on Discord</a>
+  </div>
+</header>
 
-<nav>
-    <div class="nav-container">
-        <div class="logo">
-            <img src="Z.png" alt="ZzzZz">
-            ZzzZz Works
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="status"><span class="dot off"></span> Not available right now</div>
+      <h1 class="hello">Hi, I'm <span class="grad">lojjkli</span></h1>
+      <div class="alias">// kli for short // 3D modeler &amp; software engineer</div>
+      <p class="lead">I craft <strong>extremely high-quality 3D models</strong> and write the code behind them. Clean topology, production-ready assets, and a bit of scripting to tie it all together.</p>
+      <div class="hero-cta">
+        <a href="#work" class="btn primary">View work</a>
+        <a href="#contact" class="btn">Get in touch</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">280+</div><div class="l">Satisfied Customers</div></div>
+        <div class="stat"><div class="n">180+</div><div class="l">Models Delivered</div></div>
+        <div class="stat"><div class="n">6+</div><div class="l">Years Experience</div></div>
+      </div>
+    </div>
+
+    <!-- SIGNATURE: live interactive 3D model viewer -->
+    <div class="viewer-wrap">
+      <div class="viewport">
+        <model-viewer
+          id="mv"
+          src=""
+          alt="Interactive 3D sword model"
+          camera-controls
+          auto-rotate
+          auto-rotate-delay="0"
+          rotation-per-second="22deg"
+          interaction-prompt="none"
+          shadow-intensity="0.9"
+          shadow-softness="1"
+          exposure="1.15"
+          environment-image="neutral"
+          touch-action="pan-y"
+          camera-orbit="35deg 78deg auto"
+          loading="eager">
+          <div class="mv-progress" slot="progress-bar"></div>
+        </model-viewer>
+        <div class="vp-chrome">
+          <span class="vp-corner tl"></span><span class="vp-corner tr"></span>
+          <span class="vp-corner bl"></span><span class="vp-corner br"></span>
+          <div class="vp-tag"><span>Perspective</span><span>drag to orbit</span></div>
+          <div class="gizmo" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke-width="2">
+              <line x1="30" y1="30" x2="30" y2="8" stroke="#E879F9"/><text x="29" y="6" fill="#E879F9" font-size="8" font-family="monospace">Y</text>
+              <line x1="30" y1="30" x2="52" y2="40" stroke="#A855F7"/><text x="54" y="42" fill="#A855F7" font-size="8" font-family="monospace">X</text>
+              <line x1="30" y1="30" x2="10" y2="42" stroke="#7C3AED"/><text x="2" y="44" fill="#7C3AED" font-size="8" font-family="monospace">Z</text>
+            </svg>
+          </div>
+          <div class="vp-readout">
+            <span id="mv-name">EMERALD_SWORD · <b id="mv-verts">27,166</b> verts</span>
+            <span id="mv-note"><b>GLB</b> // real-time</span>
+          </div>
         </div>
-        <ul class="nav-tabs">
-            <li><a href="#" data-tab="home" class="active">Home</a></li>
-            <li><a href="#" data-tab="announcements">Announcements</a></li>
-            <li><a href="#" data-tab="team">Team</a></li>
+      </div>
+      <div class="switcher" role="tablist" aria-label="Choose a model">
+        <button class="swatch" data-model="emerald" aria-selected="true">Emerald</button>
+        <button class="swatch" data-model="crystal" aria-selected="false">Crystal</button>
+        <button class="swatch" data-model="sword" aria-selected="false">Longsword</button>
+        <button class="swatch" data-model="utrm" aria-selected="false">UTRM v3</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="about-grid about">
+      <div>
+        <div class="eyebrow">// about</div>
+        <h2 style="font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.6rem);letter-spacing:-.02em;margin:14px 0 24px">Models worth zooming in on.</h2>
+        <p>I'm a 3D modeler who also codes. I model and sculpt assets, then write the scripts and tools that make them faster to build and easier to ship.</p>
+        <p>Every asset I deliver is built to a standard: <strong>clean, even topology</strong>, sensible UVs, and materials that hold up under an extreme close-up. Nothing leaves the viewport unless it looks right.</p>
+        <p>I work mostly in Blender, with Unreal, Unity, and Roblox Studio when a project needs it. When something needs a script or a small tool, I write that too.</p>
+      </div>
+      <div class="about-card">
+        <div class="avatar"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCATmBOYDASIAAhEBAxEB/8QAHQABAQACAwEBAQAAAAAAAAAAAAECCQMFBggHBP/EAFAQAQABAAUHBQsHCAoBBQAAAAABAgMEBhEFBxMhMUGRCFKU0dISFkZWYWJlcXWVsxgyUVWEsrQJFyInNjeBhRUmMzU4QkVydMMoIyQlY7H/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APjIAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWQQAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAABUAAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAABUAAAAABZBAAAAAAAAAAAAAAAAAAFQAAAAAAABQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBAAAUEAAAAAAAAAAAgAAAAAAAAAAAAAAFQAAAAAAAAAAAAUEAAAABQEAAAAAAAAAAAAAAAAAAAAFBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUEAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFkEBcAQAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAABcEAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABdSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAKgAAAAAAAACwgAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwgAAACoAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAKCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoIAAABuFxQAAAAAAFQAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAFTcAAAAAAAAAAAAAAAAAAAAAAAACoAAACoAAAqAAAAAAAAAAAAAAqAAAAAAAAAAAAAAKCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoIAAAAAAAAAAAACggAAAAAAAAAAAAAKgAqAAAACggACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAAAqAAAAAAAAAAAAAbgAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFlAAAAAAAAAAAAAAAAAAAAAAAAAAAAUEAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANwAAAAAAAAAAAAAAAAAAAAAAAAAKgAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALKAAAAAACggAAACygAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC7gQAAABYQAAAAAAABQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAWUAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANgAAAAAAAAAAAAAAAAAALIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCAAAAAAAAEAAAAAAC7gQAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkAAAAAAAAAABUAAAAAAAAAAAAAAAAAAIJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBBUAAAAAAAAAAAAABQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWEAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3AAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAAAAKgAAAAAECggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoIAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAC70AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABdyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACggAAAAAAAAAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALCAAAAAAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAu5AAAAAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAABdyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4oACggqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAAAbwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFnagAAAAAAAqAAAAoIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASAAKCAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALvQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBAAAAFQAAAAAJAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAFkEAAAAAABQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAAAAABUBUAAAAAAAAAAAAAAAAAAAAAAAAAAAAABUAXcgAAAAAAAAAAAAAAAAAqAAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAupAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADcAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAoIAAqAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAqKCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC7kAAAAAABZQAAAAAAAVAAAABYBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAABUVAAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAXyoAqAAAAAAAAAAAAAAAAAAKgAAAAAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsggAAAAAAAALqBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWUAAAAAAAAAAAAAAAAAAAAAAAAAAFgEAAABUAAAAAAAAAAAAAAAAAAAAAAABU3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgoIAAAAAAAAAAAAAAAABIAAAAAKCLuQAFQAAAAAAAAAAAAAAAAAAAAFQAVAAAAAAAAAAAAAAAAAAAAAAAABQQAAAAAAAAAAAAAAAAJAAAAAAAAIAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVABUAAAAAAAAAAAAAAAAAAAAABRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAAAAABdSAKgAAAAAAAAAAAAAAAAAAoIAAAAKgAAAAKgAAAAsAgAAAAAAAAAAAAAAAAAAAAAAsoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4wCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAACoAAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAsoAAAAAAAAAAAAACoAAAKgAACoAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAu5AAF3IAAAAAAACggAAAAAAAAAAAAAAALigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAu5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF3IAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAAAAAAAAAsIAAAAAAAAAAAAAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAACyCAAAAAAAAAAqAAACoAAAAAAAAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALuQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFA9QgAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAALiCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAAAAAAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuCAAAAAAAAAAAAAAAAAAAAAAAAL5UAAABQQAAAAAAAFhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADcAAACoAAAAAAAAAAAAAAAqAALuBAAAAAAAAAAAAAAAAAAAAAAAUEAABQQAAAAAAJAAAAAAAAABdyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoIACoAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAKgAAAAAAAAAACoqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuAIKgAAAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAKgAAAAAAAKCAAAAAAAAAAAoICggAAAAAAAKgAAAAAAAAAAAAAAAAAKgAAAAAAAAAAAAACggAAAAAAAAAAAAAAAAAAAAAAAALuBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZQAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABcEAAAAABQQAAABYQAAAAAAAAAAAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAABUAAAAAAAJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUEAAAAAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAAAAVAAAAAAAAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhAAAAVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFjaCBIAAAAAAAAAAALKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoACyACAAAAAAuAAiwAIAAACoAAAAAAALggAAAAAAAAAAAAAKAIAC7UAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAFABAAAAAAAAAAAAAAUARdwAiwAIAAAAAAAAAAAAAAAAACgA/9k=" alt="lojjkli profile picture"></div>
+        <h3>// profile</h3>
+        <div class="spec"><span class="k">name</span><span class="v">lojjkli (kli)</span></div>
+        <div class="spec"><span class="k">role</span><span class="v">3D Modeler / Dev</span></div>
+        <div class="spec"><span class="k">software</span><span class="v">Blender (mostly)</span></div>
+        <div class="spec"><span class="k">also</span><span class="v">Unreal · Unity · Roblox</span></div>
+        <div class="spec"><span class="k">code</span><span class="v">Python · Lua · HTML</span></div>
+        <div class="spec"><span class="k">status</span><span class="v" style="color:#F59E0B">Not available</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">// featured work</div>
+      <h2>Sword Collection</h2>
+      <p>A set of blades modeled and textured in Blender. Tap any card to load it into the viewer above and orbit it yourself.</p>
+    </div>
+    <div class="cards">
+
+      <!-- emerald -->
+      <article class="card">
+        <div class="render">
+          <div class="floor"></div>
+          <span class="badge">Stylized · Hand-painted</span>
+          <svg class="mesh sword" viewBox="0 0 100 100" fill="none" stroke="#C084FC" stroke-width="1.3" stroke-linejoin="round">
+            <path d="M50 6 56 54 50 60 44 54z"/><line x1="50" y1="10" x2="50" y2="54" stroke="#E879F9" stroke-width=".8"/>
+            <rect x="34" y="54" width="32" height="7" rx="2"/><rect x="46" y="61" width="8" height="22"/>
+            <path d="M50 83 55 88 50 93 45 88z" stroke="#E879F9"/>
+          </svg>
+          <div class="stat-line"><b>27,166</b> verts · 1 material</div>
+        </div>
+        <div class="card-body">
+          <h3>Stylized Emerald Sword</h3>
+          <p>A hero blade with hand-painted detail, originally authored with 8K source maps and optimized for real-time without losing the crisp stylized read.</p>
+          <div class="tags"><span class="tag">Blender</span><span class="tag">Hand-painted</span><span class="tag">Hero Asset</span></div>
+          <button class="card-link load-btn" data-load="emerald">View in 3D →</button>
+        </div>
+      </article>
+
+      <!-- crystal -->
+      <article class="card">
+        <div class="render">
+          <div class="floor"></div>
+          <span class="badge">Stylized · Shattered</span>
+          <svg class="mesh sword" viewBox="0 0 100 100" fill="none" stroke="#C084FC" stroke-width="1.3" stroke-linejoin="round">
+            <path d="M50 6 57 50 50 58 43 50z"/><path d="M50 6 50 58M43 50 57 50M46 28 54 28" stroke="#E879F9" stroke-width=".8"/>
+            <rect x="36" y="58" width="28" height="6" rx="2"/><rect x="47" y="64" width="6" height="20"/>
+            <circle cx="50" cy="87" r="4" stroke="#E879F9"/>
+          </svg>
+          <div class="stat-line"><b>3,243</b> verts · 2 PBR maps</div>
+        </div>
+        <div class="card-body">
+          <h3>Shattered Crystal Sword</h3>
+          <p>A lightweight stylized sword with clean faceting and a tight texture budget, built to stay sharp on lower-end and mobile hardware.</p>
+          <div class="tags"><span class="tag">Blender</span><span class="tag">PBR</span><span class="tag">Low-poly</span></div>
+          <button class="card-link load-btn" data-load="crystal">View in 3D →</button>
+        </div>
+      </article>
+
+      <!-- longsword -->
+      <article class="card">
+        <div class="render">
+          <div class="floor"></div>
+          <span class="badge">High-Poly</span>
+          <svg class="mesh sword" viewBox="0 0 100 100" fill="none" stroke="#C084FC" stroke-width="1.3" stroke-linejoin="round">
+            <path d="M50 5 54 52 50 58 46 52z"/><line x1="50" y1="9" x2="50" y2="52" stroke="#E879F9" stroke-width=".8"/>
+            <path d="M32 56 68 56 64 60 36 60z"/><rect x="47" y="60" width="6" height="24"/>
+            <path d="M46 84 54 84 52 90 48 90z" stroke="#E879F9"/>
+          </svg>
+          <div class="stat-line"><b>49,883</b> verts · 3 materials</div>
+        </div>
+        <div class="card-body">
+          <h3>Tempered Longsword</h3>
+          <p>A detailed high-poly longsword with sculpted bevels and edge wear across three materials, suited for close-up renders and cinematics.</p>
+          <div class="tags"><span class="tag">Blender</span><span class="tag">High-poly</span><span class="tag">Sculpt</span></div>
+          <button class="card-link load-btn" data-load="sword">View in 3D →</button>
+        </div>
+      </article>
+
+      <!-- utrm -->
+      <article class="card">
+        <div class="render">
+          <div class="floor"></div>
+          <span class="badge">Game-Ready</span>
+          <svg class="mesh sword" viewBox="0 0 100 100" fill="none" stroke="#C084FC" stroke-width="1.3" stroke-linejoin="round">
+            <path d="M50 6 55 50 50 56 45 50z"/><line x1="50" y1="10" x2="50" y2="50" stroke="#E879F9" stroke-width=".8"/>
+            <path d="M35 54 65 54 65 60 35 60z"/><rect x="47" y="60" width="6" height="22"/>
+            <rect x="45" y="82" width="10" height="6" rx="2" stroke="#E879F9"/>
+          </svg>
+          <div class="stat-line"><b>4,253</b> verts · 11 textures</div>
+        </div>
+        <div class="card-body">
+          <h3>UTRM Sword v3</h3>
+          <p>A game-ready blade packed with eleven texture maps for layered metal, grime, and emissive detail, balanced for real-time engines.</p>
+          <div class="tags"><span class="tag">Blender</span><span class="tag">Game-Ready</span><span class="tag">PBR</span></div>
+          <button class="card-link load-btn" data-load="utrm">View in 3D →</button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="sec" id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">// capabilities</div>
+      <h2>Skills &amp; Expertise</h2>
+      <p>What I do, across modeling and the code that supports it.</p>
+    </div>
+    <div class="skill-grid">
+
+      <div class="skill-col">
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>Modeling &amp; Sculpting</h3>
+        <ul>
+          <li><span class="chk">✓</span>Hard-surface modeling</li>
+          <li><span class="chk">✓</span>Organic &amp; character sculpting</li>
+          <li><span class="chk">✓</span>Retopology &amp; clean topology</li>
+          <li><span class="chk">✓</span>UV unwrapping &amp; texturing</li>
+          <li><span class="chk">✓</span>Game-ready optimization</li>
         </ul>
+      </div>
+
+      <div class="skill-col">
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 4l-4 16"/></svg>Code</h3>
+        <ul>
+          <li><span class="chk">✓</span>Python</li>
+          <li><span class="chk">✓</span>HTML</li>
+          <li><span class="chk">✓</span>Lua / Luau</li>
+          <li><span class="chk">✓</span>A bit of Java</li>
+        </ul>
+      </div>
+
+      <div class="skill-col">
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.7 2.7-2.3-2.3z"/></svg>Software</h3>
+        <ul>
+          <li><span class="chk">✓</span>Blender (mostly)</li>
+          <li><span class="chk">✓</span>Unreal Engine</li>
+          <li><span class="chk">✓</span>Unity</li>
+          <li><span class="chk">✓</span>Roblox Studio</li>
+        </ul>
+      </div>
+
     </div>
-</nav>
+  </div>
+</section>
 
-<div class="content-wrapper">
-
-```
-<!-- HOME -->
-<div id="tab-home" class="tab-pane active">
-    <div class="hero-section">
-        <img src="Z.png" alt="ZzzZz Logo" class="hero-logo">
-        <h1>ZzzZz Works</h1>
-        <p>Creating safe and engaging gaming experiences for players worldwide</p>
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div class="eyebrow">// get in touch</div>
+      <h2>Let's build something high-poly.</h2>
+      <p>Want to commission a model or a full asset set? Message me on Discord. I reply fast and quote honestly.</p>
+      <div class="socials one">
+        <a class="social" href="https://discord.com/users/799725823044354048" aria-label="Discord">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4.5A18 18 0 0 0 15.5 3l-.3.5a14 14 0 0 1 4 2C17 4.2 13.5 4 12 4s-5 .2-7.2 1.5a14 14 0 0 1 4-2L8.5 3A18 18 0 0 0 4 4.5C1.5 8.3 1 12 1.2 15.6A18 18 0 0 0 6.7 18l.7-1.1c-.6-.2-1.2-.5-1.7-.8l.4-.3c3.3 1.5 6.9 1.5 10.2 0l.4.3c-.5.3-1.1.6-1.7.8l.7 1.1a18 18 0 0 0 5.5-2.4c.3-4.2-.5-7.8-3.2-11.1zM8.7 13.6c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8zm6.6 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8z"/></svg>
+          <span class="name">Discord</span><span class="sub">lojjkli</span>
+        </a>
+      </div>
     </div>
-    <div class="new-updates">
-        <h2>We Have New Updates!</h2>
-        <p>Check the announcements tab to see what we've been working on and stay up to date with everything happening at ZzzZz Works.</p>
-        <button class="btn" onclick="goToTab('announcements')">See Announcements</button>
-    </div>
-</div>
+  </div>
+</section>
 
-<!-- ANNOUNCEMENTS -->
-<div id="tab-announcements" class="tab-pane">
-    <div class="announcements-header">
-        <h1>Announcements</h1>
-        <p>Latest updates from ZzzZz Works</p>
-    </div>
-    <div class="announcements-grid">
-
-        <div class="announcement-card" onclick="toggleCard(this)">
-            <div class="ann-header">
-                <img class="ann-avatar rbl-avatar-sm" src="" alt="lojjkli">
-                <div class="ann-meta">
-                    <div class="ann-author">lojjkli</div>
-                    <div class="ann-date">Feb 18, 2026</div>
-                </div>
-            </div>
-            <div class="ann-title">Website Redesign Update</div>
-            <div class="ann-body">
-                <div class="ann-content">Hey everyone,
-```
-
-Here’s what’s new with the latest website update:
-
-• Added a purple theme throughout the site to match the new logo
-• Announcements now expand and collapse when you click them
-• Improved mobile layout so everything looks better on phones
-• Fonts are now bolder and easier to read
-• Fixed the Roblox online status on the Team page
-• Updated the Home page to point you to the latest announcements
-• General cleanup and polish across all pages
-
-Thanks for checking in more updates coming soon!</div>
-<img src="websiteupdate.png" alt="Website Update" class="ann-image" onerror="this.style.display='none'">
-</div>
-</div>
-
-```
-        <div class="announcement-card" onclick="toggleCard(this)">
-            <div class="ann-header">
-                <img class="ann-avatar rbl-avatar-sm" src="" alt="lojjkli">
-                <div class="ann-meta">
-                    <div class="ann-author">lojjkli</div>
-                    <div class="ann-date">Jan 16, 2026</div>
-                </div>
-            </div>
-            <div class="ann-title">Website Update</div>
-            <div class="ann-body">
-                <div class="ann-content">Hey everyone,
-```
-
-I’ve been working on updating the website to make it look better and more professional. I added some new features like the Announcements tab where you can see all our updates, and I also made it easier to navigate. The website now has a cleaner look and is more responsive on mobile devices too.
-
-I hope you like the new design! Let me know if you have any suggestions or feedback you can always reach out through the contact form or join our Discord.
-
-Thanks for your support!</div>
-<img src="websiteupdate.png" alt="Website Update" class="ann-image" onerror="this.style.display='none'">
-</div>
-</div>
-
-```
-        <div class="announcement-card" onclick="toggleCard(this)">
-            <div class="ann-header">
-                <img class="ann-avatar rbl-avatar-sm" src="" alt="lojjkli">
-                <div class="ann-meta">
-                    <div class="ann-author">lojjkli</div>
-                    <div class="ann-date">Dec 27, 2025</div>
-                </div>
-            </div>
-            <div class="ann-title">No More AI Will Be Used for Projects</div>
-            <div class="ann-body">
-                <div class="ann-content">Hi everyone,
-```
-
-After failing to release the ZGuard update, I realized that probably no one would use it anyway and that it was just AI generated content. This made me think: what’s the purpose of creating a bot that won’t even help me level up my own skills?
-
-After some thinking, I’ve decided to quit relying on AI and actually make games with other people who have real skills coding, building, modeling, animating, whatever a game needs. This means I’ll be retiring all existing projects, including StudZ, ZGuard, Avatar Editor Pro, Z Hub, 1 Second Circles, Minigames, and more.
-
-That’s everything for now. More will be announced soon! Also, check out our Discord for more information: <a href="https://discord.gg/Td4ZuW2Sgf" target="_blank" onclick="event.stopPropagation()">https://discord.gg/Td4ZuW2Sgf</a></div>
-<img src="nomoreai.png" alt="No More AI" class="ann-image" onerror="this.style.display='none'">
-</div>
-</div>
-
-```
-    </div>
-</div>
-
-<!-- TEAM -->
-<div id="tab-team" class="tab-pane">
-    <div class="team-container">
-        <div class="team-card">
-            <img id="teamAvatar" src="" alt="Founder" class="team-avatar">
-            <div class="team-role">Founder of ZzzZz Works</div>
-            <h2 class="team-name" id="teamName">lojjkli</h2>
-            <div class="team-status">
-                <span class="status-dot" id="statusDot"></span>
-                <span id="statusText">Checking status...</span>
-            </div>
-            <p class="team-bio">3D Graphical Designing, Animating, Building, UI Designing, and more. Passionate about creating unique gaming experiences.</p>
-            <a href="https://www.roblox.com/users/1534153669/profile" target="_blank" class="team-link">View Roblox Profile →</a>
-        </div>
-    </div>
-
-    <div class="contact-container" style="margin-top: 4rem;">
-        <div class="contact-intro">
-            <h2>Get In Touch</h2>
-            <p>Have a question, suggestion, or want to collaborate? Send us a message.</p>
-        </div>
-        <form id="contactForm">
-            <div class="form-group">
-                <label>Roblox or Discord Username *</label>
-                <input type="text" id="username" required>
-            </div>
-            <div class="form-group">
-                <label>Email Address *</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label>Your Message *</label>
-                <textarea id="message" required></textarea>
-            </div>
-            <button type="submit" class="btn" style="width:100%">Send Message</button>
-            <div class="form-status" id="formStatus"></div>
-        </form>
-    </div>
-</div>
-
-<!-- PRIVACY -->
-<div id="tab-privacy" class="tab-pane">
-    <div class="privacy-container">
-        <h1>Privacy Policy</h1>
-        <p class="updated-date">Last Updated: February 18, 2026</p>
-        <div class="privacy-section">
-            <h2>1. Information We Collect</h2>
-            <p>When you contact us through our contact form, we collect:</p>
-            <ul>
-                <li>Your Roblox or Discord username</li>
-                <li>Your email address</li>
-                <li>The message content you provide</li>
-            </ul>
-        </div>
-        <div class="privacy-section">
-            <h2>2. How We Use Your Information</h2>
-            <p>We collect and use your information solely to:</p>
-            <ul>
-                <li>Respond to your inquiries and messages</li>
-                <li>Provide customer support</li>
-                <li>Improve our services and games</li>
-            </ul>
-        </div>
-        <div class="privacy-section">
-            <h2>3. Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:zzzzzworks@gmail.com">zzzzzworks@gmail.com</a></p>
-        </div>
-    </div>
-</div>
-```
-
-</div><!-- end content-wrapper -->
-
+<!-- FOOTER -->
 <footer>
-    <div class="footer-content">
-        <div class="footer-links">
-            <a href="https://discord.gg/HTzQ6DGhnr" target="_blank" class="footer-link">Discord</a>
-            <a href="#" onclick="goToTab('privacy'); return false;" class="footer-link">Privacy Policy</a>
-        </div>
-        <p class="copyright">&copy; 2026 ZzzZz Works. All rights reserved.</p>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="logo">
+          <svg class="cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7z" stroke="#C084FC"/><path d="M3 7l9 5 9-5M12 12v10" stroke="#A855F7"/></svg>
+          <span>lojj<b style="color:var(--violet-bright)">kli</b></span>
+        </a>
+        <p>Crafting extremely high-quality 3D models and the scripts behind them, for studios, indie devs, and anyone who cares about clean topology.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Navigate</h4>
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h4>Find me</h4>
+        <a href="https://discord.com/users/799725823044354048">Discord</a>
+      </div>
     </div>
+    <div class="foot-bot">
+      <small>© 2026 lojjkli (kli). All rights reserved.</small>
+      <div class="foot-social">
+        <a href="https://discord.com/users/799725823044354048" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4.5A18 18 0 0 0 15.5 3l-.3.5a14 14 0 0 1 4 2C17 4.2 13.5 4 12 4s-5 .2-7.2 1.5a14 14 0 0 1 4-2L8.5 3A18 18 0 0 0 4 4.5C1.5 8.3 1 12 1.2 15.6A18 18 0 0 0 6.7 18l.7-1.1c-.6-.2-1.2-.5-1.7-.8l.4-.3c3.3 1.5 6.9 1.5 10.2 0l.4.3c-.5.3-1.1.6-1.7.8l.7 1.1a18 18 0 0 0 5.5-2.4c.3-4.2-.5-7.8-3.2-11.1zM8.7 13.6c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8zm6.6 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8z"/></svg></a>
+      </div>
+    </div>
+  </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
+<script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js"></script>
 <script>
-    emailjs.init("7-YrM5K_SzZC2Mn1s");
+(function(){
+  var MODELS = {
+    emerald: { uri:"models/emerald.glb", name:"EMERALD_SWORD", verts:"27,166", note:"hand-painted" },
+    crystal: { uri:"models/crystal.glb", name:"CRYSTAL_SWORD", verts:"3,243",  note:"low-poly" },
+    sword:   { uri:"models/sword.glb",   name:"LONGSWORD",     verts:"49,883", note:"high-poly" },
+    utrm:    { uri:"models/utrm.glb",    name:"UTRM_SWORD_V3", verts:"4,253",  note:"game-ready" }
+  };
+  var mv = document.getElementById('mv');
+  var nameEl = document.getElementById('mv-name');
+  var noteEl = document.getElementById('mv-note');
+  var swatches = Array.prototype.slice.call(document.querySelectorAll('.swatch'));
+  var current = 'emerald';
 
-    // ── Tab switching ────────────────────────────────────────────────────────
-    function goToTab(name) {
-        // Hide all panes
-        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-        // Remove active from all nav links
-        document.querySelectorAll('.nav-tabs a').forEach(a => a.classList.remove('active'));
+  function setModel(key, resetCam){
+    var m = MODELS[key]; if(!m) return;
+    current = key;
+    mv.setAttribute('src', m.uri);
+    nameEl.innerHTML = m.name + ' · <b id="mv-verts">' + m.verts + '</b> verts';
+    noteEl.innerHTML = '<b>GLB</b> // ' + m.note;
+    if(resetCam) mv.setAttribute('camera-orbit', '35deg 78deg auto');
+    swatches.forEach(function(s){ s.setAttribute('aria-selected', s.dataset.model === key ? 'true':'false'); });
+  }
 
-        // Show target pane (re-add class to trigger animation)
-        const pane = document.getElementById('tab-' + name);
-        if (pane) pane.classList.add('active');
+  swatches.forEach(function(s){
+    s.addEventListener('click', function(){ setModel(s.dataset.model, true); });
+  });
 
-        // Highlight correct nav link
-        const navLink = document.querySelector(`.nav-tabs a[data-tab="${name}"]`);
-        if (navLink) navLink.classList.add('active');
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Wire up nav links
-    document.querySelectorAll('.nav-tabs a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            goToTab(this.dataset.tab);
-        });
+  document.querySelectorAll('.load-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      setModel(b.dataset.load, true);
+      document.getElementById('top').scrollIntoView({behavior:'smooth'});
     });
+  });
 
-    // ── Announcement expand/collapse ────────────────────────────────────────
-    function toggleCard(card) {
-        card.classList.toggle('expanded');
-    }
-
-    // ── Roblox profile + presence ───────────────────────────────────────────
-    async function fetchProfile() {
-        const userId = 1534153669;
-        const statusText = document.getElementById('statusText');
-        const statusDot  = document.getElementById('statusDot');
-
-        // Avatar (large)
-        try {
-            const r = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${userId}&size=420x420&format=Png&isCircular=false`);
-            if (r.ok) {
-                const d = await r.json();
-                const url = d?.data?.[0]?.imageUrl;
-                if (url) document.getElementById('teamAvatar').src = url;
-            }
-        } catch(e) {}
-
-        // Avatar (small — for announcements)
-        try {
-            const r = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`);
-            if (r.ok) {
-                const d = await r.json();
-                const url = d?.data?.[0]?.imageUrl;
-                if (url) document.querySelectorAll('.rbl-avatar-sm').forEach(img => img.src = url);
-            }
-        } catch(e) {}
-
-        // Display name
-        try {
-            const r = await fetch(`https://users.roproxy.com/v1/users/${userId}`);
-            if (r.ok) {
-                const d = await r.json();
-                if (d.displayName || d.name) document.getElementById('teamName').textContent = d.displayName || d.name;
-            }
-        } catch(e) {}
-
-        // Presence
-        const body = JSON.stringify({ userIds: [userId] });
-        const presenceTries = [
-            () => fetch('https://presence.roproxy.com/v1/presence/users', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body
-            }),
-            () => fetch(`https://corsproxy.io/?${encodeURIComponent('https://presence.roblox.com/v1/presence/users')}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'x-requested-with': 'XMLHttpRequest' },
-                body
-            })
-        ];
-
-        for (const attempt of presenceTries) {
-            try {
-                const r = await attempt();
-                if (!r.ok) continue;
-                const d = await r.json();
-                const type = d?.userPresences?.[0]?.userPresenceType;
-                if (type === undefined) continue;
-                if (type === 2) { statusDot.classList.add('online'); statusText.textContent = 'In Game'; }
-                else if (type === 1) { statusDot.classList.add('online'); statusText.textContent = 'Online'; }
-                else { statusText.textContent = 'Offline'; }
-                return;
-            } catch(e) {}
-        }
-        statusText.textContent = 'Offline';
-    }
-
-    // ── Contact form ─────────────────────────────────────────────────────────
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const status = document.getElementById('formStatus');
-        const btn = this.querySelector('button[type="submit"]');
-        btn.disabled = true; btn.textContent = 'Sending...';
-        const params = {
-            username: document.getElementById('username').value,
-            email:    document.getElementById('email').value,
-            message:  document.getElementById('message').value
-        };
-        emailjs.send('service_xwfsexm', 'template_d8izibm', params)
-            .then(() => emailjs.send('service_xwfsexm', 'template_3sh1f4f', params))
-            .then(() => {
-                status.style.display = 'block';
-                status.className = 'form-status success';
-                status.textContent = '✓ Message sent successfully!';
-                this.reset();
-                setTimeout(() => status.style.display = 'none', 5000);
-            })
-            .catch(() => {
-                status.style.display = 'block';
-                status.className = 'form-status error';
-                status.textContent = '✗ Failed to send. Please try again.';
-            })
-            .finally(() => { btn.disabled = false; btn.textContent = 'Send Message'; });
-    });
-
-    fetchProfile();
+  // initial model
+  setModel('emerald', false);
+})();
 </script>
-
 </body>
 </html>
