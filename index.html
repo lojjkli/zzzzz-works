@@ -38,7 +38,7 @@
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
-  /* ambient violet field */
+
   body::before{
     content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
     background:
@@ -56,7 +56,6 @@
   }
   section{position:relative;z-index:1}
 
-  /* ---------- nav ---------- */
   header.nav{
     position:sticky;top:0;z-index:50;
     backdrop-filter:blur(14px);
@@ -86,7 +85,6 @@
   .btn.primary:hover,.btn.primary:focus-visible{box-shadow:0 0 34px rgba(168,85,247,.55)}
   .nav-toggle{display:none}
 
-  /* ---------- hero ---------- */
   .hero{padding:72px 0 86px}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
   .status{
@@ -108,7 +106,6 @@
   .stat .n{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;background:linear-gradient(180deg,#fff,var(--lilac));-webkit-background-clip:text;background-clip:text;color:transparent}
   .stat .l{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:7px}
 
-  /* ---------- viewport (hero signature) ---------- */
   .viewport{
     position:relative;border:1px solid var(--line-bright);border-radius:16px;
     background:
@@ -141,13 +138,11 @@
   .gizmo{position:absolute;top:14px;right:38px;font-family:var(--mono);font-size:.6rem}
   .gizmo svg{width:46px;height:46px;opacity:.85}
 
-  /* ---------- section heading ---------- */
   .sec{padding:88px 0}
   .sec-head{max-width:62ch;margin-bottom:48px}
   .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.7rem);letter-spacing:-.02em;margin:14px 0 12px}
   .sec-head p{color:var(--dim);font-size:1.02rem}
 
-  /* ---------- about ---------- */
   .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
   .about p{color:var(--dim);margin-bottom:18px;font-size:1.05rem}
   .about p strong{color:var(--lilac);font-weight:600}
@@ -164,7 +159,6 @@
   .spec .k{color:var(--faint);font-family:var(--mono);font-size:.82rem}
   .spec .v{color:var(--text)}
 
-  /* ---------- projects ---------- */
   .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
   .card{
     border:1px solid var(--line);border-radius:16px;overflow:hidden;
@@ -196,7 +190,6 @@
   .card-link{font-family:var(--mono);font-size:.82rem;color:var(--violet-bright);display:inline-flex;align-items:center;gap:7px;transition:gap .2s;background:none;border:0;padding:0;cursor:pointer;text-align:left}
   .card-link:hover{gap:12px}
 
-  /* ---------- skills ---------- */
   .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .skill-col{border:1px solid var(--line);border-radius:14px;padding:24px;background:linear-gradient(180deg,var(--raised),var(--surface))}
   .skill-col h3{font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:18px;display:flex;align-items:center;gap:10px}
@@ -207,8 +200,6 @@
   .skill-col li .tld{color:var(--faint);flex:none;margin-top:1px;font-weight:700}
   .skill-col li .pend{color:var(--faint)}
 
-
-  /* ---------- tools spotlight ---------- */
   .spotlight{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:30px;background:linear-gradient(180deg,var(--raised),var(--surface))}
   .appwin{border:1px solid var(--line-bright);border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#0E0A17,#080510);box-shadow:0 24px 60px -30px rgba(124,58,247,.7)}
   .appbar{display:flex;align-items:center;gap:7px;padding:10px 13px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.72rem;color:var(--lilac)}
@@ -235,7 +226,6 @@
   .spot-tags{font-family:var(--mono);font-size:.72rem;color:var(--lilac);margin-bottom:18px;line-height:1.9}
   @media(max-width:880px){.spotlight{grid-template-columns:1fr;padding:22px}}
 
-  /* ---------- contact ---------- */
   .contact{
     border:1px solid var(--line-bright);border-radius:20px;padding:54px 44px;
     background:
@@ -257,7 +247,6 @@
   .social .name{font-family:var(--display);font-weight:600;font-size:.95rem}
   .social .sub{font-family:var(--mono);font-size:.66rem;color:var(--faint)}
 
-  /* ---------- footer ---------- */
   footer{border-top:1px solid var(--line);margin-top:96px;padding:54px 0 40px}
   .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;margin-bottom:42px}
   .foot-brand .logo{margin-bottom:16px}
@@ -272,7 +261,6 @@
   .foot-social a:hover{color:var(--violet-bright);border-color:var(--violet)}
   .foot-social svg{width:17px;height:17px}
 
-  /* ---------- responsive ---------- */
   @media(max-width:980px){
     .hero-grid{grid-template-columns:1fr;gap:44px}
     .viewer-wrap{max-width:460px;margin:0 auto;width:100%}
@@ -322,7 +310,7 @@
       <div class="status"><span class="dot off"></span> Not available right now</div>
       <h1 class="hello">Hi, I'm <span class="grad">lojjkli</span></h1>
       <div class="alias">kli for short · 3D modeler &amp; developer</div>
-      <p class="lead">I create <strong>high-quality 3D models</strong> for commissions and work on custom assets for different projects. I focus on clean, optimized models and also do some scripting/coding to help bring everything together and make things work smoothly.</p>
+      <p class="lead">I make <strong>3D models</strong>, mostly on commission. Clean, optimized, ready to drop into whatever you're building. I also code a bit when a project needs more than just the model.</p>
       <div class="hero-cta">
         <a href="#work" class="btn primary">View work</a>
         <a href="#contact" class="btn">Get in touch</a>
@@ -384,9 +372,9 @@
       <div>
         <div class="eyebrow">About</div>
         <h2 style="font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.6rem);letter-spacing:-.02em;margin:14px 0 24px">A bit about me</h2>
-        <p>I create high-quality 3D models for commissions and work on custom assets for different types of projects. I focus on <strong>clean, well-optimized models</strong> that are ready to use, whether it's for games, environments, or general production work.</p>
-        <p>Alongside modeling, I also do scripting and coding to help bring everything together, from small functionality features to more complete systems. My goal is to deliver work that looks good, runs smoothly, and is easy for clients to actually use without extra hassle.</p>
-        
+        <p>I've been making 3D models for a while now, mostly commissions and custom asset work. Games, environments, props, whatever someone needs. The thing I really care about is <strong>clean topology</strong> and keeping stuff optimized, so the model isn't a pain to use later.</p>
+        <p>I code too. Nothing huge, but enough to write the scripts and small tools a project needs, and sometimes bigger systems. I'd rather hand someone something that just works than something they have to fight with.</p>
+
       </div>
       <div class="about-card">
         <div class="avatar"><svg class="face-anim" id="faceAnim" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="lojjkli animated face"><rect x="0" y="0" width="1000" height="1000" fill="#050505"/><g id="faceG"><g id="eyesG"><rect x="297" y="435" width="67" height="62" fill="#fff"/><rect x="640" y="435" width="67" height="62" fill="#fff"/></g><rect x="357" y="502" width="281" height="62" fill="#fff"/></g></svg></div>
@@ -407,7 +395,7 @@
     <div class="sec-head">
       <div class="eyebrow">Work</div>
       <h2>Examples</h2>
-      <p>A set of blades modeled and textured in Blender. Tap any card to load it into the viewer above and orbit it yourself.</p>
+      <p>Some swords I've made in Blender. Click a card to load it in the viewer up top and spin it around.</p>
     </div>
     <div class="cards">
 
@@ -420,7 +408,7 @@
         </div>
         <div class="card-body">
           <h3>Stylized Emerald Sword</h3>
-          <p>A hero blade with hand-painted detail, originally authored with 8K source maps and optimized for real-time without losing the crisp stylized read.</p>
+          <p>A stylized hero sword with hand-painted textures. Started at 8K, then I optimized it down so it still looks sharp but runs fine in-engine.</p>
           <div class="tags"><span class="tag">Blender</span><span class="tag">Hand-painted</span><span class="tag">Hero Asset</span></div>
           <button class="card-link load-btn" data-load="emerald">View in 3D →</button>
         </div>
@@ -435,7 +423,7 @@
         </div>
         <div class="card-body">
           <h3>Shattered Crystal Sword</h3>
-          <p>A detailed stylized crystal sword with dense, clean topology and crisp PBR materials, built to hold up in close-up renders.</p>
+          <p>A crystal sword with a higher poly count for all the detail. Clean topology, PBR textures, holds up even up close.</p>
           <div class="tags"><span class="tag">Blender</span><span class="tag">PBR</span><span class="tag">High-poly</span></div>
           <button class="card-link load-btn" data-load="crystal">View in 3D →</button>
         </div>
@@ -450,7 +438,7 @@
         </div>
         <div class="card-body">
           <h3>Tempered Longsword</h3>
-          <p>A lean, game-ready longsword with efficient topology and tidy materials, built to stay light in real-time engines.</p>
+          <p>A simple game-ready longsword. Lower poly, light on textures, made to just run well.</p>
           <div class="tags"><span class="tag">Blender</span><span class="tag">Game-Ready</span><span class="tag">Real-time</span></div>
           <button class="card-link load-btn" data-load="sword">View in 3D →</button>
         </div>
@@ -465,7 +453,7 @@
         </div>
         <div class="card-body">
           <h3>UTRM Sword v3</h3>
-          <p>A game-ready blade packed with eleven texture maps for layered metal, grime, and emissive detail, balanced for real-time engines.</p>
+          <p>A game-ready blade with a bunch of maps layered in for the metal, grime and glow. Still light enough for real-time.</p>
           <div class="tags"><span class="tag">Blender</span><span class="tag">Game-Ready</span><span class="tag">PBR</span></div>
           <button class="card-link load-btn" data-load="utrm">View in 3D →</button>
         </div>
@@ -480,7 +468,7 @@
     <div class="sec-head">
       <div class="eyebrow">Tools &amp; Code</div>
       <h2>Tools I've built</h2>
-      <p>I also build my own tools when a project needs them. Here's one I made and actually use myself.</p>
+      <p>I build my own tools too. Here's one I made and still use.</p>
     </div>
     <div class="spotlight">
       <div class="spot-visual">
@@ -508,12 +496,12 @@
       <div class="spot-body">
         <span class="badge" style="position:static;display:inline-block;margin-bottom:6px">Windows Desktop App</span>
         <h3 class="zbrand"><img class="zword" src="data:image/png;base64,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" alt="ZValues"></h3>
-        <p>A Murder Mystery 2 trade calculator for Roblox that helps you evaluate and compare trades using updated values and smart calculations. It's designed to make trading easier and more accurate so you can avoid bad trades and make better decisions. I've personally used it to gain over 1,000+ value through trading.</p>
+        <p>A trade calculator I built for Murder Mystery 2. It pulls current values and works out whether a trade is actually worth it, so you don't get sharked. I use it myself, and it's helped me come out over 1,000 value ahead.</p>
         <ul class="feat">
-          <li>Live values pulled straight from the Supreme Values list</li>
-          <li>Inventory tracking with cached item images</li>
-          <li>Win / loss trade calculator with a fairness readout</li>
-          <li>Packaged as a single .exe with PyInstaller, no install needed</li>
+          <li>Pulls live values from Supreme Values</li>
+          <li>Tracks your inventory, with item images</li>
+          <li>Tells you if a trade is a win or a loss</li>
+          <li>Just one .exe, no install needed</li>
         </ul>
         <div class="spot-tags">Python · requests · BeautifulSoup · tkinter · HTML/CSS · PyInstaller</div>
         <a class="card-link" href="#contact">Ask me about it →</a>
@@ -527,7 +515,7 @@
     <div class="sec-head">
       <div class="eyebrow">Capabilities</div>
       <h2>Skills &amp; Expertise</h2>
-      <p>What I do, across modeling and the code that supports it.</p>
+      <p>The stuff I actually use, on the modeling and code side.</p>
     </div>
     <div class="skill-grid">
 
@@ -571,7 +559,7 @@
     <div class="contact">
       <div class="eyebrow">Get in touch</div>
       <h2>Let's work together</h2>
-      <p>Want to commission a model or a full asset set? Message me on Discord or Roblox and I'll get back to you.</p>
+      <p>Need a model or a full set? Message me on Discord or Roblox and I'll get back to you.</p>
       <div class="socials two">
         <a class="social" href="https://discord.com/users/799725823044354048" aria-label="Discord">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4.5A18 18 0 0 0 15.5 3l-.3.5a14 14 0 0 1 4 2C17 4.2 13.5 4 12 4s-5 .2-7.2 1.5a14 14 0 0 1 4-2L8.5 3A18 18 0 0 0 4 4.5C1.5 8.3 1 12 1.2 15.6A18 18 0 0 0 6.7 18l.7-1.1c-.6-.2-1.2-.5-1.7-.8l.4-.3c3.3 1.5 6.9 1.5 10.2 0l.4.3c-.5.3-1.1.6-1.7.8l.7 1.1a18 18 0 0 0 5.5-2.4c.3-4.2-.5-7.8-3.2-11.1zM8.7 13.6c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8zm6.6 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8z"/></svg>
@@ -594,7 +582,7 @@
           <svg class="cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7z" stroke="#C084FC"/><path d="M3 7l9 5 9-5M12 12v10" stroke="#A855F7"/></svg>
           <span>lojj<b style="color:var(--violet-bright)">kli</b></span>
         </a>
-        <p>Crafting extremely high-quality 3D models and the scripts behind them, for studios, indie devs, and anyone who cares about clean topology.</p>
+        <p>3D modeler and dev. I make clean, optimized models and write the code to go with them.</p>
       </div>
       <div class="foot-col">
         <h4>Navigate</h4>
